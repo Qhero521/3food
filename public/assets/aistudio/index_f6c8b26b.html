@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知食 · 极简营养科学指南</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #FAF9F5;
+      --bg-card: #FFFFFF;
+      --accent-green: #2D5A43;
+      --accent-soft: #E9F2EC;
+      --text-main: #1C2521;
+      --text-muted: #5C6B63;
+      --border-subtle: #E4E9E5;
+    }
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom subtle range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2D5A43;
+      cursor: pointer;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+    .pagoda-tier {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pagoda-tier.active {
+      border-color: #2D5A43;
+      background-color: #E9F2EC;
+      box-shadow: 0 4px 14px rgba(45, 90, 67, 0.08);
+    }
+    .tab-btn.active {
+      background-color: #2D5A43;
+      color: #FFFFFF;
+    }
+    .fade-in {
+      animation: fadeIn 0.25s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Top Minimal Navigation -->
+  <header class="sticky top-0 z-30 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[#E4E9E5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-[#2D5A43] flex items-center justify-center text-white font-semibold text-sm tracking-tight">
+          知食
+        </div>
+        <div>
+          <span class="font-semibold text-base tracking-tight text-stone-900">极简营养科普</span>
+          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-[#E9F2EC] text-[#2D5A43] font-medium">
+            2022膳食指南 &amp; WHO标准
+          </span>
+        </div>
+      </div>
+
+      <!-- View Switcher Tabs -->
+      <nav class="flex items-center gap-1 bg-stone-200/60 p-1 rounded-xl overflow-x-auto max-w-full" aria-label="主导航">
+        <button type="button" data-view="pagoda" class="nav-tab tab-btn active text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg transition-all whitespace-nowrap">
+          膳食宝塔
+        </button>
+        <button type="button" data-view="nutrients" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
+          核心营养与限值
+        </button>
+        <button type="button" data-view="checker" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
+          每日饮食自测
+        </button>
+        <button type="button" data-view="myths" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
+          误区与问答 <span id="savedCountBadge" class="ml-1 px-1.5 py-0.2 text-[11px] rounded-full bg-emerald-800/15 text-emerald-900 hidden">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Minimal Hero Banner -->
+  <section class="border-b border-[#E4E9E5] bg-white/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 sm:py-9 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="text-xs uppercase tracking-widest text-[#2D5A43] font-semibold mb-2">Evidence-Based Nutrition Guide</p>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 leading-snug">
+          回归食物本源，用简单数字读懂科学膳食
+        </h1>
+        <p class="mt-2.5 text-sm sm:text-base text-stone-600 leading-relaxed">
+          依据<a href="http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html" target="_blank" rel="noopener noreferrer" class="underline decoration-emerald-700/40 hover:text-[#2D5A43] font-medium">《中国居民膳食指南（2022）》</a>与<a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="underline decoration-emerald-700/40 hover:text-[#2D5A43] font-medium">世界卫生组织（WHO）健康饮食实况报道</a>整理。每天摄入 <strong>12种以上</strong> 食物、每周 <strong>25种以上</strong>，以谷类为主、蔬果充足、减盐控糖。
+        </p>
+      </div>
+      <!-- Quick Key Metric Pills -->
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 shrink-0">
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">每日食物种类</div>
+          <div class="text-lg font-bold text-[#2D5A43]">&ge; 12 <span class="text-xs font-normal text-stone-500">种/天</span></div>
+          <div class="text-[11px] text-stone-400">每周 &ge; 25 种</div>
+        </div>
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">成人每日限盐</div>
+          <div class="text-lg font-bold text-[#2D5A43]">&lt; 5 <span class="text-xs font-normal text-stone-500">g/天</span></div>
+          <div class="text-[11px] text-stone-400">钠 &lt; 2 g/天</div>
+        </div>
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">每日足量饮水</div>
+          <div class="text-lg font-bold text-[#2D5A43]">1500–1700 <span class="text-xs font-normal text-stone-500">ml</span></div>
+          <div class="text-[11px] text-stone-400">约 7–8 杯</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+
+    <!-- ==================== VIEW 1: 膳食宝塔 (PAGODA EXPLORER) ==================== -->
+    <section id="view-pagoda" class="view-section fade-in space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold text-stone-900">中国居民平衡膳食宝塔（2022）交互图解</h2>
+          <p class="text-sm text-stone-500 mt-0.5">适用于 1600～2400 kcal 能量需要量水平的成年人，点击左侧任意层级查看量化标准与食物折算</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-stone-500 bg-white border border-[#E4E9E5] px-3 py-1.5 rounded-lg">
+          <span class="w-2 h-2 rounded-full bg-[#2D5A43]"></span>
+          <span>点击宝塔层级或下方运动/饮水模块切换详情</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Left Interactive Pyramid / Pagoda -->
+        <div class="lg:col-span-6 bg-white border border-[#E4E9E5] rounded-2xl p-5 sm:p-6 space-y-3">
+          <div class="text-xs font-medium text-stone-400 uppercase tracking-wider text-center mb-2">由上至下：第五层（控量）&rarr; 第一层（基础）</div>
+
+          <!-- Tier 5 -->
+          <div class="flex justify-center">
+            <button type="button" data-tier="tier5" class="pagoda-tier w-7/12 sm:w-6/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded">第五层 · 控量</span>
+                <span class="text-xs text-stone-500">油 25–30g | 盐 &lt;5g</span>
+              </div>
+              <div class="font-semibold text-sm text-stone-800 mt-1">烹调油和食盐</div>
+            </button>
+          </div>
+
+          <!-- Tier 4 -->
+          <div class="flex justify-center">
+            <button type="button" data-tier="tier4" class="pagoda-tier w-8/12 sm:w-7/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-sky-800 bg-sky-50 px-2 py-0.5 rounded">第四层 · 富钙与植物蛋白</span>
+                <span class="text-xs text-stone-500">奶 300–500g | 豆坚果 25–35g</span>
+              </div>
+              <div class="font-semibold text-sm text-stone-800 mt-1">奶类、大豆和坚果</div>
+            </button>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="flex justify-center">
+            <button type="button" data-tier="tier3" class="pagoda-tier w-9/12 sm:w-8/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">第三层 · 优质动物蛋白</span>
+                <span class="text-xs text-stone-500">共计 120–200g/天</span>
+              </div>
+              <div class="font-semibold text-sm text-stone-800 mt-1">鱼、禽、肉、蛋等动物性食物</div>
+            </button>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="flex justify-center">
+            <button type="button" data-tier="tier2" class="pagoda-tier w-11/12 sm:w-10/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">第二层 · 鼓励多摄入</span>
+                <span class="text-xs text-stone-500">蔬菜 &ge;300g | 水果 200–350g</span>
+              </div>
+              <div class="font-semibold text-sm text-stone-800 mt-1">蔬菜和水果</div>
+            </button>
+          </div>
+
+          <!-- Tier 1 -->
+          <div class="flex justify-center">
+            <button type="button" data-tier="tier1" class="pagoda-tier active w-full text-left border border-stone-200 rounded-xl p-3.5 hover:border-[#2D5A43]">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-[#2D5A43] bg-white/80 px-2 py-0.5 rounded">第一层 · 膳食基础</span>
+                <span class="text-xs text-stone-600">谷类 200–300g | 薯类 50–100g</span>
+              </div>
+              <div class="font-semibold text-sm text-stone-900 mt-1">谷薯类食物（含全谷物和杂豆 50–150g）</div>
+            </button>
+          </div>
+
+          <!-- Base Foundation: Water & Activity -->
+          <div class="pt-2 border-t border-dashed border-stone-200 grid grid-cols-2 gap-3">
+            <button type="button" data-tier="water" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="text-xs font-medium text-cyan-800">基础保障 · 足量饮水</div>
+              <div class="font-semibold text-sm text-stone-800 mt-0.5">1500–1700 ml/天</div>
+              <div class="text-[11px] text-stone-500">整体膳食水 2700–3000 ml</div>
+            </button>
+            <button type="button" data-tier="activity" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
+              <div class="text-xs font-medium text-teal-800">能量平衡 · 身体活动</div>
+              <div class="font-semibold text-sm text-stone-800 mt-0.5">&ge; 6000 步/天</div>
+              <div class="text-[11px] text-stone-500">每周 150 分钟中等强度运动</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Detail Inspector Panel -->
+        <div class="lg:col-span-6 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between min-h-[420px]">
+          <div id="tierDetailContainer" class="space-y-5">
+            <!-- Populated by JS on init and click -->
+          </div>
+
+          <!-- Reference Plate Preview inside Inspector -->
+          <div class="mt-6 pt-5 border-t border-[#E4E9E5]">
+            <div class="flex items-center justify-between text-xs text-stone-500 mb-3">
+              <span class="font-medium text-stone-700">《中国居民平衡膳食餐盘（2022）》一餐构成参考</span>
+              <a href="https://xinwen.bjd.com.cn/content/s62a9575de4b0c2cdf0a2e0b7.html" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">查看餐盘图示解析 &nearr;</a>
+            </div>
+            <div class="grid grid-cols-4 gap-2 text-center text-xs">
+              <div class="bg-stone-50 border border-stone-200/80 rounded-lg p-2">
+                <div class="font-semibold text-stone-800">谷薯类</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">主食占餐盘大部</div>
+              </div>
+              <div class="bg-emerald-50/60 border border-emerald-200/70 rounded-lg p-2">
+                <div class="font-semibold text-emerald-900">蔬菜类</div>
+                <div class="text-[11px] text-emerald-700 mt-0.5">餐餐有蔬菜</div>
+              </div>
+              <div class="bg-rose-50/60 border border-rose-200/70 rounded-lg p-2">
+                <div class="font-semibold text-rose-900">鱼肉蛋豆</div>
+                <div class="text-[11px] text-rose-700 mt-0.5">素食可用豆替肉</div>
+              </div>
+              <div class="bg-sky-50/60 border border-sky-200/70 rounded-lg p-2">
+                <div class="font-semibold text-sky-900">水果 + 一杯奶</div>
+                <div class="text-[11px] text-sky-700 mt-0.5">餐盘旁配鲜奶</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2016 vs 2022 Key Revisions Comparison Table -->
+      <div class="bg-white border border-[#E4E9E5] rounded-2xl p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-base font-semibold text-stone-900">2022版 vs 2016版 膳食宝塔关键摄入量微调对比</h3>
+            <p class="text-xs text-stone-500 mt-0.5">展现营养学界对心血管健康、优质蛋白与乳制品摄入的最新循证共识</p>
+          </div>
+          <a href="https://www.cnma.org.cn/h-nd-730.html" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] font-medium hover:underline">
+            数据来源：读懂《中国居民膳食指南（2022）》 &nearr;
+          </a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-[#E4E9E5] text-xs text-stone-500">
+                <th class="py-2.5 pr-4 font-medium">宝塔层级与类别</th>
+                <th class="py-2.5 px-4 font-medium">2016版推荐值</th>
+                <th class="py-2.5 px-4 font-medium text-[#2D5A43]">2022版推荐值（现行）</th>
+                <th class="py-2.5 pl-4 font-medium">调整科学依据</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#E4E9E5] text-stone-700">
+              <tr>
+                <td class="py-3 pr-4 font-medium">第五层：食盐限值</td>
+                <td class="py-3 px-4 text-stone-500">&lt; 6 g/天</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43]">&lt; 5 g/天</td>
+                <td class="py-3 pl-4 text-xs text-stone-600">食盐摄入过多增加高血压、脑卒中风险，与 WHO 限盐标准（&lt;5 g）接轨</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4 font-medium">第四层：奶及奶制品</td>
+                <td class="py-3 px-4 text-stone-500">300 g/天</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43]">300–500 g/天</td>
+                <td class="py-3 pl-4 text-xs text-stone-600">牛奶是优质蛋白质和钙的重要来源，提高上限以改善我国居民乳类摄入不足</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4 font-medium">第三层：动物性食物</td>
+                <td class="py-3 px-4 text-stone-500">畜禽肉 40–75g、水产 40–75g、蛋 40–50g</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43]">总量 120–200 g/天（每周至少2次水产，每天1个鸡蛋）</td>
+                <td class="py-3 pl-4 text-xs text-stone-600">水产品脂肪较低且所含脂肪酸利于保护心血管；每天1个鸡蛋营养效益远高于胆固醇影响</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4 font-medium">第一层：谷薯类细分</td>
+                <td class="py-3 px-4 text-stone-500">谷薯类 250–400 g</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43]">谷类 200–300g（全谷物和杂豆 50–150g）+ 薯类 50–100g</td>
+                <td class="py-3 pl-4 text-xs text-stone-600">在准则三中明确加入“全谷物”，强调碳水化合物质量与天然膳食纤维摄入</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: 核心营养与限值 (NUTRIENTS & WHO GUIDELINES) ==================== -->
+    <section id="view-nutrients" class="view-section hidden fade-in space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold text-stone-900">宏量营养素供能比与 WHO 限控阈值</h2>
+          <p class="text-sm text-stone-500 mt-0.5">结合《中国居民膳食指南（2022）》与世界卫生组织（WHO）最新膳食指南的核心量化指标</p>
+        </div>
+        <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] bg-white border border-[#E4E9E5] px-3 py-1.5 rounded-lg hover:bg-stone-50">
+          WHO Healthy Diet Fact Sheet &nearr;
+        </a>
+      </div>
+
+      <!-- Charts & Energy Threshold Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Chart Card -->
+        <div class="lg:col-span-5 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="text-base font-semibold text-stone-900">每日总能量供能占比上限与区间</h3>
+              <span class="text-xs text-stone-400">占每日总能量 (%)</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-4">展示碳水化合物推荐供能比及脂肪、游离糖的科学控制上限</p>
+            <div class="relative h-72 w-full">
+              <canvas id="macroChart"></canvas>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-[#E4E9E5] text-[11px] text-stone-500 flex flex-wrap justify-between gap-2">
+            <span>中国指南碳水供能比：<strong>50%–65%</strong>（WHO宽泛区间 40%–70%）</span>
+            <a href="https://nutritionsource.hsph.harvard.edu/2023/07/17/who-updated-guidelines-healthy-diets-total-fat/" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">哈佛公卫学院解读 WHO 指南 &nearr;</a>
+          </div>
+        </div>
+
+        <!-- Detailed Nutrient Limit Cards -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800">碳水化合物 (Carbohydrates)</span>
+                <span class="text-sm font-bold text-[#2D5A43]">50%–65% 能量</span>
+              </div>
+              <h4 class="font-semibold text-stone-900 mt-3">重在“碳水质量”而非极端戒断</h4>
+              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                中国膳食指南指出谷薯类碳水化合物提供总能量的 50%～65%。WHO 指南强调 2 岁以上人群碳水应主要来自<strong>全谷物</strong>（玉米、小米、燕麦、小麦、糙米）、蔬菜、水果和豆类（扁豆、鹰嘴豆等）。
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
+              <span>全谷物和杂豆推荐：50–150 g/天</span>
+              <a href="https://www.who.int/news/item/17-07-2023-who-updates-guidelines-on-fats-and-carbohydrates" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 碳水指南 &nearr;</a>
+            </div>
+          </div>
+
+          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800">膳食脂肪 (Dietary Fats)</span>
+                <span class="text-sm font-bold text-amber-700">&lt; 30% 能量</span>
+              </div>
+              <h4 class="font-semibold text-stone-900 mt-3">以不饱和脂肪替代饱和与反式脂肪</h4>
+              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                WHO 建议总脂肪不超过总能量的 <strong>30%</strong>；<strong>饱和脂肪 &lt; 10%</strong>（存在于肥肉、黄油、猪油、棕榈油、椰子油）；<strong>反式脂肪 &lt; 1%</strong>（工业反式脂肪常见于烘焙油炸食品，应避免）。可用大豆油、菜籽油、玉米油、葵花籽油及鱼类、坚果替代。
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
+              <span>中国指南烹调油：&le; 25–30 g/天</span>
+              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 脂肪建议 &nearr;</a>
+            </div>
+          </div>
+
+          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-800">游离糖 (Free Sugars)</span>
+                <span class="text-sm font-bold text-rose-700">&lt; 10% (理想 &lt;5%)</span>
+              </div>
+              <h4 class="font-semibold text-stone-900 mt-3">每日上限约 50g，减半至 25g 获益更大</h4>
+              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                以每日摄入 2000 kcal 的健康体重成人计，游离糖 &lt;10% 相当于不超过 <strong>50 g（约 12 平茶匙）</strong>；进一步控制在 <strong>5%（约 25 g 或 6 茶匙）</strong>以下更有益健康。游离糖包含添加糖以及天然存在于蜂蜜、糖浆、果汁和浓缩果汁中的糖。
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
+              <span>WHO 不建议使用非糖甜味剂控重</span>
+              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 游离糖标准 &nearr;</a>
+            </div>
+          </div>
+
+          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-800">钠与钾平衡 (Sodium &amp; Potassium)</span>
+                <span class="text-sm font-bold text-sky-800">盐 &lt;5g | 钾 &ge;3510mg</span>
+              </div>
+              <h4 class="font-semibold text-stone-900 mt-3">减盐控钠 + 充足蔬果补钾护血管</h4>
+              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+                成人每日食盐应 <strong>&lt; 5 g（相当于钠 &lt; 2 g/天）</strong>，有助于预防高血压并降低心脏病和脑卒中风险。同时 WHO 建议成人每日钾摄入量至少达到 <strong>90 mmol/天（3510 mg/天）</strong>，新鲜蔬果与豆类是钾的优质来源。
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
+              <span>警惕加工肉、酱油、咸味零食中的隐形盐</span>
+              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 钠钾指南 &nearr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Age-Specific Fiber & Fruit/Veg Interactive Selector (WHO 2023/2026) -->
+      <div class="bg-white border border-[#E4E9E5] rounded-2xl p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#E4E9E5]">
+          <div>
+            <h3 class="text-base font-semibold text-stone-900">分年龄段：每日蔬果与天然膳食纤维最低推荐量（WHO标准）</h3>
+            <p class="text-xs text-stone-500 mt-0.5">切换不同年龄段查看世界卫生组织发布的蔬果与天然膳食纤维量化目标及学龄儿童饮水参考</p>
+          </div>
+          <div class="inline-flex bg-stone-100 p-1 rounded-xl self-start">
+            <button type="button" data-age="child2_5" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all">
+              2–5 岁儿童
+            </button>
+            <button type="button" data-age="child6_9" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all">
+              6–9 岁儿童
+            </button>
+            <button type="button" data-age="adult10plus" class="age-btn active tab-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+              10 岁及以上 / 成人
+            </button>
+          </div>
+        </div>
+
+        <div id="ageRecommendationPanel" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: 每日饮食自测 (DAILY INTAKE CHECKER) ==================== -->
+    <section id="view-checker" class="view-section hidden fade-in space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold text-stone-900">成人每日平衡膳食自测器</h2>
+          <p class="text-sm text-stone-500 mt-0.5">对照《中国居民平衡膳食宝塔（2022）》1600～2400 kcal 成人标准，拖动滑块评估今日饮食结构</p>
+        </div>
+        <!-- Preset Quick Loaders -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs text-stone-500">快速载入典型饮食：</span>
+          <button type="button" id="presetBalanced" class="text-xs px-3 py-1.5 rounded-lg bg-[#E9F2EC] text-[#2D5A43] font-medium hover:bg-emerald-100 transition">
+            标准均衡范例
+          </button>
+          <button type="button" id="presetTakeout" class="text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition">
+            外卖重油盐型
+          </button>
+          <button type="button" id="presetLowCarb" class="text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition">
+            少主食缺奶型
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Sliders Input Column -->
+        <div class="lg:col-span-7 bg-white border border-[#E4E9E5] rounded-2xl p-6 space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5" id="sliderListContainer">
+            <!-- Sliders rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Real-Time Evaluation & Radar Chart Column -->
+        <div class="lg:col-span-5 bg-white border border-[#E4E9E5] rounded-2xl p-6 space-y-5">
+          <div class="flex items-center justify-between border-b border-[#E4E9E5] pb-4">
+            <div>
+              <div class="text-xs text-stone-500">今日膳食结构契合度</div>
+              <div class="flex items-baseline gap-2 mt-0.5">
+                <span id="overallScoreValue" class="text-3xl font-bold text-[#2D5A43]">100%</span>
+                <span id="overallScoreLabel" class="text-xs font-medium px-2 py-0.5 rounded-full bg-[#E9F2EC] text-[#2D5A43]">全面达标</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-stone-500">达标维度</div>
+              <div id="passedMetricsCount" class="text-lg font-semibold text-stone-800">8 / 8 项</div>
+            </div>
+          </div>
+
+          <!-- Radar Chart Container -->
+          <div class="relative h-72 w-full">
+            <canvas id="intakeRadarChart"></canvas>
+          </div>
+
+          <!-- Actionable Feedback List -->
+          <div class="space-y-2 pt-2 border-t border-[#E4E9E5]">
+            <div class="text-xs font-semibold text-stone-700">针对性改善建议（基于 2022 膳食宝塔标准）：</div>
+            <ul id="checkerAdviceList" class="space-y-2 text-xs text-stone-600 max-h-56 overflow-y-auto pr-1">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: 误区与问答 (MYTHS & Q&A) ==================== -->
+    <section id="view-myths" class="view-section hidden fade-in space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold text-stone-900">常见营养误区与科学循证解答</h2>
+          <p class="text-sm text-stone-500 mt-0.5">搜索关键词或按主题筛选，点击卡片右上角可收藏重点科普贴士</p>
+        </div>
+
+        <!-- Search & Category Filter Controls -->
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <div class="relative">
+            <input
+              type="text"
+              id="mythSearchInput"
+              placeholder="搜索：鸡蛋、盐、果汁、全谷物..."
+              class="w-full sm:w-64 text-sm bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#2D5A43]"
+            />
+          </div>
+          <select
+            id="mythCategorySelect"
+            aria-label="按主题分类筛选"
+            class="text-sm bg-white border border-[#E4E9E5] rounded-xl px-3 py-2 text-stone-700 focus:outline-none focus:border-[#2D5A43]"
+          >
+            <option value="all">全部主题 (8)</option>
+            <option value="carb">主食与碳水</option>
+            <option value="protein">蛋奶与蛋白</option>
+            <option value="fat_salt">油脂、糖与减盐</option>
+            <option value="water_veg">蔬果与饮水</option>
+            <option value="saved">仅看已收藏</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Myths Grid -->
+      <div id="mythsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Minimalist Footer with Authoritative Sources -->
+  <footer class="border-t border-[#E4E9E5] bg-white mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-stone-500">
+      <div>
+        <span class="font-semibold text-stone-700">知食 · 极简营养科学指南</span> — 所有推荐摄入量与限值均严格源自权威公共卫生机构指南。
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a href="http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html" target="_blank" rel="noopener noreferrer" class="hover:text-[#2D5A43] underline">
+          中国营养学会：平衡膳食宝塔（2022）
+        </a>
+        <a href="http://dg.cnsoc.org/article/04/J4-AsD_DR3OLQMnHG0-jZA.html" target="_blank" rel="noopener noreferrer" class="hover:text-[#2D5A43] underline">
+          平衡膳食八准则
+        </a>
+        <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="hover:text-[#2D5A43] underline">
+          WHO Healthy Diet 指南
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic & Grounded Data -->
+  <script>
+    // =========================================================================
+    // 1. GROUNDED DATA REPOSITORY (100% Backed by Verified Tool Outputs)
+    // =========================================================================
+    const PAGODA_TIERS = {
+      tier1: {
+        badge: '第一层 · 膳食基础',
+        title: '谷薯类食物',
+        intake: '谷类 200–300 g/天（含全谷物和杂豆 50–150 g） + 薯类 50–100 g/天',
+        energyNote: '碳水化合物提供膳食总能量的 50%～65%',
+        summary: '坚持谷类为主是平衡膳食模式的重要特征。谷薯类不仅是膳食能量的最主要来源，也是多种微量营养素和天然膳食纤维的良好来源。WHO 同样建议 2 岁以上人群的碳水化合物应主要来自全谷物、蔬菜、水果和豆类。',
+        examples: [
+          '全谷物代表：糙米、燕麦、小米、玉米、全麦制品（每天搭配 50–150 g 全谷物与杂豆）',
+          '杂豆类代表：红豆、绿豆、芸豆、鹰嘴豆、扁豆（可与大米同煮成杂粮饭）',
+          '薯类代表：马铃薯（土豆）、甘薯（红薯）、芋头、山药（每天 50–100 g）'
+        ],
+        sourceTitle: '《中国居民膳食指南（2022）》平衡膳食八准则 & 宝塔解析',
+        sourceUrl: 'http://dg.cnsoc.org/article/04/J4-AsD_DR3OLQMnHG0-jZA.html'
+      },
+      tier2: {
+        badge: '第二层 · 鼓励多摄入',
+        title: '蔬菜和水果',
+        intake: '蔬菜至少 300 g/天（300–500 g） | 水果 200–350 g/天',
+        energyNote: 'WHO 推荐 10 岁以上人群每天摄入至少 400 g 蔬果（约 5 份）',
+        summary: '蔬菜和水果是膳食纤维、微量营养素（维生素C、钾、镁等）和植物化学物的良好来源。膳食富含蔬果的人群患肥胖症、心脏病、脑卒中、糖尿病及部分癌症的风险显著降低。应保证餐餐有蔬菜、天天吃水果。',
+        examples: [
+          '新鲜蔬果优先：冷冻或罐装蔬果只要不添加糖或过量钠也是良好选择',
+          '果汁不能代替鲜果：WHO 指出即便是无添加糖的纯果汁也含有较高游离糖，应限制饮用',
+          '天然膳食纤维：10 岁以上人群及成人每天应从食物中获取至少 25 g 天然膳食纤维'
+        ],
+        sourceTitle: '中国居民平衡膳食宝塔（2022）修订和解析',
+        sourceUrl: 'http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html'
+      },
+      tier3: {
+        badge: '第三层 · 适量食用',
+        title: '鱼、禽、肉、蛋等动物性食物',
+        intake: '动物性食物共计 120–200 g/天（每周至少 2 次水产品，每天 1 个鸡蛋）',
+        energyNote: '细分参考：每天畜禽肉 40–75 g、水产品 40–75 g、鸡蛋 1 个（约 50 g）',
+        summary: '新鲜动物性食物是优质蛋白质、脂类和脂溶性维生素的良好来源。目前我国居民肉类摄入以猪肉为主且脂肪较高，应尽量选择瘦肉、禽肉或优先选择水产品，并少吃加工肉制品（如培根、火腿、香肠）。',
+        examples: [
+          '水产品优先：鱼、虾、蟹、贝类脂肪含量较低，且所含不饱和脂肪酸更利于保护心血管系统',
+          '吃鸡蛋不弃蛋黄：蛋黄富含胆碱、卵磷脂、维生素A、叶黄素、锌及B族维生素，每天1个鸡蛋的营养效益远高于其胆固醇影响',
+          '控制加工肉类：加工肉制品往往含有较高饱和脂肪与隐形钠盐'
+        ],
+        sourceTitle: '中国居民平衡膳食宝塔、餐盘（2022）图示修订和解析说明',
+        sourceUrl: 'https://xinwen.bjd.com.cn/content/s62a9575de4b0c2cdf0a2e0b7.html'
+      },
+      tier4: {
+        badge: '第四层 · 营养素密度高',
+        title: '奶类、大豆和坚果',
+        intake: '奶及奶制品 300–500 g/天 | 大豆和坚果共 25–35 g/天',
+        energyNote: '坚果建议每周摄入 70 g 左右（相当于每天 10 g 左右）',
+        summary: '奶类和豆类是膳食指南鼓励多摄入的食物，是优质蛋白质和钙的良好来源。我国居民乳制品消费一直处于较低水平，2022版宝塔将奶及奶制品推荐量从 300 g 提升至 300～500 g。',
+        examples: [
+          '乳制品多样化：鲜奶、酸奶、奶酪、奶粉均可，每天至少相当于鲜奶 300 g',
+          '大豆及其制品：黄豆、黑豆、青豆，以及豆腐、豆浆、豆腐干、千张（按蛋白质含量与大豆折算）',
+          '原味坚果适量：核桃、杏仁、花生、葵花子、榛子富含必需脂肪酸，每天约 10 g 即可'
+        ],
+        sourceTitle: '读懂《中国居民膳食指南（2022）》第四层解析',
+        sourceUrl: 'https://www.cnma.org.cn/h-nd-730.html'
+      },
+      tier5: {
+        badge: '第五层 · 尽量少用',
+        title: '烹调油和食盐',
+        intake: '烹调油不超过 25–30 g/天 | 食盐不超过 5 g/天',
+        energyNote: 'WHO 建议成人每日钠摄入 < 2 g（即食盐 < 5 g），游离糖 < 10% 总能量',
+        summary: '油盐作为烹饪调料必不可少，但建议尽量少用。2022版膳食宝塔将每日限盐目标由 <6 g 进一步收紧至 <5 g。酒和添加糖不是膳食组成的基本食物，烹饪和单独食用时都应尽量避免。',
+        examples: [
+          '烹调油常换品种：优选富含多不饱和脂肪的大豆油、菜籽油、玉米油、葵花籽油，少用黄油、猪油',
+          '烹饪方式升级：多采用蒸、煮代替煎、炸，削减油脂摄入',
+          '警惕隐形高盐：减少酱油、鱼露、鸡精、咸菜及预包装咸味零食，餐桌上不额外摆放盐瓶'
+        ],
+        sourceTitle: '中国居民平衡膳食宝塔（2022）第五层解析',
+        sourceUrl: 'http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html'
+      },
+      water: {
+        badge: '生命必需 · 足量饮水',
+        title: '科学足量饮水',
+        intake: '低身体活动水平成年人每天至少饮水 1500–1700 ml（7–8 杯）',
+        energyNote: '饮水 + 食物及汤粥奶中的水分，成人每日总水摄入共计 2700–3000 ml',
+        summary: '水是膳食的重要组成部分，是一切生命活动必需的物质。来自食物中的水分和膳食汤水大约占 1/2。在高温或高身体活动水平条件下，应适当增加饮水量。饮水不足或过多都会对健康带来危害。',
+        examples: [
+          '白水或茶水首选：避免用含糖饮料、碳酸饮料或浓缩果汁代替白开水',
+          '学龄儿童参考（11–13岁）：男童每天至少饮水 1300 ml（膳食总水 2300 ml），女童每天至少饮水 1100 ml（膳食总水 2000 ml）',
+          '少量多次主动喝：不要等到口渴才喝水'
+        ],
+        sourceTitle: '中国居民平衡膳食宝塔及学龄儿童宝塔（2022）解析',
+        sourceUrl: 'http://dg.cnsoc.org/article/04/xcIUgHazTFS3Rl8ZsPxOQA.html'
+      },
+      activity: {
+        badge: '吃动平衡 · 健康体重',
+        title: '天天运动与身体活动',
+        intake: '成年人每天至少相当于快步走 6000 步以上 | 每周 150 分钟中等强度运动',
+        energyNote: '低身体活动水平能量消耗约占总能量消耗的 1/3，高水平者可达 1/2',
+        summary: '身体活动是能量平衡和保持身体健康的重要手段。运动能有效消耗能量，保持精神和机体代谢的活跃性。各年龄段人群都应天天进行身体活动，关注体重变化，找到食物摄入量与运动消耗量之间的平衡点。',
+        examples: [
+          '中等强度有氧运动：快走、骑车、跑步、游泳或庭院/农田劳动，每周累计 150 分钟以上',
+          '融入日常生活：减少久坐时间，利用通勤步行、爬楼梯累积每日 6000 步以上目标',
+          '能量收支平衡：预防超重、肥胖及糖尿病、心血管疾病等非传染性慢性病（NCDs）'
+        ],
+        sourceTitle: '《中国居民膳食指南（2022）》准则二：吃动平衡，健康体重',
+        sourceUrl: 'http://dg.cnsoc.org/article/04/k9W2iu8FT6K5oWaQKArU9g.html'
+      }
+    };
+
+    const AGE_FIBER_DATA = {
+      child2_5: {
+        label: '2–5 岁儿童',
+        vegFruit: '至少 250 g / 天',
+        vegFruitDesc: '从小培养多样化蔬果饮食习惯，优先提供新鲜蔬果，避免添加糖或高盐罐头。',
+        fiber: '至少 15 g / 天',
+        fiberDesc: '来自全谷物、杂豆、蔬菜和完整水果中的天然膳食纤维。',
+        extraTitle: '游离糖与反式脂肪控制',
+        extraValue: '游离糖 <10% 能量（理想 <5%）',
+        extraDesc: '生命早期良好的饮食习惯有助于促进健康成长与认知发育，降低日后超重和患慢性病风险。',
+        url: 'https://www.who.int/news/item/17-07-2023-who-updates-guidelines-on-fats-and-carbohydrates'
+      },
+      child6_9: {
+        label: '6–9 岁儿童',
+        vegFruit: '至少 350 g / 天',
+        vegFruitDesc: '随生长发育稳步提升蔬果摄入量，保证每日三餐有蔬菜、加餐选新鲜水果。',
+        fiber: '至少 21 g / 天',
+        fiberDesc: '通过燕麦、玉米、小米、糙米及豆类替代部分精白米面，保障天然纤维摄入。',
+        extraTitle: '学龄期饮水与钠盐管理',
+        extraValue: '按能量比例严控钠摄入',
+        extraDesc: '11–13岁参考：男童每日饮水至少 1300 ml，女童至少 1100 ml；限制高盐零食与含糖饮料。',
+        url: 'https://www.who.int/news/item/17-07-2023-who-updates-guidelines-on-fats-and-carbohydrates'
+      },
+      adult10plus: {
+        label: '10 岁及以上青少年与成人',
+        vegFruit: '至少 400 g / 天（约 5 份）',
+        vegFruitDesc: '中国膳食指南进一步推荐成人每日蔬菜至少 300 g（300–500 g）+ 水果 200–350 g。',
+        fiber: '至少 25 g / 天',
+        fiberDesc: '充足的天然膳食纤维可显著降低全因死亡率及心血管病、2型糖尿病与结直肠癌风险。',
+        extraTitle: '成人每日钠钾与水目标',
+        extraValue: '盐 <5 g | 钾 ≥3510 mg | 饮水 1500–1700 ml',
+        extraDesc: '每天保持至少 6000 步身体活动，每周完成 150 分钟中等强度运动。',
+        url: 'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'
+      }
+    };
+
+    const CHECKER_CONFIG = [
+      { id: 'grains', name: '谷类主食', unit: 'g', min: 200, max: 300, step: 10, maxSlider: 500, type: 'range', tip: '推荐每天 200–300 g（其中全谷物和杂豆占 50–150 g），过少易导致碳水供能不足，过多易能量过剩。' },
+      { id: 'veg', name: '新鲜蔬菜', unit: 'g', min: 300, max: 500, step: 20, maxSlider: 700, type: 'min', tip: '推荐每天至少达到 300 g（300–500 g），餐餐有蔬菜，补充微量营养素与植物化学物。' },
+      { id: 'fruit', name: '新鲜水果', unit: 'g', min: 200, max: 350, step: 20, maxSlider: 600, type: 'range', tip: '推荐每天 200–350 g，宜吃完整鲜果，不宜用含高游离糖的果汁替代。' },
+      { id: 'animal', name: '鱼禽肉蛋总量', unit: 'g', min: 120, max: 200, step: 10, maxSlider: 400, type: 'range', tip: '推荐每天共计 120–200 g（畜禽肉 40–75 g、水产 40–75 g、鸡蛋 1 个约 50 g）。' },
+      { id: 'dairy', name: '奶及奶制品', unit: 'g', min: 300, max: 500, step: 25, maxSlider: 700, type: 'range', tip: '2022版指南推荐每天 300–500 g 鲜奶或相当量的乳制品，是钙和优质蛋白的核心来源。' },
+      { id: 'soyNuts', name: '大豆与坚果', unit: 'g', min: 25, max: 35, step: 5, maxSlider: 80, type: 'range', tip: '推荐每天大豆和坚果共 25–35 g（其中坚果约每天 10 g / 每周 70 g）。' },
+      { id: 'oil', name: '烹调油（上限）', unit: 'g', min: 0, max: 30, step: 2, maxSlider: 70, type: 'max', tip: '推荐成年人每天烹调油不超过 25–30 g，多用蒸煮代替煎炸。' },
+      { id: 'salt', name: '食盐（上限）', unit: 'g', min: 0, max: 5, step: 0.5, maxSlider: 12, type: 'max', tip: '2022版指南与 WHO 均要求成人每天食盐 < 5 g，防范高血压与脑卒中。' }
+    ];
+
+    const PRESETS = {
+      balanced: { grains: 250, veg: 400, fruit: 260, animal: 160, dairy: 350, soyNuts: 30, oil: 25, salt: 4.5 },
+      takeout:  { grains: 340, veg: 160, fruit: 80,  animal: 260, dairy: 100, soyNuts: 10, oil: 48, salt: 8.5 },
+      lowCarb:  { grains: 90,  veg: 380, fruit: 240, animal: 210, dairy: 150, soyNuts: 20, oil: 24, salt: 4.5 }
+    };
+
+    const MYTHS_DATA = [
+      {
+        id: 'm1',
+        category: 'protein',
+        categoryLabel: '蛋奶与蛋白',
+        myth: '误区：吃鸡蛋应该丢掉蛋黄，否则胆固醇太高伤血管？',
+        fact: '科学结论：每天吃 1 个鸡蛋（约 50 g），吃鸡蛋不应丢弃蛋黄。',
+        detail: '《中国居民膳食指南（2022）》明确指出，蛋黄含有丰富的营养成分，如胆碱、卵磷脂、维生素A、叶黄素、锌、B族维生素等，无论对多大年龄人群都具有健康益处。诸多研究表明，每天吃一个鸡蛋的营养效益远高于其胆固醇的影响。',
+        sourceTitle: '中国居民平衡膳食宝塔（2022）第三层解析',
+        sourceUrl: 'https://xinwen.bjd.com.cn/content/s62a9575de4b0c2cdf0a2e0b7.html'
+      },
+      {
+        id: 'm2',
+        category: 'water_veg',
+        categoryLabel: '蔬果与饮水',
+        myth: '误区：100% 纯果汁没有添加糖，可以代替新鲜水果随便喝？',
+        fact: '科学结论：纯果汁中的天然糖分属于“游离糖”，应限制饮用。',
+        detail: 'WHO 健康饮食指南明确界定：游离糖不仅包括食品饮料中添加的单糖和双糖，也包括天然存在于蜂蜜、糖浆、果汁和浓缩果汁中的糖。大多数果汁（即使不加糖）也含有大量游离糖，不能替代完整新鲜水果。',
+        sourceTitle: 'WHO Healthy Diet Fact Sheet - Sugars',
+        sourceUrl: 'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'
+      },
+      {
+        id: 'm3',
+        category: 'fat_salt',
+        categoryLabel: '油脂、糖与减盐',
+        myth: '误区：用代糖（非糖甜味剂）饮料代替糖，就能轻松减肥防慢病？',
+        fact: '科学结论：WHO 明确指出，减少游离糖摄入不应依赖非糖甜味剂。',
+        detail: '世界卫生组织（WHO）指南指出，降低游离糖摄入量并维持低摄入水平，应当在不依赖非糖甜味剂（如阿斯巴甜、安赛蜜、三氯蔗糖、糖精、甜菊糖等）的前提下实现，建议从源头适应清淡口味。',
+        sourceTitle: 'WHO Healthy Diet Fact Sheet',
+        sourceUrl: 'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'
+      },
+      {
+        id: 'm4',
+        category: 'carb',
+        categoryLabel: '主食与碳水',
+        myth: '误区：为了健康必须彻底戒断碳水化合物，不吃任何主食？',
+        fact: '科学结论：谷类为主是平衡膳食的基础，关键在于提升“全谷物与杂豆”比例。',
+        detail: '《中国居民膳食指南（2022）》推荐碳水化合物提供总能量的 50%～65%，每天摄入谷类 200～300 g，其中全谷物和杂豆 50～150 g，外加薯类 50～100 g。WHO 2023 更新指南也证实，来自全谷物、蔬果和豆类的优质碳水与降低全因死亡率及慢病风险密切相关。',
+        sourceTitle: 'WHO Updates Guidelines on Fats and Carbohydrates',
+        sourceUrl: 'https://www.who.int/news/item/17-07-2023-who-updates-guidelines-on-fats-and-carbohydrates'
+      },
+      {
+        id: 'm5',
+        category: 'protein',
+        categoryLabel: '蛋奶与蛋白',
+        myth: '误区：吃肉补蛋白只吃猪肉就够了，鱼虾吃不吃无所谓？',
+        fact: '科学结论：2022版指南强调“每周至少吃 2 次水产品（每天 40–75 g）”。',
+        detail: '目前我国汉族居民肉类摄入以猪肉为主且脂肪含量较高。相比畜肉，鱼、虾、蟹、贝等水产品不仅富含优质蛋白质、维生素和矿物质，而且脂肪含量较低，所含多不饱和脂肪酸更有利于保护心血管系统。',
+        sourceTitle: '读懂《中国居民膳食指南（2022）》',
+        sourceUrl: 'https://www.cnma.org.cn/h-nd-730.html'
+      },
+      {
+        id: 'm6',
+        category: 'fat_salt',
+        categoryLabel: '油脂、糖与减盐',
+        myth: '误区：只要炒菜少放一点盐，每天食盐就不会超标？',
+        fact: '科学结论：除了烹调盐，加工食品与高钠调味品是“隐形盐”重灾区。',
+        detail: '成人每天食盐应控制在 5 g 以内（钠 < 2 g/天）。WHO 指出，大量盐分来自加工食品（如培根、火腿、香肠、奶酪、咸味零食）以及烹饪时加入的酱油、鱼露、高汤块。补足钾（成人 ≥ 3510 mg/天）与使用低钠富钾代用盐也有助于血压管理。',
+        sourceTitle: 'WHO Healthy Diet - Salt/Sodium and Potassium',
+        sourceUrl: 'https://www.who.int/news-room/fact-sheets/detail/healthy-diet'
+      },
+      {
+        id: 'm7',
+        category: 'protein',
+        categoryLabel: '蛋奶与蛋白',
+        myth: '误区：成年人不需要再喝牛奶，或者每天喝一点点就够？',
+        fact: '科学结论：2022版膳食宝塔将成人奶及奶制品推荐量上调至 300–500 g/天。',
+        detail: '奶类营养素密度高，是优质蛋白质和钙的最佳膳食来源。由于我国居民乳制品消费长期处于较低水平，新版指南鼓励多吃各种乳制品（鲜奶、酸奶、奶酪、奶粉等），每天至少相当于鲜奶 300 g。',
+        sourceTitle: '读懂《中国居民膳食指南（2022）》',
+        sourceUrl: 'https://www.cnma.org.cn/h-nd-730.html'
+      },
+      {
+        id: 'm8',
+        category: 'water_veg',
+        categoryLabel: '蔬果与饮水',
+        myth: '误区：每天喝 1500 ml 水就是人体一天获得的全部水分？',
+        fact: '科学结论：饮水约占一半，成人一天饮水与膳食总水摄入共计 2700–3000 ml。',
+        detail: '低身体活动水平成年人每天至少直接饮水 1500～1700 ml（7～8 杯），而来自食物本身的水分以及汤、粥、奶等膳食液体约占另一半，全天水摄入总计约 2700～3000 ml。',
+        sourceTitle: '中国居民平衡膳食宝塔、餐盘（2022）解析说明',
+        sourceUrl: 'https://xinwen.bjd.com.cn/content/s62a9575de4b0c2cdf0a2e0b7.html'
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE
+    // =========================================================================
+    let currentView = 'pagoda';
+    let currentTierKey = 'tier1';
+    let currentAgeKey = 'adult10plus';
+    let intakeState = { ...PRESETS.balanced };
+    let savedMyths = new Set();
+
+    // Load saved myths from localStorage safely
+    try {
+      const raw = localStorage.getItem('zhishi_saved_myths');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) savedMyths = new Set(parsed);
+      }
+    } catch (e) {
+      // Ignore storage error in sandboxed iframe
+    }
+
+    function persistSavedMyths() {
+      try {
+        localStorage.setItem('zhishi_saved_myths', JSON.stringify(Array.from(savedMyths)));
+      } catch (e) {
+        // Ignore storage error
+      }
+    }
+
+    // Chart instances
+    let macroChartInstance = null;
+    let radarChartInstance = null;
+
+    // =========================================================================
+    // 3. VIEW NAVIGATION
+    // =========================================================================
+    function switchView(viewName) {
+      currentView = viewName;
+      document.querySelectorAll('.view-section').forEach(sec => {
+        if (sec.id === `view-${viewName}`) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        if (btn.getAttribute('data-view') === viewName) {
+          btn.classList.add('active');
+          btn.classList.remove('text-stone-600');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('text-stone-600');
+        }
+      });
+
+      if (viewName === 'nutrients') {
+        initOrUpdateMacroChart();
+      } else if (viewName === 'checker') {
+        initOrUpdateRadarChart();
+      }
+    }
+
+    // =========================================================================
+    // 4. VIEW 1: PAGODA EXPLORER RENDERING
+    // =========================================================================
+    function renderPagodaTier(tierKey) {
+      currentTierKey = tierKey;
+      const data = PAGODA_TIERS[tierKey];
+      if (!data) return;
+
+      document.querySelectorAll('.pagoda-tier').forEach(btn => {
+        if (btn.getAttribute('data-tier') === tierKey) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      const container = document.getElementById('tierDetailContainer');
+      const examplesHtml = data.examples.map(item => `
+        <li class="flex items-start gap-2 text-xs sm:text-sm text-stone-700">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#2D5A43] mt-2 shrink-0"></span>
+          <span>${item}</span>
+        </li>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="fade-in space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E9F2EC] text-[#2D5A43]">${data.badge}</span>
+            <a href="${data.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] hover:underline font-medium">
+              权威出处：${data.sourceTitle} &nearr;
+            </a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-stone-900">${data.title}</h3>
+            <div class="mt-2 inline-block bg-stone-100 border border-stone-200/80 rounded-xl px-3.5 py-2">
+              <div class="text-xs text-stone-500">成人每日推荐摄入量（1600～2400 kcal 水平）</div>
+              <div class="text-sm sm:text-base font-bold text-[#2D5A43] mt-0.5">${data.intake}</div>
+            </div>
+            <p class="text-xs text-stone-500 mt-2">${data.energyNote}</p>
+          </div>
+          <p class="text-sm text-stone-600 leading-relaxed">${data.summary}</p>
+          <div class="space-y-2 pt-1">
+            <div class="text-xs font-semibold uppercase tracking-wider text-stone-400">实践与食材选择要点</div>
+            <ul class="space-y-2">${examplesHtml}</ul>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 5. VIEW 2: NUTRIENTS & AGE-SPECIFIC FIBER/VEG
+    // =========================================================================
+    function renderAgeRecommendation(ageKey) {
+      currentAgeKey = ageKey;
+      const info = AGE_FIBER_DATA[ageKey];
+      if (!info) return;
+
+      document.querySelectorAll('.age-btn').forEach(btn => {
+        if (btn.getAttribute('data-age') === ageKey) {
+          btn.classList.add('active', 'tab-btn');
+          btn.classList.remove('text-stone-600');
+        } else {
+          btn.classList.remove('active', 'tab-btn');
+          btn.classList.add('text-stone-600');
+        }
+      });
+
+      const panel = document.getElementById('ageRecommendationPanel');
+      panel.innerHTML = `
+        <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in">
+          <div class="text-xs text-stone-500">${info.label} · 每日蔬菜和水果</div>
+          <div class="text-xl font-bold text-[#2D5A43] mt-1">${info.vegFruit}</div>
+          <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.vegFruitDesc}</p>
+        </div>
+        <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in">
+          <div class="text-xs text-stone-500">${info.label} · 天然膳食纤维</div>
+          <div class="text-xl font-bold text-[#2D5A43] mt-1">${info.fiber}</div>
+          <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.fiberDesc}</p>
+        </div>
+        <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in flex flex-col justify-between">
+          <div>
+            <div class="text-xs text-stone-500">${info.extraTitle}</div>
+            <div class="text-lg font-bold text-stone-900 mt-1">${info.extraValue}</div>
+            <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.extraDesc}</p>
+          </div>
+          <div class="mt-3 text-right">
+            <a href="${info.url}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-[#2D5A43] hover:underline font-medium">查看 WHO 官方标准 &nearr;</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function initOrUpdateMacroChart() {
+      const canvas = document.getElementById('macroChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      if (macroChartInstance) {
+        macroChartInstance.resize();
+        return;
+      }
+      const ctx = canvas.getContext('2d');
+      macroChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [
+            '碳水化合物 (中国指南下限)',
+            '碳水化合物 (中国指南上限)',
+            '总脂肪上限 (WHO)',
+            '饱和脂肪上限 (WHO)',
+            '游离糖上限 (WHO)',
+            '游离糖理想值 (WHO)',
+            '反式脂肪上限 (WHO)'
+          ],
+          datasets: [{
+            label: '占每日总能量百分比 (%)',
+            data: [50, 65, 30, 10, 10, 5, 1],
+            backgroundColor: [
+              '#2D5A43',
+              '#3E7B5C',
+              '#D97706',
+              '#F59E0B',
+              '#E11D48',
+              '#FB7185',
+              '#64748B'
+            ],
+            borderRadius: 6,
+            barThickness: 18
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ` ${ctx.parsed.x}% 每日总能量`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 75,
+              ticks: { callback: v => v + '%', font: { size: 11 } },
+              grid: { color: '#F1F5F9' }
+            },
+            y: {
+              ticks: { font: { size: 11 } },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    // =========================================================================
+    // 6. VIEW 3: DAILY INTAKE CHECKER
+    // =========================================================================
+    function evaluateMetric(item, val) {
+      if (item.type === 'range') {
+        if (val >= item.min && val <= item.max) {
+          return { status: 'ok', badge: '达标', color: 'text-emerald-700 bg-emerald-50', score: 100 };
+        } else if (val < item.min) {
+          const ratio = Math.max(20, Math.round((val / item.min) * 100));
+          return { status: 'low', badge: '偏少', color: 'text-amber-700 bg-amber-50', score: ratio };
+        } else {
+          const overRatio = Math.max(40, Math.round(100 - ((val - item.max) / item.max) * 60));
+          return { status: 'high', badge: '偏多', color: 'text-amber-700 bg-amber-50', score: overRatio };
+        }
+      } else if (item.type === 'min') {
+        if (val >= item.min) {
+          return { status: 'ok', badge: '达标', color: 'text-emerald-700 bg-emerald-50', score: 100 };
+        } else {
+          const ratio = Math.max(20, Math.round((val / item.min) * 100));
+          return { status: 'low', badge: '不足', color: 'text-amber-700 bg-amber-50', score: ratio };
+        }
+      } else {
+        // type === 'max' (oil, salt)
+        if (val <= item.max) {
+          return { status: 'ok', badge: '达标', color: 'text-emerald-700 bg-emerald-50', score: 100 };
+        } else {
+          const penalty = Math.max(20, Math.round(100 - ((val - item.max) / item.max) * 70));
+          return { status: 'high', badge: '超标', color: 'text-rose-700 bg-rose-50', score: penalty };
+        }
+      }
+    }
+
+    function renderCheckerSliders() {
+      const container = document.getElementById('sliderListContainer');
+      container.innerHTML = CHECKER_CONFIG.map(item => {
+        const val = intakeState[item.id];
+        const evalRes = evaluateMetric(item, val);
+        const refText = item.type === 'range'
+          ? `推荐 ${item.min}–${item.max}${item.unit}`
+          : item.type === 'min'
+            ? `推荐 ≥${item.min}${item.unit}`
+            : `上限 ≤${item.max}${item.unit}`;
+
+        return `
+          <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-3.5 space-y-2">
+            <div class="flex items-center justify-between">
+              <label for="slider-${item.id}" class="text-sm font-semibold text-stone-800">${item.name}</label>
+              <span id="badge-${item.id}" class="text-[11px] font-medium px-2 py-0.5 rounded-full ${evalRes.color}">
+                ${evalRes.badge}
+              </span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span id="val-${item.id}" class="text-lg font-bold text-[#2D5A43]">${val} <span class="text-xs font-normal text-stone-500">${item.unit}</span></span>
+              <span class="text-[11px] text-stone-400">${refText}</span>
+            </div>
+            <input
+              id="slider-${item.id}"
+              type="range"
+              min="0"
+              max="${item.maxSlider}"
+              step="${item.step}"
+              value="${val}"
+              data-metric="${item.id}"
+              class="checker-slider"
+            />
+          </div>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.checker-slider').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const metricId = e.target.getAttribute('data-metric');
+          const numVal = parseFloat(e.target.value);
+          intakeState[metricId] = isNaN(numVal) ? 0 : numVal;
+          updateCheckerEvaluation();
+        });
+      });
+    }
+
+    function updateCheckerEvaluation() {
+      let totalScore = 0;
+      let passedCount = 0;
+      const radarScores = [];
+      const advices = [];
+
+      CHECKER_CONFIG.forEach(item => {
+        const val = intakeState[item.id];
+        const evalRes = evaluateMetric(item, val);
+        totalScore += evalRes.score;
+        if (evalRes.status === 'ok') passedCount++;
+        radarScores.push(evalRes.score);
+
+        // Update DOM readout if slider exists
+        const valEl = document.getElementById(`val-${item.id}`);
+        const badgeEl = document.getElementById(`badge-${item.id}`);
+        const sliderEl = document.getElementById(`slider-${item.id}`);
+        if (valEl) valEl.innerHTML = `${val} <span class="text-xs font-normal text-stone-500">${item.unit}</span>`;
+        if (badgeEl) {
+          badgeEl.className = `text-[11px] font-medium px-2 py-0.5 rounded-full ${evalRes.color}`;
+          badgeEl.textContent = evalRes.badge;
+        }
+        if (sliderEl && parseFloat(sliderEl.value) !== val) {
+          sliderEl.value = val;
+        }
+
+        if (evalRes.status !== 'ok') {
+          advices.push({
+            name: item.name,
+            status: evalRes.badge,
+            tip: item.tip
+          });
+        }
+      });
+
+      const avgScore = Math.round(totalScore / CHECKER_CONFIG.length);
+      const scoreValEl = document.getElementById('overallScoreValue');
+      const scoreLabelEl = document.getElementById('overallScoreLabel');
+      const passedCountEl = document.getElementById('passedMetricsCount');
+
+      scoreValEl.textContent = `${avgScore}%`;
+      passedCountEl.textContent = `${passedCount} / ${CHECKER_CONFIG.length} 项`;
+
+      if (passedCount === CHECKER_CONFIG.length) {
+        scoreLabelEl.textContent = '全面达标';
+        scoreLabelEl.className = 'text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800';
+      } else if (avgScore >= 75) {
+        scoreLabelEl.textContent = '结构良好 · 可微调';
+        scoreLabelEl.className = 'text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-800';
+      } else {
+        scoreLabelEl.textContent = '失衡风险 · 建议改善';
+        scoreLabelEl.className = 'text-xs font-medium px-2 py-0.5 rounded-full bg-rose-50 text-rose-800';
+      }
+
+      const adviceListEl = document.getElementById('checkerAdviceList');
+      if (advices.length === 0) {
+        adviceListEl.innerHTML = `
+          <li class="p-3 rounded-xl bg-[#E9F2EC] text-[#2D5A43] font-medium">
+            当前各项摄入量均符合《中国居民平衡膳食宝塔（2022）》1600～2400 kcal 成人标准！记得配合每日 1500–1700 ml 饮水与 6000 步以上身体活动。
+          </li>
+        `;
+      } else {
+        adviceListEl.innerHTML = advices.map(a => `
+          <li class="p-2.5 rounded-xl bg-[#FAF9F5] border border-[#E4E9E5]">
+            <span class="font-semibold text-stone-800">${a.name}（${a.status}）：</span>
+            <span>${a.tip}</span>
+          </li>
+        `).join('');
+      }
+
+      if (radarChartInstance) {
+        radarChartInstance.data.datasets[0].data = radarScores;
+        radarChartInstance.update();
+      }
+    }
+
+    function initOrUpdateRadarChart() {
+      const canvas = document.getElementById('intakeRadarChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const scores = CHECKER_CONFIG.map(item => evaluateMetric(item, intakeState[item.id]).score);
+
+      if (radarChartInstance) {
+        radarChartInstance.data.datasets[0].data = scores;
+        radarChartInstance.resize();
+        radarChartInstance.update();
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: CHECKER_CONFIG.map(i => i.name),
+          datasets: [{
+            label: '当前维度达标得分 (满分100)',
+            data: scores,
+            backgroundColor: 'rgba(45, 90, 67, 0.16)',
+            borderColor: '#2D5A43',
+            pointBackgroundColor: '#2D5A43',
+            pointBorderColor: '#FFFFFF',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { stepSize: 25, display: false },
+              pointLabels: {
+                font: { size: 11 }
+              },
+              grid: { color: '#E4E9E5' },
+              angleLines: { color: '#E4E9E5' }
+            }
+          }
+        }
+      });
+    }
+
+    // =========================================================================
+    // 7. VIEW 4: MYTHS & Q&A SEARCH, FILTER, AND BOOKMARK
+    // =========================================================================
+    function updateSavedBadge() {
+      const badge = document.getElementById('savedCountBadge');
+      if (!badge) return;
+      const count = savedMyths.size;
+      if (count > 0) {
+        badge.textContent = count;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function renderMyths() {
+      const query = (document.getElementById('mythSearchInput')?.value || '').trim().toLowerCase();
+      const cat = document.getElementById('mythCategorySelect')?.value || 'all';
+      const grid = document.getElementById('mythsGrid');
+
+      const filtered = MYTHS_DATA.filter(item => {
+        if (cat === 'saved' && !savedMyths.has(item.id)) return false;
+        if (cat !== 'all' && cat !== 'saved' && item.category !== cat) return false;
+        if (!query) return true;
+        const haystack = `${item.myth} ${item.fact} ${item.detail} ${item.categoryLabel}`.toLowerCase();
+        return haystack.includes(query);
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="md:col-span-2 bg-white border border-[#E4E9E5] rounded-2xl p-8 text-center text-sm text-stone-500">
+            未找到匹配的营养科普词条，请尝试清空搜索词或切换分类筛选。
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        const isSaved = savedMyths.has(item.id);
+        return `
+          <article class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between hover:border-stone-300 transition">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600">${item.categoryLabel}</span>
+                <button
+                  type="button"
+                  data-bookmark="${item.id}"
+                  class="bookmark-btn text-xs px-2.5 py-1 rounded-lg border transition ${
+                    isSaved
+                      ? 'bg-[#E9F2EC] border-[#2D5A43]/30 text-[#2D5A43] font-semibold'
+                      : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800'
+                  }"
+                >
+                  ${isSaved ? '★ 已收藏' : '☆ 收藏贴士'}
+                </button>
+              </div>
+              <h3 class="text-base font-semibold text-stone-900 mt-3">${item.myth}</h3>
+              <div class="mt-2 text-xs sm:text-sm font-semibold text-[#2D5A43] bg-[#E9F2EC]/70 px-3 py-2 rounded-xl">
+                ${item.fact}
+              </div>
+              <p class="mt-3 text-xs sm:text-sm text-stone-600 leading-relaxed">${item.detail}</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+              <span>循证营养科普</span>
+              <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline font-medium">
+                来源：${item.sourceTitle} &nearr;
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-bookmark');
+          if (savedMyths.has(id)) {
+            savedMyths.delete(id);
+          } else {
+            savedMyths.add(id);
+          }
+          persistSavedMyths();
+          updateSavedBadge();
+          renderMyths();
+        });
+      });
+    }
+
+    // =========================================================================
+    // 8. INITIALIZATION & EVENT BINDINGS
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      // Navigation tabs
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchView(btn.getAttribute('data-view'));
+        });
+      });
+
+      // Pagoda tiers
+      document.querySelectorAll('.pagoda-tier').forEach(btn => {
+        btn.addEventListener('click', () => {
+          renderPagodaTier(btn.getAttribute('data-tier'));
+        });
+      });
+
+      // Age buttons
+      document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          renderAgeRecommendation(btn.getAttribute('data-age'));
+        });
+      });
+
+      // Checker presets
+      document.getElementById('presetBalanced')?.addEventListener('click', () => {
+        intakeState = { ...PRESETS.balanced };
+        updateCheckerEvaluation();
+      });
+      document.getElementById('presetTakeout')?.addEventListener('click', () => {
+        intakeState = { ...PRESETS.takeout };
+        updateCheckerEvaluation();
+      });
+      document.getElementById('presetLowCarb')?.addEventListener('click', () => {
+        intakeState = { ...PRESETS.lowCarb };
+        updateCheckerEvaluation();
+      });
+
+      // Myths search & filter
+      document.getElementById('mythSearchInput')?.addEventListener('input', renderMyths);
+      document.getElementById('mythCategorySelect')?.addEventListener('change', renderMyths);
+
+      // Initial renders
+      renderPagodaTier('tier1');
+      renderAgeRecommendation('adult10plus');
+      renderCheckerSliders();
+      updateCheckerEvaluation();
+      updateSavedBadge();
+      renderMyths();
+    });
+  </script>
+</body>
+</html>

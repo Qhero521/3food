@@ -1,0 +1,6 @@
+{
+  "name": "知食 · 极简营养科学指南",
+  "description": "依据《中国居民膳食指南（2022）》与世界卫生组织（WHO）标准整理的极简营养科学指南，提供交互式膳食宝塔、核心营养与限值图表、每日饮食自测器与常见营养误区百科。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
