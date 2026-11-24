@@ -69,9 +69,393 @@
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    /* Tactile Skeuomorphic Icon Container */
+    .skeuo-tile {
+      background: linear-gradient(145deg, #FFFFFF 0%, #F4F1E8 100%);
+      border: 1px solid rgba(28, 37, 33, 0.09);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -2px 4px rgba(28, 37, 33, 0.05),
+        0 4px 10px -2px rgba(28, 37, 33, 0.10),
+        0 1px 2px rgba(28, 37, 33, 0.06);
+    }
+    .skeuo-tile-emerald {
+      background: linear-gradient(145deg, #F6FBF7 0%, #E3EFE7 100%);
+      border-color: rgba(45, 90, 67, 0.16);
+    }
+    .skeuo-tile-amber {
+      background: linear-gradient(145deg, #FFFDF5 0%, #FCEFD8 100%);
+      border-color: rgba(217, 119, 6, 0.18);
+    }
+    .skeuo-tile-rose {
+      background: linear-gradient(145deg, #FFF8F8 0%, #FBE4E7 100%);
+      border-color: rgba(225, 29, 72, 0.15);
+    }
+    .skeuo-tile-sky {
+      background: linear-gradient(145deg, #F5FAFF 0%, #E0F0FC 100%);
+      border-color: rgba(2, 132, 199, 0.16);
+    }
+    .skeuo-icon-shadow {
+      filter: drop-shadow(0 2px 2.5px rgba(28, 37, 33, 0.18));
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Shared Multi-Color Skeuomorphic SVG Gradients & Symbols -->
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;">
+    <defs>
+      <linearGradient id="sk-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FDE047"/><stop offset="55%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#B45309"/></linearGradient>
+      <linearGradient id="sk-wheat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FEF08A"/><stop offset="50%" stop-color="#EAB308"/><stop offset="100%" stop-color="#A16207"/></linearGradient>
+      <linearGradient id="sk-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6EE7B7"/><stop offset="50%" stop-color="#10B981"/><stop offset="100%" stop-color="#065F46"/></linearGradient>
+      <linearGradient id="sk-green-dark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34D399"/><stop offset="60%" stop-color="#059669"/><stop offset="100%" stop-color="#064E3B"/></linearGradient>
+      <linearGradient id="sk-salmon" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FCA5A5"/><stop offset="50%" stop-color="#FB7185"/><stop offset="100%" stop-color="#E11D48"/></linearGradient>
+      <linearGradient id="sk-meat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F87171"/><stop offset="55%" stop-color="#DC2626"/><stop offset="100%" stop-color="#7F1D1D"/></linearGradient>
+      <linearGradient id="sk-chicken" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FED7AA"/><stop offset="55%" stop-color="#FDBA74"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>
+      <linearGradient id="sk-water" x1="0.2" y1="0" x2="0.9" y2="1"><stop offset="0%" stop-color="#BAE6FD"/><stop offset="45%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#0369A1"/></linearGradient>
+      <linearGradient id="sk-milk" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="70%" stop-color="#F1F5F9"/><stop offset="100%" stop-color="#CBD5E1"/></linearGradient>
+      <linearGradient id="sk-ceramic" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="65%" stop-color="#E2E8F0"/><stop offset="100%" stop-color="#94A3B8"/></linearGradient>
+      <linearGradient id="sk-blue-bowl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#60A5FA"/><stop offset="60%" stop-color="#2563EB"/><stop offset="100%" stop-color="#1E3A8A"/></linearGradient>
+      <linearGradient id="sk-wood" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D97706"/><stop offset="55%" stop-color="#92400E"/><stop offset="100%" stop-color="#451A03"/></linearGradient>
+      <linearGradient id="sk-orange" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FDBA74"/><stop offset="50%" stop-color="#F97316"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>
+      <linearGradient id="sk-tomato" x1="0.2" y1="0.1" x2="0.9" y2="0.9"><stop offset="0%" stop-color="#FCA5A5"/><stop offset="40%" stop-color="#EF4444"/><stop offset="100%" stop-color="#991B1B"/></linearGradient>
+      <linearGradient id="sk-berry" x1="0.2" y1="0.1" x2="0.9" y2="0.9"><stop offset="0%" stop-color="#93C5FD"/><stop offset="45%" stop-color="#4F46E5"/><stop offset="100%" stop-color="#1E1B4B"/></linearGradient>
+      <linearGradient id="sk-sweetpotato" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F472B6"/><stop offset="50%" stop-color="#BE185D"/><stop offset="100%" stop-color="#831843"/></linearGradient>
+      <linearGradient id="sk-gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#67E8F9"/><stop offset="50%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#1D4ED8"/></linearGradient>
+      <linearGradient id="sk-tofu" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFBEB"/><stop offset="65%" stop-color="#FDE68A"/><stop offset="100%" stop-color="#D97706"/></linearGradient>
+      <linearGradient id="sk-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F8FAFC"/><stop offset="50%" stop-color="#94A3B8"/><stop offset="100%" stop-color="#475569"/></linearGradient>
+    </defs>
+
+    <symbol id="sk-pagoda" viewBox="0 0 48 48">
+      <path d="M8 38h32l-3 5H11l-3-5z" fill="url(#sk-gold)"/>
+      <path d="M11 31h26l2 6H9l2-6z" fill="url(#sk-wheat)"/>
+      <path d="M13 24h22l2 6H11l2-6z" fill="url(#sk-leaf)"/>
+      <path d="M16 17h16l2 6H14l2-6z" fill="url(#sk-salmon)"/>
+      <path d="M19 10h10l2 6H17l2-6z" fill="url(#sk-water)"/>
+      <path d="M24 4l5 5H19l5-5z" fill="url(#sk-orange)"/>
+      <path d="M12 31h24M14 24h20M17 17h14M20 10h8" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.7" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="sk-nutrients" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="9" fill="url(#sk-gold)"/>
+      <circle cx="21" cy="21" r="3" fill="#FEF9C3" fill-opacity="0.8"/>
+      <path d="M24 6v7M24 35v7M6 24h7M35 24h7M11.3 11.3l5 5M31.7 31.7l5 5M11.3 36.7l5-5M31.7 16.3l5-5" stroke="#94A3B8" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="24" cy="6" r="4" fill="url(#sk-leaf)"/>
+      <circle cx="40" cy="14" r="3.8" fill="url(#sk-salmon)"/>
+      <circle cx="38" cy="36" r="4" fill="url(#sk-water)"/>
+      <circle cx="10" cy="34" r="3.8" fill="url(#sk-orange)"/>
+      <circle cx="10" cy="13" r="3.5" fill="url(#sk-berry)"/>
+    </symbol>
+
+    <symbol id="sk-plate" viewBox="0 0 48 48">
+      <circle cx="24" cy="25" r="19" fill="url(#sk-ceramic)"/>
+      <circle cx="24" cy="25" r="14.5" fill="#FFFFFF"/>
+      <path d="M24 12a13 13 0 0 0-13 13h13V12z" fill="url(#sk-leaf)"/>
+      <path d="M11 25a13 13 0 0 0 13 13V25H11z" fill="url(#sk-gold)"/>
+      <path d="M24 12v13h13a13 13 0 0 0-13-13z" fill="url(#sk-salmon)"/>
+      <path d="M24 25v13a13 13 0 0 0 13-13H24z" fill="url(#sk-water)"/>
+      <circle cx="24" cy="25" r="14.5" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+      <ellipse cx="19" cy="17" rx="5" ry="2" fill="#FFFFFF" fill-opacity="0.35" transform="rotate(-25 19 17)"/>
+    </symbol>
+
+    <symbol id="sk-sliders" viewBox="0 0 48 48">
+      <rect x="6" y="7" width="36" height="34" rx="8" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.5"/>
+      <rect x="11" y="14" width="26" height="4" rx="2" fill="#CBD5E1"/>
+      <rect x="11" y="14" width="16" height="4" rx="2" fill="url(#sk-leaf)"/>
+      <circle cx="27" cy="16" r="4.5" fill="url(#sk-green-dark)" stroke="#FFFFFF" stroke-width="1.5"/>
+      <rect x="11" y="23" width="26" height="4" rx="2" fill="#CBD5E1"/>
+      <rect x="11" y="23" width="10" height="4" rx="2" fill="url(#sk-orange)"/>
+      <circle cx="21" cy="25" r="4.5" fill="url(#sk-gold)" stroke="#FFFFFF" stroke-width="1.5"/>
+      <rect x="11" y="32" width="26" height="4" rx="2" fill="#CBD5E1"/>
+      <rect x="11" y="32" width="20" height="4" rx="2" fill="url(#sk-water)"/>
+      <circle cx="31" cy="34" r="4.5" fill="#0284C7" stroke="#FFFFFF" stroke-width="1.5"/>
+    </symbol>
+
+    <symbol id="sk-book" viewBox="0 0 48 48">
+      <path d="M6 10c0-2 2-4 5-4h13v34H10c-2.5 0-4 1.5-4 3V10z" fill="url(#sk-green-dark)"/>
+      <path d="M42 10c0-2-2-4-5-4H24v34h14c2.5 0 4 1.5 4 3V10z" fill="url(#sk-leaf)"/>
+      <path d="M9 9h14v28H9z" fill="url(#sk-milk)"/>
+      <path d="M25 9h14v28H25z" fill="#FFFFFF"/>
+      <path d="M12 15h8M12 20h8M12 25h6M28 15h8M28 20h8M28 25h6" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+      <path d="M31 6h5v13l-2.5-2.5L31 19V6z" fill="url(#sk-tomato)"/>
+    </symbol>
+
+    <symbol id="sk-diversity" viewBox="0 0 48 48">
+      <rect x="5" y="5" width="38" height="38" rx="9" fill="url(#sk-wood)"/>
+      <rect x="8.5" y="8.5" width="14" height="14" rx="4" fill="#FFFBEB"/>
+      <rect x="25.5" y="8.5" width="14" height="14" rx="4" fill="#ECFDF5"/>
+      <rect x="8.5" y="25.5" width="14" height="14" rx="4" fill="#FFF1F2"/>
+      <rect x="25.5" y="25.5" width="14" height="14" rx="4" fill="#EFF6FF"/>
+      <circle cx="15.5" cy="15.5" r="4.5" fill="url(#sk-gold)"/>
+      <circle cx="32.5" cy="15.5" r="4.5" fill="url(#sk-leaf)"/>
+      <circle cx="15.5" cy="32.5" r="4.5" fill="url(#sk-tomato)"/>
+      <circle cx="32.5" cy="32.5" r="4.5" fill="url(#sk-water)"/>
+    </symbol>
+
+    <symbol id="sk-shield" viewBox="0 0 48 48">
+      <path d="M24 4L8 10v13c0 10.5 6.8 18.8 16 21 9.2-2.2 16-10.5 16-21V10L24 4z" fill="url(#sk-leaf)"/>
+      <path d="M24 7.5L11.5 12v11c0 8.5 5.2 15.3 12.5 17.3 7.3-2 12.5-8.8 12.5-17.3V12L24 7.5z" fill="url(#sk-green-dark)"/>
+      <path d="M17 24l5 5 10-10" fill="none" stroke="#FEF08A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="sk-water" viewBox="0 0 48 48">
+      <path d="M24 5C17 15 11 22 11 30a13 13 0 0 0 26 0c0-8-6-15-13-25z" fill="url(#sk-water)"/>
+      <path d="M18 25c-1.5 3-1 7 1.5 9.5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-opacity="0.85"/>
+      <circle cx="20" cy="19" r="1.8" fill="#FFFFFF" fill-opacity="0.8"/>
+    </symbol>
+
+    <symbol id="sk-wheat" viewBox="0 0 48 48">
+      <path d="M10 40L37 11" stroke="url(#sk-wood)" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="29" cy="13" rx="3.2" ry="6" transform="rotate(-45 29 13)" fill="url(#sk-gold)"/>
+      <ellipse cx="35" cy="19" rx="3.2" ry="6" transform="rotate(45 35 19)" fill="url(#sk-wheat)"/>
+      <ellipse cx="23" cy="19" rx="3.2" ry="6" transform="rotate(-45 23 19)" fill="url(#sk-gold)"/>
+      <ellipse cx="29" cy="25" rx="3.2" ry="6" transform="rotate(45 29 25)" fill="url(#sk-wheat)"/>
+      <ellipse cx="17" cy="25" rx="3.2" ry="6" transform="rotate(-45 17 25)" fill="url(#sk-gold)"/>
+      <ellipse cx="23" cy="31" rx="3.2" ry="6" transform="rotate(45 23 31)" fill="url(#sk-wheat)"/>
+      <ellipse cx="38" cy="10" rx="2.8" ry="5" transform="rotate(45 38 10)" fill="url(#sk-gold)"/>
+    </symbol>
+
+    <symbol id="sk-leaf" viewBox="0 0 48 48">
+      <path d="M9 38C9 21 21 9 40 9c0 19-12 31-29 31-1 0-2-.8-2-2z" fill="url(#sk-leaf)"/>
+      <path d="M12 36c6-7 14-14 24-21" fill="none" stroke="#ECFDF5" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M18 30l-3-7M24 24l-2-6M22 27l7 1M28 21l6 1" stroke="#065F46" stroke-width="1.6" stroke-linecap="round" stroke-opacity="0.5"/>
+    </symbol>
+
+    <symbol id="sk-fruit" viewBox="0 0 48 48">
+      <path d="M24 14c-6-2-14 1-14 12 0 9 6 16 11 16 1.5 0 2-.8 3-.8s1.5.8 3 .8c5 0 11-7 11-16 0-11-8-14-14-12z" fill="url(#sk-tomato)"/>
+      <path d="M24 14c0-5 2-8 5-9" fill="none" stroke="url(#sk-wood)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M24 11c4-4 9-4 11-1-4 3-7 3-11 1z" fill="url(#sk-leaf)"/>
+      <ellipse cx="17" cy="21" rx="2.8" ry="5.5" transform="rotate(20 17 21)" fill="#FFFFFF" fill-opacity="0.35"/>
+    </symbol>
+
+    <symbol id="sk-fish" viewBox="0 0 48 48">
+      <path d="M12 24c4-9 13-13 22-11 4 1 8 5 9 11-1 6-5 10-9 11-9 2-18-2-22-11z" fill="url(#sk-water)"/>
+      <path d="M13 24l-8-7c1 4 1 10 0 14l8-7z" fill="url(#sk-salmon)"/>
+      <path d="M23 13c3 6 3 16 0 22" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.7"/>
+      <circle cx="35" cy="22" r="2.2" fill="#0F172A"/>
+      <circle cx="35.6" cy="21.4" r="0.8" fill="#FFFFFF"/>
+      <ellipse cx="26" cy="18" rx="5" ry="1.8" fill="#FFFFFF" fill-opacity="0.4"/>
+    </symbol>
+
+    <symbol id="sk-egg" viewBox="0 0 48 48">
+      <path d="M24 6C15 6 10 20 10 29a14 14 0 0 0 28 0C38 20 33 6 24 6z" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.2"/>
+      <circle cx="24" cy="29" r="8" fill="url(#sk-gold)"/>
+      <ellipse cx="21" cy="26" rx="2.8" ry="1.8" transform="rotate(-25 21 26)" fill="#FEF9C3" fill-opacity="0.9"/>
+    </symbol>
+
+    <symbol id="sk-milk" viewBox="0 0 48 48">
+      <path d="M17 7h14l2 7v24a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4V14l2-7z" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.4"/>
+      <rect x="16" y="5" width="16" height="4" rx="1.5" fill="url(#sk-water)"/>
+      <path d="M15 21h18v15a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3V21z" fill="url(#sk-water)" fill-opacity="0.22"/>
+      <path d="M15 22c4-2 6 2 9 0s5-2 9 0" fill="none" stroke="#38BDF8" stroke-width="2"/>
+      <rect x="18" y="13" width="2.5" height="22" rx="1.2" fill="#FFFFFF" fill-opacity="0.8"/>
+    </symbol>
+
+    <symbol id="sk-nut" viewBox="0 0 48 48">
+      <circle cx="24" cy="25" r="15" fill="url(#sk-wood)"/>
+      <circle cx="24" cy="25" r="11.5" fill="url(#sk-wheat)"/>
+      <path d="M24 14v22M16 19c2 2 5 3 8 5-3 2-6 3-8 5M32 19c-2 2-5 3-8 5 3 2 6 3 8 5" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="sk-oil" viewBox="0 0 48 48">
+      <path d="M24 6C17 16 12 22 12 30a12 12 0 0 0 24 0c0-8-5-14-12-24z" fill="url(#sk-gold)"/>
+      <path d="M18 25c-1.2 3-.6 6.5 1.8 8.5" fill="none" stroke="#FEF9C3" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="20" cy="19" r="1.8" fill="#FFFFFF" fill-opacity="0.85"/>
+    </symbol>
+
+    <symbol id="sk-salt" viewBox="0 0 48 48">
+      <path d="M16 14h16l3 24a4 4 0 0 1-4 4H17a4 4 0 0 1-4-4l3-24z" fill="url(#sk-milk)" stroke="#94A3B8" stroke-width="1.4"/>
+      <path d="M14 25h20l1.5 13a3 3 0 0 1-3 3H15.5a3 3 0 0 1-3-3L14 25z" fill="#E2E8F0"/>
+      <path d="M17 9c0-2 3-4 7-4s7 2 7 4v5H17V9z" fill="url(#sk-metal)"/>
+      <circle cx="21" cy="8.5" r="1" fill="#334155"/><circle cx="24" cy="8.5" r="1" fill="#334155"/><circle cx="27" cy="8.5" r="1" fill="#334155"/>
+      <rect x="19" y="18" width="2" height="16" rx="1" fill="#FFFFFF" fill-opacity="0.9"/>
+    </symbol>
+
+    <symbol id="sk-sugar" viewBox="0 0 48 48">
+      <path d="M10 22l10-5 10 5-10 5-10-5z" fill="#FFFFFF" stroke="#FDA4AF" stroke-width="1.2"/>
+      <path d="M10 22v11l10 5V27l-10-5z" fill="#FFE4E6" stroke="#FDA4AF" stroke-width="1.2"/>
+      <path d="M30 22v11l-10 5V27l10-5z" fill="#FECDD3" stroke="#FDA4AF" stroke-width="1.2"/>
+      <path d="M22 14l9-4.5 9 4.5-9 4.5-9-4.5z" fill="#FFFFFF" stroke="#FB7185" stroke-width="1.2"/>
+      <path d="M22 14v9l9 4.5v-9L22 14z" fill="#FFF1F2" stroke="#FB7185" stroke-width="1.2"/>
+      <path d="M40 14v9l-9 4.5v-9L40 14z" fill="#FDA4AF" stroke="#FB7185" stroke-width="1.2"/>
+    </symbol>
+
+    <symbol id="sk-activity" viewBox="0 0 48 48">
+      <path d="M8 29c4-6 8-12 12-12 3 0 5 4 9 6 4 2 10 2 11 6v4H8v-4z" fill="url(#sk-tomato)"/>
+      <rect x="7" y="33" width="34" height="5" rx="2.5" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.2"/>
+      <path d="M22 19l4 2M25 22l4 2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 13l4-4 3 5 4-6 3 4" fill="none" stroke="url(#sk-leaf)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="sk-vitamin" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="16" fill="url(#sk-orange)"/>
+      <circle cx="24" cy="24" r="13" fill="#FEF3C7"/>
+      <circle cx="24" cy="24" r="11" fill="url(#sk-gold)" fill-opacity="0.85"/>
+      <path d="M24 13v22M13 24h22M16.2 16.2l15.6 15.6M31.8 16.2L16.2 31.8" stroke="#FFFBEB" stroke-width="1.8"/>
+      <path d="M33 9c3-3 7-3 9 0-3 3-6 3-9 0z" fill="url(#sk-leaf)"/>
+    </symbol>
+
+    <symbol id="sk-gem" viewBox="0 0 48 48">
+      <path d="M14 9h20l8 11-18 21L6 20l8-11z" fill="url(#sk-gem)"/>
+      <path d="M14 9l5 11 5 21 5-21 5-11" fill="none" stroke="#E0F2FE" stroke-width="1.5"/>
+      <path d="M6 20h36" stroke="#FFFFFF" stroke-width="1.6" stroke-opacity="0.8"/>
+      <path d="M14 9l5 11H6l8-11z" fill="#FFFFFF" fill-opacity="0.3"/>
+    </symbol>
+
+    <symbol id="sk-chart-bar" viewBox="0 0 48 48">
+      <rect x="6" y="7" width="36" height="34" rx="7" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.4"/>
+      <rect x="12" y="23" width="6" height="12" rx="2" fill="url(#sk-water)"/>
+      <rect x="21" y="14" width="6" height="21" rx="2" fill="url(#sk-leaf)"/>
+      <rect x="30" y="19" width="6" height="16" rx="2" fill="url(#sk-gold)"/>
+    </symbol>
+
+    <symbol id="sk-chart-pie" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="16" fill="url(#sk-water)"/>
+      <path d="M24 24V8a16 16 0 0 1 16 16H24z" fill="url(#sk-leaf)"/>
+      <path d="M24 24h16a16 16 0 0 1-16 16V24z" fill="url(#sk-gold)"/>
+      <circle cx="24" cy="24" r="6" fill="#FFFFFF"/>
+    </symbol>
+
+    <symbol id="sk-check" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="17" fill="url(#sk-leaf)"/>
+      <path d="M15.5 24.5l5.5 5.5 11.5-12" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="sk-alert" viewBox="0 0 48 48">
+      <path d="M24 6L5 39h38L24 6z" fill="url(#sk-gold)" stroke="#D97706" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M24 18v10" stroke="#78350F" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="24" cy="33.5" r="2" fill="#78350F"/>
+    </symbol>
+
+    <symbol id="sk-help" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="17" fill="url(#sk-orange)"/>
+      <path d="M19 18.5a5.5 5.5 0 0 1 10.3 2c0 3.2-4.8 4.2-4.8 7" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="24.5" cy="33.5" r="2.1" fill="#FFFFFF"/>
+    </symbol>
+
+    <symbol id="sk-star" viewBox="0 0 48 48">
+      <path d="M24 6l5.4 11 12.1 1.7-8.8 8.5 2.1 12.1L24 33.6l-10.8 5.7 2.1-12.1-8.8-8.5 12.1-1.7L24 6z" fill="url(#sk-milk)" stroke="#94A3B8" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="sk-star-filled" viewBox="0 0 48 48">
+      <path d="M24 6l5.4 11 12.1 1.7-8.8 8.5 2.1 12.1L24 33.6l-10.8 5.7 2.1-12.1-8.8-8.5 12.1-1.7L24 6z" fill="url(#sk-gold)" stroke="#B45309" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="sk-flame" viewBox="0 0 48 48">
+      <path d="M24 5c4 7 12 11 12 21a12 12 0 0 1-24 0c0-6 3.5-10.5 6-14 .5 3 2 5 4 5 0-5 2-9 2-12z" fill="url(#sk-tomato)"/>
+      <path d="M24 20c3 4 6 6.5 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z" fill="url(#sk-gold)"/>
+    </symbol>
+
+    <symbol id="sk-food-rice" viewBox="0 0 48 48">
+      <path d="M9 24c1.5-8 8-12 15-12s13.5 4 15 12H9z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+      <path d="M8 24h32c-1 10-7 16-16 16S9 34 8 24z" fill="url(#sk-blue-bowl)"/>
+      <ellipse cx="18" cy="19" rx="1.5" ry="0.9" fill="#CBD5E1"/><ellipse cx="24" cy="16" rx="1.5" ry="0.9" fill="#CBD5E1"/><ellipse cx="29" cy="20" rx="1.5" ry="0.9" fill="#CBD5E1"/>
+      <path d="M18 39h12v3H18z" fill="#1E3A8A"/>
+      <path d="M28 17L41 7" stroke="url(#sk-wood)" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="sk-food-oats" viewBox="0 0 48 48">
+      <path d="M8 24h32c-1.5 10-7.5 16-16 16S9.5 34 8 24z" fill="url(#sk-wood)"/>
+      <ellipse cx="24" cy="23" rx="15" ry="5.5" fill="url(#sk-wheat)"/>
+      <ellipse cx="18" cy="22" rx="3" ry="1.8" transform="rotate(-15 18 22)" fill="#FEF9C3"/>
+      <ellipse cx="25" cy="20" rx="3.2" ry="1.8" transform="rotate(10 25 20)" fill="#FDE047"/>
+      <ellipse cx="30" cy="23" rx="3" ry="1.8" transform="rotate(-10 30 23)" fill="#FEF9C3"/>
+    </symbol>
+
+    <symbol id="sk-food-sweetpotato" viewBox="0 0 48 48">
+      <path d="M7 29c3-8 11-15 22-17 6-1 11 2 12 7 1 6-6 14-16 18-8 3-16 0-18-8z" fill="url(#sk-sweetpotato)"/>
+      <ellipse cx="30" cy="26" rx="9" ry="7" transform="rotate(-25 30 26)" fill="url(#sk-orange)"/>
+      <ellipse cx="30" cy="26" rx="7" ry="5.2" transform="rotate(-25 30 26)" fill="#FDBA74"/>
+    </symbol>
+
+    <symbol id="sk-food-corn" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="22" rx="8.5" ry="14" transform="rotate(15 24 22)" fill="url(#sk-gold)"/>
+      <path d="M18 16h13M17 22h14M16 28h13M23 10l-4 22M28 11l-4 22" stroke="#D97706" stroke-width="1.2" stroke-opacity="0.55"/>
+      <path d="M14 23c-3 8-1 16 6 18-3-6-3-12-6-18z" fill="url(#sk-leaf)"/>
+      <path d="M33 25c2 8-2 15-10 16 4-5 7-10 10-16z" fill="url(#sk-green-dark)"/>
+    </symbol>
+
+    <symbol id="sk-food-broccoli" viewBox="0 0 48 48">
+      <path d="M20 27h8l2 14h-12l2-14z" fill="url(#sk-leaf)"/>
+      <circle cx="16" cy="20" r="8" fill="url(#sk-green-dark)"/>
+      <circle cx="32" cy="20" r="8" fill="url(#sk-green-dark)"/>
+      <circle cx="24" cy="14" r="9" fill="url(#sk-leaf)"/>
+      <circle cx="21" cy="12" r="2.5" fill="#A7F3D0" fill-opacity="0.6"/>
+    </symbol>
+
+    <symbol id="sk-food-tomato" viewBox="0 0 48 48">
+      <circle cx="24" cy="26" r="14.5" fill="url(#sk-tomato)"/>
+      <ellipse cx="18" cy="21" rx="3.2" ry="5" transform="rotate(25 18 21)" fill="#FFFFFF" fill-opacity="0.38"/>
+      <path d="M24 14l-5-4 4 1 1-4 1 4 4-1-5 4z" fill="url(#sk-green-dark)"/>
+    </symbol>
+
+    <symbol id="sk-food-kiwi" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="16" fill="url(#sk-wood)"/>
+      <circle cx="24" cy="24" r="13" fill="#84CC16"/>
+      <ellipse cx="24" cy="24" rx="4.5" ry="6" fill="#ECFCCB"/>
+      <circle cx="18" cy="20" r="1" fill="#1E293B"/><circle cx="30" cy="20" r="1" fill="#1E293B"/>
+      <circle cx="17" cy="25" r="1" fill="#1E293B"/><circle cx="31" cy="25" r="1" fill="#1E293B"/>
+      <circle cx="20" cy="30" r="1" fill="#1E293B"/><circle cx="28" cy="30" r="1" fill="#1E293B"/>
+    </symbol>
+
+    <symbol id="sk-food-blueberry" viewBox="0 0 48 48">
+      <path d="M24 13c-5-4-11-3-13 1 5 2 9 1 13-1z" fill="url(#sk-leaf)"/>
+      <circle cx="17" cy="28" r="9.5" fill="url(#sk-berry)"/>
+      <circle cx="31" cy="29" r="9" fill="url(#sk-berry)"/>
+      <circle cx="24" cy="20" r="9.5" fill="url(#sk-berry)"/>
+      <circle cx="21" cy="17" r="2.5" fill="#BFDBFE" fill-opacity="0.65"/>
+    </symbol>
+
+    <symbol id="sk-food-chicken" viewBox="0 0 48 48">
+      <path d="M9 27c0-9 8-15 20-15 7 0 11 4 11 9 0 7-8 14-19 14-7 0-12-3-12-8z" fill="url(#sk-chicken)"/>
+      <path d="M16 21l8 6M22 18l8 6M28 16l6 4.5" stroke="#9A3412" stroke-width="2" stroke-linecap="round" stroke-opacity="0.45"/>
+    </symbol>
+
+    <symbol id="sk-food-salmon" viewBox="0 0 48 48">
+      <path d="M8 29c4-10 14-16 26-14 4 1 6 4 6 8 0 8-9 14-21 14-7 0-12-3-11-8z" fill="url(#sk-salmon)"/>
+      <path d="M14 29c4-6 9-10 15-11M20 33c4-6 9-10 14-11M27 33c3-4 6-7 10-8" fill="none" stroke="#FFF1F2" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.85"/>
+    </symbol>
+
+    <symbol id="sk-food-shrimp" viewBox="0 0 48 48">
+      <path d="M33 14c-8-4-18 1-20 10-2 8 4 14 12 14 4 0 7-2 8-5" fill="none" stroke="url(#sk-salmon)" stroke-width="9" stroke-linecap="round"/>
+      <path d="M33 14c-8-4-18 1-20 10" fill="none" stroke="#FFE4E6" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M31 33l7 4-2-6 5-2-7-2" fill="url(#sk-tomato)"/>
+      <circle cx="33" cy="14" r="1.6" fill="#0F172A"/>
+    </symbol>
+
+    <symbol id="sk-food-beef" viewBox="0 0 48 48">
+      <path d="M8 27c0-9 7-15 17-15 9 0 15 5 15 12 0 8-7 13-17 13-9 0-15-4-15-10z" fill="url(#sk-meat)"/>
+      <path d="M14 24c4-3 9-3 14 0M18 30c5-2 10-1 13 1" fill="none" stroke="#FEE2E2" stroke-width="2" stroke-linecap="round" stroke-opacity="0.8"/>
+    </symbol>
+
+    <symbol id="sk-food-yogurt" viewBox="0 0 48 48">
+      <path d="M12 17h24l-3 22a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3l-3-22z" fill="url(#sk-milk)" stroke="#93C5FD" stroke-width="1.4"/>
+      <rect x="10" y="13" width="28" height="5" rx="2.5" fill="url(#sk-water)"/>
+      <circle cx="24" cy="11" r="4" fill="url(#sk-berry)"/>
+      <path d="M15 26h18v9H15z" fill="#DBEAFE"/>
+    </symbol>
+
+    <symbol id="sk-food-tofu" viewBox="0 0 48 48">
+      <path d="M11 22l13-7 13 7-13 7-13-7z" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.2"/>
+      <path d="M11 22v12l13 7V29l-13-7z" fill="url(#sk-tofu)"/>
+      <path d="M37 22v12l-13 7V29l13-7z" fill="#FDE68A"/>
+      <circle cx="22" cy="21" r="2" fill="url(#sk-leaf)"/>
+    </symbol>
+
+    <symbol id="sk-food-soybean" viewBox="0 0 48 48">
+      <path d="M9 32c3-11 13-20 27-22 3 0 5 2 4 5-2 12-12 22-26 24-4 0-6-3-5-7z" fill="url(#sk-leaf)"/>
+      <circle cx="17" cy="29" r="4.5" fill="url(#sk-wheat)"/>
+      <circle cx="25" cy="23" r="4.5" fill="url(#sk-gold)"/>
+      <circle cx="33" cy="17" r="4.2" fill="url(#sk-wheat)"/>
+    </symbol>
+
+    <symbol id="sk-export" viewBox="0 0 48 48">
+      <path d="M11 6h18l9 9v24a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V10a4 4 0 0 1 1-4z" fill="url(#sk-milk)" stroke="#CBD5E1" stroke-width="1.4"/>
+      <path d="M29 6l9 9h-6a3 3 0 0 1-3-3V6z" fill="url(#sk-gold)"/>
+      <circle cx="24" cy="27" r="10.5" fill="url(#sk-leaf)"/>
+      <path d="M24 21.5v10M19.5 27.5L24 32l4.5-4.5" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
 
   <!-- Top Minimal Navigation -->
   <header class="sticky top-0 z-30 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[#E4E9E5]">
@@ -79,15 +463,15 @@
       <div class="flex items-center gap-2.5">
         <div class="w-8 h-8 rounded-lg bg-[#2D5A43] flex items-center justify-center overflow-hidden shrink-0">
           <img
-            src="/src/assets/images/zhishi_brand_logo_1794995552165.jpg"
+            src="/assets/aistudio/____cfd20237.jpg"
             alt="知食品牌 Logo"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover transition-transform duration-200 ease-out hover:scale-110 cursor-pointer"
             referrerpolicy="no-referrer"
           />
         </div>
-        <div>
-          <span class="font-semibold text-base tracking-tight text-stone-900">一日三餐靠谱</span>
-          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-[#E9F2EC] text-[#2D5A43] font-medium">
+        <div class="shrink-0">
+          <span class="font-semibold text-base tracking-tight text-stone-900 whitespace-nowrap">一日三餐靠谱</span>
+          <span class="hidden xl:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-[#E9F2EC] text-[#2D5A43] font-medium whitespace-nowrap">
             2022膳食指南 &amp; WHO标准
           </span>
         </div>
@@ -95,19 +479,39 @@
 
       <!-- View Switcher Tabs -->
       <nav class="flex items-center gap-1 bg-stone-200/60 p-1 rounded-xl overflow-x-auto max-w-full" aria-label="主导航">
-        <button type="button" data-view="pagoda" class="nav-tab tab-btn active text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg transition-all whitespace-nowrap">
-          膳食宝塔
+        <button type="button" data-view="pagoda" class="nav-tab tab-btn active inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg transition-all whitespace-nowrap shrink-0">
+          <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-pagoda"/></svg>
+          <span>膳食宝塔</span>
         </button>
-        <button type="button" data-view="nutrients" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
-          核心营养与限值
+        <button type="button" data-view="nutrients" class="nav-tab tab-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+          <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-nutrients"/></svg>
+          <span>七大营养素普及</span>
         </button>
-        <button type="button" data-view="checker" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
-          每日饮食自测
+        <button type="button" data-view="foods" class="nav-tab tab-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+          <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-plate"/></svg>
+          <span>食物营养</span>
         </button>
-        <button type="button" data-view="myths" class="nav-tab tab-btn text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap">
-          误区与问答 <span id="savedCountBadge" class="ml-1 px-1.5 py-0.2 text-[11px] rounded-full bg-emerald-800/15 text-emerald-900 hidden">0</span>
+        <button type="button" data-view="checker" class="nav-tab tab-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+          <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-sliders"/></svg>
+          <span>饮食自测</span>
+        </button>
+        <button type="button" data-view="myths" class="nav-tab tab-btn inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+          <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-book"/></svg>
+          <span>误区问答</span>
+          <span id="savedCountBadge" class="ml-0.5 px-1.5 py-0.5 text-[11px] rounded-full bg-emerald-800/15 text-emerald-900 hidden">0</span>
         </button>
       </nav>
+
+      <!-- Standalone HTML Export Action -->
+      <button
+        type="button"
+        id="exportHtmlBtn"
+        class="export-html-trigger inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-xl bg-[#2D5A43] text-white hover:bg-[#244A37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A43]/40 transition-colors whitespace-nowrap shrink-0 shadow-sm"
+        title="导出包含全部图文与交互功能的独立单文件 HTML"
+      >
+        <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-export"/></svg>
+        <span class="export-btn-label">导出 HTML</span>
+      </button>
     </div>
   </header>
 
@@ -123,22 +527,37 @@
           依据<a href="http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html" target="_blank" rel="noopener noreferrer" class="underline decoration-emerald-700/40 hover:text-[#2D5A43] font-medium">《中国居民膳食指南（2022）》</a>与<a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="underline decoration-emerald-700/40 hover:text-[#2D5A43] font-medium">世界卫生组织（WHO）健康饮食实况报道</a>整理。每天摄入 <strong>12种以上</strong> 食物、每周 <strong>25种以上</strong>，以谷类为主、蔬果充足、减盐控糖。
         </p>
       </div>
-      <!-- Quick Key Metric Pills -->
-      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 shrink-0">
-        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
-          <div class="text-[11px] text-stone-500">每日食物种类</div>
-          <div class="text-lg font-bold text-[#2D5A43]">&ge; 12 <span class="text-xs font-normal text-stone-500">种/天</span></div>
-          <div class="text-[11px] text-stone-400">每周 &ge; 25 种</div>
+      <!-- Quick Key Metric Cards with Enlarged Skeuomorphic Icons -->
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 shrink-0 tabular-nums">
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-3 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-diversity"/></svg>
+          </div>
+          <div>
+            <div class="text-[11px] text-stone-500">每日食物种类</div>
+            <div class="text-base sm:text-lg font-bold text-[#2D5A43] leading-tight mt-0.5">&ge; 12 <span class="text-xs font-normal text-stone-500">种</span></div>
+            <div class="text-[11px] text-stone-400">每周 &ge; 25 种</div>
+          </div>
         </div>
-        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
-          <div class="text-[11px] text-stone-500">成人每日限盐</div>
-          <div class="text-lg font-bold text-[#2D5A43]">&lt; 5 <span class="text-xs font-normal text-stone-500">g/天</span></div>
-          <div class="text-[11px] text-stone-400">钠 &lt; 2 g/天</div>
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-3 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-salt"/></svg>
+          </div>
+          <div>
+            <div class="text-[11px] text-stone-500">成人每日限盐</div>
+            <div class="text-base sm:text-lg font-bold text-[#2D5A43] leading-tight mt-0.5">&lt; 5 <span class="text-xs font-normal text-stone-500">g/天</span></div>
+            <div class="text-[11px] text-stone-400">钠 &lt; 2 g/天</div>
+          </div>
         </div>
-        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2.5">
-          <div class="text-[11px] text-stone-500">每日足量饮水</div>
-          <div class="text-lg font-bold text-[#2D5A43]">1500–1700 <span class="text-xs font-normal text-stone-500">ml</span></div>
-          <div class="text-[11px] text-stone-400">约 7–8 杯</div>
+        <div class="bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-3 flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-water"/></svg>
+          </div>
+          <div>
+            <div class="text-[11px] text-stone-500">每日足量饮水</div>
+            <div class="text-base sm:text-lg font-bold text-[#2D5A43] leading-tight mt-0.5">1500–1700 <span class="text-xs font-normal text-stone-500">ml</span></div>
+            <div class="text-[11px] text-stone-400">约 7–8 杯</div>
+          </div>
         </div>
       </div>
     </div>
@@ -167,70 +586,105 @@
 
           <!-- Tier 5 -->
           <div class="flex justify-center">
-            <button type="button" data-tier="tier5" class="pagoda-tier w-7/12 sm:w-6/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded">第五层 · 控量</span>
-                <span class="text-xs text-stone-500">油 25–30g | 盐 &lt;5g</span>
+            <button type="button" data-tier="tier5" class="pagoda-tier w-8/12 sm:w-7/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0">
+                <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-oil"/></svg>
               </div>
-              <div class="font-semibold text-sm text-stone-800 mt-1">烹调油和食盐</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold text-amber-800">第五层 · 控量</span>
+                  <span class="text-xs text-stone-500 tabular-nums">油 25–30g · 盐 &lt;5g</span>
+                </div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5">烹调油和食盐</div>
+              </div>
             </button>
           </div>
 
           <!-- Tier 4 -->
           <div class="flex justify-center">
-            <button type="button" data-tier="tier4" class="pagoda-tier w-8/12 sm:w-7/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-sky-800 bg-sky-50 px-2 py-0.5 rounded">第四层 · 富钙与植物蛋白</span>
-                <span class="text-xs text-stone-500">奶 300–500g | 豆坚果 25–35g</span>
+            <button type="button" data-tier="tier4" class="pagoda-tier w-9/12 sm:w-8/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+                <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-milk"/></svg>
               </div>
-              <div class="font-semibold text-sm text-stone-800 mt-1">奶类、大豆和坚果</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold text-sky-800">第四层 · 富钙与植物蛋白</span>
+                  <span class="text-xs text-stone-500 tabular-nums">奶 300–500g · 豆坚果 25–35g</span>
+                </div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5">奶类、大豆和坚果</div>
+              </div>
             </button>
           </div>
 
           <!-- Tier 3 -->
           <div class="flex justify-center">
-            <button type="button" data-tier="tier3" class="pagoda-tier w-9/12 sm:w-8/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">第三层 · 优质动物蛋白</span>
-                <span class="text-xs text-stone-500">共计 120–200g/天</span>
+            <button type="button" data-tier="tier3" class="pagoda-tier w-10/12 sm:w-9/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+                <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg>
               </div>
-              <div class="font-semibold text-sm text-stone-800 mt-1">鱼、禽、肉、蛋等动物性食物</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold text-rose-800">第三层 · 优质动物蛋白</span>
+                  <span class="text-xs text-stone-500 tabular-nums">共计 120–200g/天</span>
+                </div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5">鱼、禽、肉、蛋等动物性食物</div>
+              </div>
             </button>
           </div>
 
           <!-- Tier 2 -->
           <div class="flex justify-center">
-            <button type="button" data-tier="tier2" class="pagoda-tier w-11/12 sm:w-10/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">第二层 · 鼓励多摄入</span>
-                <span class="text-xs text-stone-500">蔬菜 &ge;300g | 水果 200–350g</span>
+            <button type="button" data-tier="tier2" class="pagoda-tier w-11/12 text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-emerald flex items-center justify-center shrink-0">
+                <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-broccoli"/></svg>
               </div>
-              <div class="font-semibold text-sm text-stone-800 mt-1">蔬菜和水果</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold text-emerald-800">第二层 · 鼓励多摄入</span>
+                  <span class="text-xs text-stone-500 tabular-nums">蔬菜 &ge;300g · 水果 200–350g</span>
+                </div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5">蔬菜和水果</div>
+              </div>
             </button>
           </div>
 
           <!-- Tier 1 -->
           <div class="flex justify-center">
-            <button type="button" data-tier="tier1" class="pagoda-tier active w-full text-left border border-stone-200 rounded-xl p-3.5 hover:border-[#2D5A43]">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-[#2D5A43] bg-white/80 px-2 py-0.5 rounded">第一层 · 膳食基础</span>
-                <span class="text-xs text-stone-600">谷类 200–300g | 薯类 50–100g</span>
+            <button type="button" data-tier="tier1" class="pagoda-tier active w-full text-left border border-stone-200 rounded-xl p-3.5 hover:border-[#2D5A43] flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-xl skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0">
+                <svg class="w-8 h-8 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-wheat"/></svg>
               </div>
-              <div class="font-semibold text-sm text-stone-900 mt-1">谷薯类食物（含全谷物和杂豆 50–150g）</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-semibold text-[#2D5A43]">第一层 · 膳食基础</span>
+                  <span class="text-xs text-stone-600 tabular-nums">谷类 200–300g · 薯类 50–100g</span>
+                </div>
+                <div class="font-semibold text-sm text-stone-900 mt-0.5">谷薯类食物（含全谷物和杂豆 50–150g）</div>
+              </div>
             </button>
           </div>
 
           <!-- Base Foundation: Water & Activity -->
           <div class="pt-2 border-t border-dashed border-stone-200 grid grid-cols-2 gap-3">
-            <button type="button" data-tier="water" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="text-xs font-medium text-cyan-800">基础保障 · 足量饮水</div>
-              <div class="font-semibold text-sm text-stone-800 mt-0.5">1500–1700 ml/天</div>
-              <div class="text-[11px] text-stone-500">整体膳食水 2700–3000 ml</div>
+            <button type="button" data-tier="water" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+                <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-water"/></svg>
+              </div>
+              <div class="min-w-0">
+                <div class="text-xs font-medium text-cyan-800">基础保障 · 足量饮水</div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5 tabular-nums">1500–1700 ml/天</div>
+                <div class="text-[11px] text-stone-500 tabular-nums">总水 2700–3000 ml</div>
+              </div>
             </button>
-            <button type="button" data-tier="activity" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43]">
-              <div class="text-xs font-medium text-teal-800">能量平衡 · 身体活动</div>
-              <div class="font-semibold text-sm text-stone-800 mt-0.5">&ge; 6000 步/天</div>
-              <div class="text-[11px] text-stone-500">每周 150 分钟中等强度运动</div>
+            <button type="button" data-tier="activity" class="pagoda-tier text-left border border-stone-200 rounded-xl p-3 hover:border-[#2D5A43] flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+                <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-activity"/></svg>
+              </div>
+              <div class="min-w-0">
+                <div class="text-xs font-medium text-teal-800">能量平衡 · 身体活动</div>
+                <div class="font-semibold text-sm text-stone-800 mt-0.5 tabular-nums">&ge; 6000 步/天</div>
+                <div class="text-[11px] text-stone-500">每周 150 分钟中等运动</div>
+              </div>
             </button>
           </div>
         </div>
@@ -241,28 +695,56 @@
             <!-- Populated by JS on init and click -->
           </div>
 
-          <!-- Reference Plate Preview inside Inspector -->
-          <div class="mt-6 pt-5 border-t border-[#E4E9E5]">
-            <div class="flex items-center justify-between text-xs text-stone-500 mb-3">
-              <span class="font-medium text-stone-700">《中国居民平衡膳食餐盘（2022）》一餐构成参考</span>
+          <!-- Reference Plate Preview inside Inspector with Editorial Meal Photography -->
+          <div class="mt-6 pt-5 border-t border-[#E4E9E5] space-y-3">
+            <div class="flex items-center justify-between text-xs text-stone-500">
+              <span class="font-medium text-stone-700">《中国居民平衡膳食餐盘（2022）》一餐示范</span>
               <a href="https://xinwen.bjd.com.cn/content/s62a9575de4b0c2cdf0a2e0b7.html" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">查看餐盘图示解析 &nearr;</a>
             </div>
-            <div class="grid grid-cols-4 gap-2 text-center text-xs">
-              <div class="bg-stone-50 border border-stone-200/80 rounded-lg p-2">
-                <div class="font-semibold text-stone-800">谷薯类</div>
-                <div class="text-[11px] text-stone-500 mt-0.5">主食占餐盘大部</div>
+            <div class="rounded-xl overflow-hidden border border-[#E4E9E5] bg-[#FAF9F5] aspect-[16/7]">
+              <img
+                src="/src/assets/images/pagoda_balanced_meal_1795420359303.jpg"
+                alt="平衡膳食一餐示范：糙米红薯主食、西兰花、三文鱼、豆腐、水煮蛋、鲜奶与蓝莓"
+                class="w-full h-full object-cover"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-lg p-2.5 flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-rice"/></svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-stone-800">谷薯类</div>
+                  <div class="text-[11px] text-stone-500">粗细搭配主食</div>
+                </div>
               </div>
-              <div class="bg-emerald-50/60 border border-emerald-200/70 rounded-lg p-2">
-                <div class="font-semibold text-emerald-900">蔬菜类</div>
-                <div class="text-[11px] text-emerald-700 mt-0.5">餐餐有蔬菜</div>
+              <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-lg p-2.5 flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg skeuo-tile skeuo-tile-emerald flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-broccoli"/></svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-stone-800">蔬菜类</div>
+                  <div class="text-[11px] text-stone-500">餐餐有深色菜</div>
+                </div>
               </div>
-              <div class="bg-rose-50/60 border border-rose-200/70 rounded-lg p-2">
-                <div class="font-semibold text-rose-900">鱼肉蛋豆</div>
-                <div class="text-[11px] text-rose-700 mt-0.5">素食可用豆替肉</div>
+              <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-lg p-2.5 flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-stone-800">鱼肉蛋豆</div>
+                  <div class="text-[11px] text-stone-500">优质蛋白互补</div>
+                </div>
               </div>
-              <div class="bg-sky-50/60 border border-sky-200/70 rounded-lg p-2">
-                <div class="font-semibold text-sky-900">水果 + 一杯奶</div>
-                <div class="text-[11px] text-sky-700 mt-0.5">餐盘旁配鲜奶</div>
+              <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-lg p-2.5 flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+                  <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-milk"/></svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-stone-800">水果 + 奶</div>
+                  <div class="text-[11px] text-stone-500">餐旁配鲜奶鲜果</div>
+                </div>
               </div>
             </div>
           </div>
@@ -292,25 +774,53 @@
             </thead>
             <tbody class="divide-y divide-[#E4E9E5] text-stone-700">
               <tr>
-                <td class="py-3 pr-4 font-medium">第五层：食盐限值</td>
-                <td class="py-3 px-4 text-stone-500">&lt; 6 g/天</td>
-                <td class="py-3 px-4 font-semibold text-[#2D5A43]">&lt; 5 g/天</td>
+                <td class="py-3 pr-4 font-medium">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-salt"/></svg>
+                    </span>
+                    <span>第五层：食盐限值</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-stone-500 tabular-nums">&lt; 6 g/天</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43] tabular-nums">&lt; 5 g/天</td>
                 <td class="py-3 pl-4 text-xs text-stone-600">食盐摄入过多增加高血压、脑卒中风险，与 WHO 限盐标准（&lt;5 g）接轨</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium">第四层：奶及奶制品</td>
-                <td class="py-3 px-4 text-stone-500">300 g/天</td>
-                <td class="py-3 px-4 font-semibold text-[#2D5A43]">300–500 g/天</td>
+                <td class="py-3 pr-4 font-medium">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-milk"/></svg>
+                    </span>
+                    <span>第四层：奶及奶制品</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-stone-500 tabular-nums">300 g/天</td>
+                <td class="py-3 px-4 font-semibold text-[#2D5A43] tabular-nums">300–500 g/天</td>
                 <td class="py-3 pl-4 text-xs text-stone-600">牛奶是优质蛋白质和钙的重要来源，提高上限以改善我国居民乳类摄入不足</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium">第三层：动物性食物</td>
+                <td class="py-3 pr-4 font-medium">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg>
+                    </span>
+                    <span>第三层：动物性食物</span>
+                  </div>
+                </td>
                 <td class="py-3 px-4 text-stone-500">畜禽肉 40–75g、水产 40–75g、蛋 40–50g</td>
                 <td class="py-3 px-4 font-semibold text-[#2D5A43]">总量 120–200 g/天（每周至少2次水产，每天1个鸡蛋）</td>
                 <td class="py-3 pl-4 text-xs text-stone-600">水产品脂肪较低且所含脂肪酸利于保护心血管；每天1个鸡蛋营养效益远高于胆固醇影响</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium">第一层：谷薯类细分</td>
+                <td class="py-3 pr-4 font-medium">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-9 h-9 rounded-xl skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0">
+                      <svg class="w-6 h-6 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-wheat"/></svg>
+                    </span>
+                    <span>第一层：谷薯类细分</span>
+                  </div>
+                </td>
                 <td class="py-3 px-4 text-stone-500">谷薯类 250–400 g</td>
                 <td class="py-3 px-4 font-semibold text-[#2D5A43]">谷类 200–300g（全谷物和杂豆 50–150g）+ 薯类 50–100g</td>
                 <td class="py-3 pl-4 text-xs text-stone-600">在准则三中明确加入“全谷物”，强调碳水化合物质量与天然膳食纤维摄入</td>
@@ -321,125 +831,181 @@
       </div>
     </section>
 
-    <!-- ==================== VIEW 2: 核心营养与限值 (NUTRIENTS & WHO GUIDELINES) ==================== -->
+    <!-- ==================== VIEW 2: 七大营养素普及 (SEVEN ESSENTIAL NUTRIENTS) ==================== -->
     <section id="view-nutrients" class="view-section hidden fade-in space-y-8">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-xl font-semibold text-stone-900">宏量营养素供能比与 WHO 限控阈值</h2>
-          <p class="text-sm text-stone-500 mt-0.5">结合《中国居民膳食指南（2022）》与世界卫生组织（WHO）最新膳食指南的核心量化指标</p>
+          <h2 class="text-xl font-semibold text-stone-900">人体七大营养素科学普及</h2>
+          <p class="text-sm text-stone-500 mt-0.5">系统认识三大产能营养素与四大非产能营养素，点击左侧条目查看核心功能、推荐限值与代表食物</p>
         </div>
-        <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] bg-white border border-[#E4E9E5] px-3 py-1.5 rounded-lg hover:bg-stone-50">
-          WHO Healthy Diet Fact Sheet &nearr;
+        <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] bg-white border border-[#E4E9E5] px-3 py-1.5 rounded-lg hover:bg-stone-50 whitespace-nowrap shrink-0 self-start sm:self-auto">
+          WHO Healthy Diet 标准 &nearr;
         </a>
       </div>
 
-      <!-- Charts & Energy Threshold Cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Editorial Visual Overview of the 7 Nutrients -->
+      <div class="bg-white border border-[#E4E9E5] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
+        <div class="lg:col-span-7 bg-[#FAF9F5] min-h-[200px]">
+          <img
+            src="/src/assets/images/nutrients_editorial_banner_1795420358863.jpg"
+            alt="人体七大营养素代表食材全景：三文鱼、燕麦、橄榄油、核桃、大豆、西兰花、鲜橙与清水"
+            class="w-full h-full object-cover max-h-[260px] lg:max-h-none"
+            referrerpolicy="no-referrer"
+          />
+        </div>
+        <div class="lg:col-span-5 p-6 flex flex-col justify-center space-y-3">
+          <div class="text-xs font-semibold text-[#2D5A43]">一图看懂七大营养素与餐桌食材</div>
+          <h3 class="text-lg font-bold text-stone-900 leading-snug">天然食物协同供能与维稳</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+            三大产能营养素负责提供能量与组织原料，四大非产能营养素负责调节代谢、免疫与肠道健康，二者缺一不可。
+          </p>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2.5 pt-2 border-t border-[#E4E9E5] text-xs text-stone-700">
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg><span class="text-[#2D5A43] font-semibold">01–03</span><span>三文鱼 · 橄榄油 · 燕麦</span></div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-broccoli"/></svg><span class="text-[#2D5A43] font-semibold">04–05</span><span>西兰花 · 鲜橙 · 大豆</span></div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-nut"/></svg><span class="text-[#2D5A43] font-semibold">06</span><span>全谷物与核桃纤维</span></div>
+            <div class="flex items-center gap-2"><svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-water"/></svg><span class="text-[#2D5A43] font-semibold">07</span><span>每日足量纯净饮水</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 7 Nutrients Two-Zone Explorer -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Left Selector List -->
+        <div class="lg:col-span-5 bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between gap-4">
+          <div class="space-y-4">
+            <div>
+              <div class="text-xs font-medium text-stone-500 mb-2">产能营养素 · 提供人体能量</div>
+              <div id="energyNutrientsList" class="space-y-2">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+            <div class="pt-3 border-t border-[#E4E9E5]">
+              <div class="text-xs font-medium text-stone-500 mb-2">非产能营养素 · 调节代谢与维稳</div>
+              <div id="nonEnergyNutrientsList" class="space-y-2">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-[#E4E9E5] text-xs text-stone-500 flex items-center justify-between tabular-nums">
+            <span>产能系数速记</span>
+            <span class="font-medium text-stone-700">蛋白 4 · 碳水 4 · 脂肪 9 kcal/g</span>
+          </div>
+        </div>
+
+        <!-- Right Detail Inspector -->
+        <div class="lg:col-span-7 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between min-h-[460px]">
+          <div id="sevenNutrientDetail" class="space-y-5">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Macro Energy Ratio Chart & Key WHO Limits -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <!-- Chart Card -->
-        <div class="lg:col-span-5 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between">
+        <div class="lg:col-span-6 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-1">
-              <h3 class="text-base font-semibold text-stone-900">每日总能量供能占比上限与区间</h3>
-              <span class="text-xs text-stone-400">占每日总能量 (%)</span>
+              <h3 class="text-base font-semibold text-stone-900">每日总能量供能占比与 WHO 控制上限</h3>
+              <span class="text-xs text-stone-400 tabular-nums">占总能量 (%)</span>
             </div>
-            <p class="text-xs text-stone-500 mb-4">展示碳水化合物推荐供能比及脂肪、游离糖的科学控制上限</p>
+            <p class="text-xs text-stone-500 mb-4">对比碳水化合物推荐供能区间与总脂肪、饱和脂肪、游离糖、反式脂肪上限</p>
             <div class="relative h-72 w-full">
               <canvas id="macroChart"></canvas>
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-[#E4E9E5] text-[11px] text-stone-500 flex flex-wrap justify-between gap-2">
-            <span>中国指南碳水供能比：<strong>50%–65%</strong>（WHO宽泛区间 40%–70%）</span>
-            <a href="https://nutritionsource.hsph.harvard.edu/2023/07/17/who-updated-guidelines-healthy-diets-total-fat/" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">哈佛公卫学院解读 WHO 指南 &nearr;</a>
+            <span>中国指南碳水供能比：<strong class="tabular-nums">50%–65%</strong>（WHO 宽泛区间 40%–70%）</span>
+            <a href="https://nutritionsource.hsph.harvard.edu/2023/07/17/who-updated-guidelines-healthy-diets-total-fat/" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">哈佛公卫学院解读 &nearr;</a>
           </div>
         </div>
 
-        <!-- Detailed Nutrient Limit Cards -->
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800">碳水化合物 (Carbohydrates)</span>
-                <span class="text-sm font-bold text-[#2D5A43]">50%–65% 能量</span>
+        <!-- Four Critical Thresholds Summary with Icons -->
+        <div class="lg:col-span-6 bg-white border border-[#E4E9E5] rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-semibold text-stone-900">日常最易忽视的四大红线指标</h3>
+            <p class="text-xs text-stone-500 mt-0.5 mb-4">结合《中国居民膳食指南（2022）》与 WHO 循证建议整理</p>
+            <div class="divide-y divide-[#E4E9E5]">
+              <div class="py-3 first:pt-0 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-rose flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-sugar"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-sm font-semibold text-stone-900">游离糖（添加糖 + 蜂蜜/纯果汁）</div>
+                    <p class="text-xs text-stone-600 mt-0.5 leading-relaxed">以 2000 kcal 计上限约 50 g，减半至 25 g（约 6 茶匙）以下获益更明显；不建议用非糖甜味剂控重。</p>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 tabular-nums">
+                  <div class="text-sm font-bold text-rose-700">&lt; 10% 能量</div>
+                  <div class="text-[11px] text-stone-400">理想 &lt; 5%</div>
+                </div>
               </div>
-              <h4 class="font-semibold text-stone-900 mt-3">重在“碳水质量”而非极端戒断</h4>
-              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
-                中国膳食指南指出谷薯类碳水化合物提供总能量的 50%～65%。WHO 指南强调 2 岁以上人群碳水应主要来自<strong>全谷物</strong>（玉米、小米、燕麦、小麦、糙米）、蔬菜、水果和豆类（扁豆、鹰嘴豆等）。
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
-              <span>全谷物和杂豆推荐：50–150 g/天</span>
-              <a href="https://www.who.int/news/item/17-07-2023-who-updates-guidelines-on-fats-and-carbohydrates" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 碳水指南 &nearr;</a>
-            </div>
-          </div>
-
-          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800">膳食脂肪 (Dietary Fats)</span>
-                <span class="text-sm font-bold text-amber-700">&lt; 30% 能量</span>
+              <div class="py-3 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-amber flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-oil"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-sm font-semibold text-stone-900">饱和脂肪与工业反式脂肪</div>
+                    <p class="text-xs text-stone-600 mt-0.5 leading-relaxed">少吃肥肉、黄油、猪油及烘焙油炸食品，日常烹调用大豆油、菜籽油、橄榄油等不饱和植物油。</p>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 tabular-nums">
+                  <div class="text-sm font-bold text-amber-700">饱和 &lt; 10%</div>
+                  <div class="text-[11px] text-stone-400">反式 &lt; 1%</div>
+                </div>
               </div>
-              <h4 class="font-semibold text-stone-900 mt-3">以不饱和脂肪替代饱和与反式脂肪</h4>
-              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
-                WHO 建议总脂肪不超过总能量的 <strong>30%</strong>；<strong>饱和脂肪 &lt; 10%</strong>（存在于肥肉、黄油、猪油、棕榈油、椰子油）；<strong>反式脂肪 &lt; 1%</strong>（工业反式脂肪常见于烘焙油炸食品，应避免）。可用大豆油、菜籽油、玉米油、葵花籽油及鱼类、坚果替代。
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
-              <span>中国指南烹调油：&le; 25–30 g/天</span>
-              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 脂肪建议 &nearr;</a>
-            </div>
-          </div>
-
-          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-800">游离糖 (Free Sugars)</span>
-                <span class="text-sm font-bold text-rose-700">&lt; 10% (理想 &lt;5%)</span>
+              <div class="py-3 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-salt"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-sm font-semibold text-stone-900">钠盐控制与补钾平衡</div>
+                    <p class="text-xs text-stone-600 mt-0.5 leading-relaxed">警惕酱油、咸菜、加工肉等隐形钠盐，同时多吃新鲜蔬果与豆类补钾，有助平稳血压。</p>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 tabular-nums">
+                  <div class="text-sm font-bold text-[#2D5A43]">盐 &lt; 5 g/天</div>
+                  <div class="text-[11px] text-stone-400">钾 &ge; 3510 mg</div>
+                </div>
               </div>
-              <h4 class="font-semibold text-stone-900 mt-3">每日上限约 50g，减半至 25g 获益更大</h4>
-              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
-                以每日摄入 2000 kcal 的健康体重成人计，游离糖 &lt;10% 相当于不超过 <strong>50 g（约 12 平茶匙）</strong>；进一步控制在 <strong>5%（约 25 g 或 6 茶匙）</strong>以下更有益健康。游离糖包含添加糖以及天然存在于蜂蜜、糖浆、果汁和浓缩果汁中的糖。
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
-              <span>WHO 不建议使用非糖甜味剂控重</span>
-              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 游离糖标准 &nearr;</a>
-            </div>
-          </div>
-
-          <div class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-800">钠与钾平衡 (Sodium &amp; Potassium)</span>
-                <span class="text-sm font-bold text-sky-800">盐 &lt;5g | 钾 &ge;3510mg</span>
+              <div class="py-3 last:pb-0 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-emerald flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-wheat"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-sm font-semibold text-stone-900">全谷物杂豆与天然膳食纤维</div>
+                    <p class="text-xs text-stone-600 mt-0.5 leading-relaxed">将精白米面的 1/3 替换为糙米、燕麦、小米、杂豆，每天从天然食物获取足量膳食纤维。</p>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 tabular-nums">
+                  <div class="text-sm font-bold text-[#2D5A43]">&ge; 25 g/天</div>
+                  <div class="text-[11px] text-stone-400">全谷杂豆 50–150g</div>
+                </div>
               </div>
-              <h4 class="font-semibold text-stone-900 mt-3">减盐控钠 + 充足蔬果补钾护血管</h4>
-              <p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
-                成人每日食盐应 <strong>&lt; 5 g（相当于钠 &lt; 2 g/天）</strong>，有助于预防高血压并降低心脏病和脑卒中风险。同时 WHO 建议成人每日钾摄入量至少达到 <strong>90 mmol/天（3510 mg/天）</strong>，新鲜蔬果与豆类是钾的优质来源。
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-400 flex justify-between">
-              <span>警惕加工肉、酱油、咸味零食中的隐形盐</span>
-              <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="text-[#2D5A43] hover:underline">WHO 钠钾指南 &nearr;</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Age-Specific Fiber & Fruit/Veg Interactive Selector (WHO 2023/2026) -->
+      <!-- Age-Specific Fiber & Fruit/Veg Interactive Selector (WHO) -->
       <div class="bg-white border border-[#E4E9E5] rounded-2xl p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#E4E9E5]">
           <div>
-            <h3 class="text-base font-semibold text-stone-900">分年龄段：每日蔬果与天然膳食纤维最低推荐量（WHO标准）</h3>
-            <p class="text-xs text-stone-500 mt-0.5">切换不同年龄段查看世界卫生组织发布的蔬果与天然膳食纤维量化目标及学龄儿童饮水参考</p>
+            <h3 class="text-base font-semibold text-stone-900">分年龄段：每日蔬果与天然膳食纤维最低推荐量（WHO 标准）</h3>
+            <p class="text-xs text-stone-500 mt-0.5">切换不同年龄段查看世界卫生组织发布的蔬果与天然膳食纤维量化目标</p>
           </div>
           <div class="inline-flex bg-stone-100 p-1 rounded-xl self-start">
-            <button type="button" data-age="child2_5" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all">
+            <button type="button" data-age="child2_5" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all whitespace-nowrap shrink-0">
               2–5 岁儿童
             </button>
-            <button type="button" data-age="child6_9" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all">
+            <button type="button" data-age="child6_9" class="age-btn px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 transition-all whitespace-nowrap shrink-0">
               6–9 岁儿童
             </button>
-            <button type="button" data-age="adult10plus" class="age-btn active tab-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all">
+            <button type="button" data-age="adult10plus" class="age-btn active tab-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap shrink-0">
               10 岁及以上 / 成人
             </button>
           </div>
@@ -448,6 +1014,235 @@
         <div id="ageRecommendationPanel" class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
           <!-- Populated dynamically by JS -->
         </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: 食物营养 (FOOD NUTRITION DATABASE & COMPARATOR) ==================== -->
+    <section id="view-foods" class="view-section hidden fade-in space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-semibold text-stone-900">常见食物营养成分查询与对比</h2>
+          <p class="text-sm text-stone-500 mt-0.5">参考《中国食物成分表（标准版）》每 100 g 可食部数据，支持分类筛选、按营养素排序及最多 3 种食物并排对比</p>
+        </div>
+        <!-- Quick Compare Presets -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-stone-500">热门对比：</span>
+          <button type="button" data-food-preset="staples" class="food-preset-btn px-3 py-1.5 rounded-lg bg-[#E9F2EC] text-[#2D5A43] font-medium hover:bg-emerald-100 transition whitespace-nowrap shrink-0">
+            主食对比（米饭/燕麦/红薯）
+          </button>
+          <button type="button" data-food-preset="proteins" class="food-preset-btn px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition whitespace-nowrap shrink-0">
+            蛋白对比（鸡胸/三文鱼/北豆腐）
+          </button>
+          <button type="button" data-food-preset="calcium" class="food-preset-btn px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition whitespace-nowrap shrink-0">
+            钙与蔬果（牛奶/西兰花/菠菜）
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual Category Showcase Cards (Interactive Quick Filters) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="bg-white border border-[#E4E9E5] rounded-2xl overflow-hidden grid grid-cols-12 items-stretch">
+          <div class="col-span-5 bg-[#FAF9F5]">
+            <img
+              src="/src/assets/images/food_grains_produce_1795420359269.jpg"
+              alt="谷薯主食与新鲜蔬菜水果：燕麦、糙米、红薯、玉米、西兰花、菠菜、番茄、猕猴桃、蓝莓"
+              class="w-full h-full object-cover min-h-[140px]"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+          <div class="col-span-7 p-4 flex flex-col justify-between gap-3">
+            <div>
+              <div class="text-xs font-medium text-[#2D5A43]">植物性基础食材 · 10 种</div>
+              <h3 class="text-base font-semibold text-stone-900 mt-0.5">谷薯主食与新鲜蔬果</h3>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">优质复合碳水、天然膳食纤维、维生素 C 与钾元素的核心来源。</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" data-quick-food-cat="grains" class="quick-food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium text-[#2D5A43] bg-[#E9F2EC] hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition whitespace-nowrap shrink-0">
+                <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-wheat"/></svg>
+                <span>看谷薯主食 &rarr;</span>
+              </button>
+              <button type="button" data-quick-food-cat="produce" class="quick-food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition whitespace-nowrap shrink-0">
+                <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-broccoli"/></svg>
+                <span>看蔬菜水果 &rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#E4E9E5] rounded-2xl overflow-hidden grid grid-cols-12 items-stretch">
+          <div class="col-span-5 bg-[#FAF9F5]">
+            <img
+              src="/src/assets/images/food_protein_dairy_1795420358861.jpg"
+              alt="鱼禽肉蛋与奶豆坚果：三文鱼、鸡胸肉、水煮蛋、对虾、北豆腐、纯牛奶与原味核桃"
+              class="w-full h-full object-cover min-h-[140px]"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+          <div class="col-span-7 p-4 flex flex-col justify-between gap-3">
+            <div>
+              <div class="text-xs font-medium text-[#2D5A43]">蛋白与钙质优选 · 10 种</div>
+              <h3 class="text-base font-semibold text-stone-900 mt-0.5">鱼禽肉蛋与奶豆坚果</h3>
+              <p class="text-xs text-stone-600 mt-1 leading-relaxed">动植物优质蛋白、高吸收率钙、铁锌及 Omega-3 脂肪酸来源。</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" data-quick-food-cat="protein" class="quick-food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium text-[#2D5A43] bg-[#E9F2EC] hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition whitespace-nowrap shrink-0">
+                <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg>
+                <span>看鱼禽肉蛋 &rarr;</span>
+              </button>
+              <button type="button" data-quick-food-cat="dairy_soy" class="quick-food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium text-stone-700 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition whitespace-nowrap shrink-0">
+                <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-milk"/></svg>
+                <span>看奶豆坚果 &rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Multi-Food Comparison Panel -->
+      <div class="bg-white border border-[#E4E9E5] rounded-2xl p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E4E9E5]">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-emerald flex items-center justify-center shrink-0">
+              <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-chart-bar"/></svg>
+            </div>
+            <div>
+              <h3 class="text-base font-semibold text-stone-900">食物营养横向对比台 <span id="compareCountText" class="text-xs font-normal text-stone-500 ml-1 tabular-nums"></span></h3>
+              <p class="text-xs text-stone-500 mt-0.5">在下方食物卡片中点击「加入对比」即可实时切换对比组合（每 100 g 可食部）</p>
+            </div>
+          </div>
+          <button type="button" id="clearCompareBtn" class="text-xs text-stone-600 hover:text-stone-900 border border-[#E4E9E5] px-3 py-1.5 rounded-lg hover:bg-stone-50 transition self-start sm:self-auto whitespace-nowrap shrink-0">
+            清空对比
+          </button>
+        </div>
+
+        <div id="foodCompareEmpty" class="hidden py-8 text-center text-sm text-stone-500 bg-[#FAF9F5] rounded-xl border border-dashed border-[#E4E9E5]">
+          尚未选择对比食物，请点击上方「热门对比」或下方任意食物卡片中的「加入对比」按钮。
+        </div>
+
+        <div id="foodCompareContent" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-6 overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs sm:text-sm tabular-nums">
+                <thead>
+                  <tr id="foodCompareHeadRow" class="border-b border-[#E4E9E5] text-xs text-stone-500">
+                    <!-- Populated by JS -->
+                  </tr>
+                </thead>
+                <tbody id="foodCompareBody" class="divide-y divide-[#E4E9E5] text-stone-700">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="lg:col-span-6">
+              <div class="text-xs text-stone-500 mb-2">宏量营养素与膳食纤维对比（g / 100 g 可食部）</div>
+              <div class="relative h-60 w-full">
+                <canvas id="foodCompareChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Macronutrient Proportion Doughnut Comparison -->
+          <div class="pt-5 border-t border-[#E4E9E5] space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl skeuo-tile skeuo-tile-sky flex items-center justify-center shrink-0">
+                  <svg class="w-7 h-7 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-chart-pie"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-sm font-semibold text-stone-900">宏量营养素占比环形对比（蛋白质 · 脂肪 · 碳水）</h4>
+                  <p class="text-xs text-stone-500 mt-0.5">同心环形图由外向内依次对应已选食物，悬停任意弧段可查看克重与能量详情</p>
+                </div>
+              </div>
+              <div class="inline-flex bg-stone-100 p-1 rounded-xl self-start sm:self-auto" role="group" aria-label="占比计算口径">
+                <button type="button" data-doughnut-mode="kcal" class="doughnut-mode-btn tab-btn active text-xs font-medium px-3 py-1 rounded-lg transition-all whitespace-nowrap shrink-0">
+                  供能占比 (kcal%)
+                </button>
+                <button type="button" data-doughnut-mode="gram" class="doughnut-mode-btn text-xs font-medium px-3 py-1 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+                  克重占比 (g%)
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div class="lg:col-span-5 flex flex-col items-center">
+                <div class="relative h-60 w-full max-w-[280px]">
+                  <canvas id="foodMacroDoughnutChart"></canvas>
+                </div>
+                <div class="mt-3 flex items-center justify-center gap-5 text-xs text-stone-600">
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-[#2D5A43] inline-block"></span>
+                    <span>蛋白质</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-[#D97706] inline-block"></span>
+                    <span>脂肪</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-[#0284C7] inline-block"></span>
+                    <span>碳水化合物</span>
+                  </span>
+                </div>
+              </div>
+
+              <div id="foodDoughnutSummary" class="lg:col-span-7 space-y-3">
+                <!-- Populated dynamically by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter, Search & Sort Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Category Segmented Control with Skeuomorphic Icons -->
+        <div class="inline-flex flex-wrap items-center gap-1 bg-stone-200/60 p-1 rounded-xl self-start" role="tablist" aria-label="食物分类筛选">
+          <button type="button" data-food-cat="all" class="food-cat-btn tab-btn active inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg transition-all whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-diversity"/></svg>
+            <span>全部食物 (20)</span>
+          </button>
+          <button type="button" data-food-cat="grains" class="food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-wheat"/></svg>
+            <span>谷薯主食</span>
+          </button>
+          <button type="button" data-food-cat="produce" class="food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-broccoli"/></svg>
+            <span>蔬菜水果</span>
+          </button>
+          <button type="button" data-food-cat="protein" class="food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-food-salmon"/></svg>
+            <span>鱼禽肉蛋</span>
+          </button>
+          <button type="button" data-food-cat="dairy_soy" class="food-cat-btn inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 transition-all whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-milk"/></svg>
+            <span>奶豆坚果</span>
+          </button>
+        </div>
+
+        <!-- Search & Sort -->
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <input
+            type="text"
+            id="foodSearchInput"
+            placeholder="搜索食物或营养亮点：燕麦、三文鱼、补钙..."
+            class="w-full sm:w-64 text-sm bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#2D5A43]"
+          />
+          <select
+            id="foodSortSelect"
+            aria-label="按营养成分排序"
+            class="text-sm bg-white border border-[#E4E9E5] rounded-xl px-3 py-2 text-stone-700 focus:outline-none focus:border-[#2D5A43]"
+          >
+            <option value="default">默认分类顺序</option>
+            <option value="protein_desc">蛋白质：由高到低</option>
+            <option value="kcal_asc">热量：由低到高</option>
+            <option value="fiber_desc">膳食纤维：由高到低</option>
+            <option value="fat_asc">脂肪：由低到高</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Food Cards Grid -->
+      <div id="foodGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Populated by JS -->
       </div>
     </section>
 
@@ -461,13 +1256,16 @@
         <!-- Preset Quick Loaders -->
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs text-stone-500">快速载入典型饮食：</span>
-          <button type="button" id="presetBalanced" class="text-xs px-3 py-1.5 rounded-lg bg-[#E9F2EC] text-[#2D5A43] font-medium hover:bg-emerald-100 transition">
+          <button type="button" id="presetBalanced" class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-[#E9F2EC] text-[#2D5A43] font-medium hover:bg-emerald-100 transition whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-check"/></svg>
             标准均衡范例
           </button>
-          <button type="button" id="presetTakeout" class="text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition">
+          <button type="button" id="presetTakeout" class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-flame"/></svg>
             外卖重油盐型
           </button>
-          <button type="button" id="presetLowCarb" class="text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition">
+          <button type="button" id="presetLowCarb" class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 transition whitespace-nowrap shrink-0">
+            <svg class="w-5 h-5 shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#sk-alert"/></svg>
             少主食缺奶型
           </button>
         </div>
@@ -524,11 +1322,12 @@
         <!-- Search & Category Filter Controls -->
         <div class="flex flex-col sm:flex-row gap-2.5">
           <div class="relative">
+            <svg class="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input
               type="text"
               id="mythSearchInput"
               placeholder="搜索：鸡蛋、盐、果汁、全谷物..."
-              class="w-full sm:w-64 text-sm bg-white border border-[#E4E9E5] rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#2D5A43]"
+              class="w-full sm:w-64 text-sm bg-white border border-[#E4E9E5] rounded-xl pl-9 pr-3.5 py-2 focus:outline-none focus:border-[#2D5A43]"
             />
           </div>
           <select
@@ -560,7 +1359,7 @@
       <div>
         <span class="font-semibold text-stone-700">知食 · 极简营养科学指南</span> — 所有推荐摄入量与限值均严格源自权威公共卫生机构指南。
       </div>
-      <div class="flex flex-wrap gap-4">
+      <div class="flex flex-wrap items-center gap-4">
         <a href="http://dg.cnsoc.org/article/04/RMAbPdrjQ6CGWTwmo62hQg.html" target="_blank" rel="noopener noreferrer" class="hover:text-[#2D5A43] underline">
           中国营养学会：平衡膳食宝塔（2022）
         </a>
@@ -570,9 +1369,30 @@
         <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener noreferrer" class="hover:text-[#2D5A43] underline">
           WHO Healthy Diet 指南
         </a>
+        <button type="button" class="export-html-trigger inline-flex items-center gap-1 text-[#2D5A43] font-medium hover:underline whitespace-nowrap shrink-0">
+          <span class="export-btn-label">导出单文件 HTML</span>
+        </button>
       </div>
     </div>
   </footer>
+
+  <!-- Lightweight Food Nutrition Label Modal -->
+  <div
+    id="nutritionLabelModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/45 backdrop-blur-[2px]"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="nutritionLabelTitle"
+  >
+    <div
+      id="nutritionLabelDialog"
+      class="w-full max-w-lg bg-white border border-[#E4E9E5] rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col fade-in"
+    >
+      <div id="nutritionLabelBody" class="flex flex-col min-h-0 overflow-hidden">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </div>
 
   <!-- Application Logic & Grounded Data -->
   <script>
@@ -816,12 +1636,326 @@
       }
     ];
 
+    const SEVEN_NUTRIENTS = [
+      {
+        id: 'protein',
+        index: '01',
+        group: 'energy',
+        groupLabel: '产能营养素',
+        name: '蛋白质',
+        en: 'Protein',
+        kcalPerGram: '4 kcal/g',
+        shortNote: '组织构建与免疫基石 · 占总能量 10%–15%',
+        dailyTarget: '成人每日约 0.8–1.0 g/kg 体重（男性约 65 g，女性约 55 g）',
+        summary: '蛋白质是生命活动的物质基础，参与构成人体所有细胞与组织（肌肉、皮肤、毛发、骨骼基质），同时也是酶、激素和免疫抗体的核心组成成分。',
+        roles: [
+          '构成与修复机体组织，维持瘦体重与肌肉力量',
+          '合成免疫球蛋白、消化酶与各类转运蛋白，维持抵抗力',
+          '优先摄入“优质蛋白”：氨基酸模式接近人体，吸收利用率高'
+        ],
+        balanceNote: '摄入长期不足易导致肌肉流失、乏力与免疫力下降；长期过量则可能增加肾脏代谢负担，并常伴随过量饱和脂肪摄入。',
+        sources: ['鱼虾等水产品（每周 ≥2 次）', '鸡蛋（每天 1 个不弃蛋黄）', '去皮禽肉与瘦畜肉', '牛奶与无糖酸奶（300–500 g/天）', '大豆及豆腐、豆浆等豆制品'],
+        linkedFoodCat: 'protein'
+      },
+      {
+        id: 'fat',
+        index: '02',
+        group: 'energy',
+        groupLabel: '产能营养素',
+        name: '脂类（脂肪）',
+        en: 'Fats & Lipids',
+        kcalPerGram: '9 kcal/g',
+        shortNote: '必需脂肪酸与细胞膜构成 · 占总能量 <30%',
+        dailyTarget: '总脂肪 <30% 总能量 | 饱和脂肪 <10% | 反式脂肪 <1% | 烹调油 ≤25–30 g/天',
+        summary: '脂类包括脂肪（甘油三酯）和类脂（磷脂、胆固醇等），能量密度最高。科学控脂的关键不是“谈油色变”，而是用不饱和脂肪酸替代饱和脂肪与工业反式脂肪。',
+        roles: [
+          '构成细胞膜与大脑神经髓鞘（磷脂、DHA 等必需脂肪酸）',
+          '促进脂溶性维生素（A、D、E、K）的溶解与肠道吸收',
+          '储存能量、保温缓冲并保护体内重要脏器'
+        ],
+        balanceNote: '过量饱和脂肪与反式脂肪会升高低密度脂蛋白胆固醇（LDL-C），增加心血管风险；过度无油饮食则易导致皮肤干燥与脂溶性维生素缺乏。',
+        sources: ['富含单/多不饱和脂肪的植物油（橄榄油、菜籽油、大豆油、亚麻籽油）', '深海鱼类（三文鱼、青花鱼等富含 Omega-3）', '原味坚果（核桃、杏仁，每天约 10 g）', '牛油果与大豆'],
+        linkedFoodCat: 'dairy_soy'
+      },
+      {
+        id: 'carb',
+        index: '03',
+        group: 'energy',
+        groupLabel: '产能营养素',
+        name: '碳水化合物',
+        en: 'Carbohydrates',
+        kcalPerGram: '4 kcal/g',
+        shortNote: '大脑与肌肉首选燃料 · 占总能量 50%–65%',
+        dailyTarget: '谷类 200–300 g/天（含全谷物和杂豆 50–150 g）+ 薯类 50–100 g | 游离糖 <10%',
+        summary: '碳水化合物是人体最经济、最直接的能量来源，大脑和红细胞高度依赖葡萄糖供能。营养学界共识强调“碳水质量”：多选全谷物、杂豆与薯类，严控游离糖与精制甜食。',
+        roles: [
+          '为大脑、神经系统与日常体力活动提供清洁高效的能量',
+          '节约蛋白质作用，防止身体分解自身肌肉蛋白质来供能',
+          '全谷物与杂豆同时带来 B 族维生素、矿物质与天然膳食纤维'
+        ],
+        balanceNote: '极端戒断碳水易引发乏力、情绪波动与代谢紊乱；过多精制碳水与含糖饮料则会引起餐后血糖剧烈波动和体重增加。',
+        sources: ['全谷物：燕麦、糙米、小米、全麦、玉米', '杂豆类：红豆、绿豆、鹰嘴豆、扁豆', '薯类：红薯、土豆、山药、芋头', '适量新鲜完整水果'],
+        linkedFoodCat: 'grains'
+      },
+      {
+        id: 'vitamin',
+        index: '04',
+        group: 'non_energy',
+        groupLabel: '非产能营养素',
+        name: '维生素',
+        en: 'Vitamins',
+        kcalPerGram: '0 kcal/g',
+        shortNote: '脂溶性 (A/D/E/K) 与水溶性 (B族/C)',
+        dailyTarget: '通过每日 ≥12 种多样化食物均衡获取，蔬菜 ≥300 g + 水果 200–350 g/天',
+        summary: '维生素是一类维持机体正常生理功能所必需的低分子有机化合物，虽不提供能量，却是物质代谢酶系统的关键辅酶，绝大多数无法由人体自行足量合成。',
+        roles: [
+          '脂溶性维生素（A、D、E、K）：维 A 护视力与黏膜，维 D 促钙吸收，维 E 抗氧化，维 K 参与凝血与骨代谢',
+          '水溶性维生素（B 族、C）：B 族驱动能量代谢与神经功能，维 C 促进胶原合成、铁吸收与免疫防御',
+          '脂溶性易在体内蓄积，切忌盲目大剂量补剂；水溶性不易储存，需每日从蔬果全谷物中持续补充'
+        ],
+        balanceNote: '挑食或过度加工饮食易导致维 D、叶酸（B9）、维 B1/B2 及维 C 摄入不足；天然食物来源远比单一高剂量补充剂更安全均衡。',
+        sources: ['深色蔬菜与鲜果（西兰花、菠菜、番茄、猕猴桃、蓝莓）', '全谷物、瘦肉与豆类（B 族维生素）', '蛋黄、深海鱼与适量日照（维生素 A、D）', '原味坚果与植物油（维生素 E）'],
+        linkedFoodCat: 'produce'
+      },
+      {
+        id: 'mineral',
+        index: '05',
+        group: 'non_energy',
+        groupLabel: '非产能营养素',
+        name: '矿物质',
+        en: 'Minerals',
+        kcalPerGram: '0 kcal/g',
+        shortNote: '常量元素 (钙钾钠镁) 与微量元素 (铁锌碘硒)',
+        dailyTarget: '钙 800 mg/天 | 钾 ≥3510 mg/天 | 钠 <2000 mg（盐 <5 g）',
+        summary: '矿物质（无机盐）人体无法合成，必须由食物与饮水供给。按体内含量分为常量元素（钙、磷、钾、钠、镁等）和微量元素（铁、锌、碘、硒等）。',
+        roles: [
+          '骨骼与牙齿的结构支架（钙、磷、镁），预防中老年骨质疏松',
+          '维持体液渗透压、神经冲动传导与心肌正常节律（钠、钾、镁）',
+          '参与造血输氧、免疫及甲状腺功能（血红素铁、锌、碘、硒）'
+        ],
+        balanceNote: '我国居民普遍存在“钠偏高、钙和钾偏低”的结构失衡，重点在于控盐减钠、每天喝足 300–500 g 奶并吃够深色蔬菜。',
+        sources: ['高钙食物：牛奶、酸奶、北豆腐、深绿叶菜', '高钾食物：菠菜、薯类、香蕉、豆类', '血红素铁与锌：瘦牛肉、猪里脊、贝类海鲜'],
+        linkedFoodCat: 'dairy_soy'
+      },
+      {
+        id: 'fiber',
+        index: '06',
+        group: 'non_energy',
+        groupLabel: '非产能营养素',
+        name: '膳食纤维',
+        en: 'Dietary Fiber',
+        kcalPerGram: '≈0–2 kcal/g',
+        shortNote: '“第七营养素” · 肠道菌群与控糖护心',
+        dailyTarget: '10 岁及以上/成人每日 ≥25 g（2–5 岁 ≥15 g，6–9 岁 ≥21 g）',
+        summary: '膳食纤维是植物性食物中不被人体小肠消化吸收的多糖与木质素，分为可溶性纤维（如燕麦 β-葡聚糖、果胶）和不可溶性纤维（如全麦麸皮、蔬菜茎叶）。',
+        roles: [
+          '作为肠道益生菌的“口粮”（益生元），发酵产生短链脂肪酸守护肠道屏障',
+          '延缓胃排空与葡萄糖吸收速度，平稳餐后血糖波动并增强饱腹感',
+          '结合胆汁酸促进排泄，有助降低血清胆固醇与预防便秘'
+        ],
+        balanceNote: '精细化外卖饮食常导致纤维日摄入不足 12 g；增加纤维时应循序渐进并配合足量饮水，避免肠胃胀气。',
+        sources: ['燕麦片、糙米、全麦与杂豆（干黄豆、红豆）', '西兰花、菠菜、菌菇与带皮薯类', '完整水果（猕猴桃、蓝莓、苹果，勿榨汁滤渣）'],
+        linkedFoodCat: 'grains'
+      },
+      {
+        id: 'water',
+        index: '07',
+        group: 'non_energy',
+        groupLabel: '非产能营养素',
+        name: '水',
+        en: 'Water',
+        kcalPerGram: '0 kcal/g',
+        shortNote: '占成人体重 ~60% · 一切生命代谢载体',
+        dailyTarget: '直接饮水 1500–1700 ml/天（7–8 杯）| 含食物汤粥总水 2700–3000 ml',
+        summary: '水是人体含量最多的成分，也是膳食的重要组成部分。所有营养素的消化、吸收、血液运输与代谢废物排出都离不开水的参与。',
+        roles: [
+          '作为生化反应与营养运输的溶剂，维持血容量与循环顺畅',
+          '通过出汗与体液循环精准调节体温，润滑关节与黏膜',
+          '保持肾脏代谢通畅，预防尿液过度浓缩与结石风险'
+        ],
+        balanceNote: '感到口渴时身体往往已处于轻度缺水状态；应少量多次主动喝白开水或淡茶水，避免以含糖饮料或果汁替代日常饮水。',
+        sources: ['白开水、矿泉水与无糖淡茶水（首选）', '新鲜蔬菜与水果（含水量多在 80%–95%）', '清淡汤羹、杂粮粥与纯牛奶'],
+        linkedFoodCat: 'produce'
+      }
+    ];
+
+    const FOODS_DATA = [
+      // 谷薯主食 (grains)
+      { id: 'rice', name: '蒸白米饭', cat: 'grains', catLabel: '谷薯主食', kcal: 116, protein: 2.6, fat: 0.3, carb: 25.9, fiber: 0.3, highlight: '易消化供能主食 · 建议与杂粮同煮', tip: '升糖指数偏高，建议掺入 1/3 糙米、燕麦或杂豆降低血糖波动。', micros: { vitA: 0, vitC: 0, calcium: 7, iron: 1.3, potassium: 30, magnesium: 15, zinc: 0.92, sodium: 2.5 } },
+      { id: 'oats', name: '纯燕麦片（干）', cat: 'grains', catLabel: '谷薯主食', kcal: 377, protein: 15.0, fat: 6.7, carb: 61.6, fiber: 10.6, highlight: 'β-葡聚糖可溶性纤维 · 控血脂饱腹强', tip: '优选配料表只有“燕麦”的生燕麦或快熟燕麦，避开含糖脆片。', micros: { vitA: 0, vitC: 0, calcium: 186, iron: 7.0, potassium: 215, magnesium: 177, zinc: 2.59, sodium: 3.7 } },
+      { id: 'brown_rice', name: '糙米（生）', cat: 'grains', catLabel: '谷薯主食', kcal: 348, protein: 7.7, fat: 2.7, carb: 75.0, fiber: 3.4, highlight: '保留胚芽与麸皮 · 富含维B1与镁', tip: '烹煮前浸泡 1–2 小时口感更软糯，可与白米按 1:1 混煮。', micros: { vitA: 0, vitC: 0, calcium: 23, iron: 1.5, potassium: 223, magnesium: 110, zinc: 2.02, sodium: 7.0 } },
+      { id: 'sweet_potato', name: '蒸红薯', cat: 'grains', catLabel: '谷薯主食', kcal: 86, protein: 1.6, fat: 0.1, carb: 20.1, fiber: 3.0, highlight: 'β-胡萝卜素 · 低脂高钾优质薯类', tip: '每天推荐摄入 50–100 g 薯类，替代部分精白米面更利于体重管理。', micros: { vitA: 125, vitC: 26, calcium: 23, iron: 0.5, potassium: 130, magnesium: 12, zinc: 0.15, sodium: 28.5 } },
+      { id: 'corn', name: '鲜甜玉米', cat: 'grains', catLabel: '谷薯主食', kcal: 112, protein: 4.0, fat: 1.2, carb: 22.8, fiber: 2.9, highlight: '叶黄素与玉米黄质 · 护眼粗粮', tip: '一整根中等鲜玉米可食部约 150 g，适合作为早餐或午餐部分主食。', micros: { vitA: 17, vitC: 16, calcium: 14, iron: 1.1, potassium: 238, magnesium: 32, zinc: 0.90, sodium: 1.1 } },
+
+      // 蔬菜水果 (produce)
+      { id: 'broccoli', name: '西兰花', cat: 'produce', catLabel: '蔬菜水果', kcal: 36, protein: 4.1, fat: 0.6, carb: 4.3, fiber: 1.6, highlight: '维C 51mg · 叶酸 · 十字花科植物化学物', tip: '急火快炒或隔水蒸 3–5 分钟可最大程度保留维生素 C 与萝卜硫素。', micros: { vitA: 120, vitC: 51, calcium: 67, iron: 1.0, potassium: 316, magnesium: 18, zinc: 0.78, sodium: 18.8 } },
+      { id: 'spinach', name: '菠菜', cat: 'produce', catLabel: '蔬菜水果', kcal: 28, protein: 2.6, fat: 0.3, carb: 4.5, fiber: 1.7, highlight: '钾 311mg · 叶酸 · 叶黄素与维K', tip: '草酸含量较高，烹调前沸水焯烫 30 秒再炒或凉拌，减少钙吸收干扰。', micros: { vitA: 487, vitC: 32, calcium: 66, iron: 2.9, potassium: 311, magnesium: 58, zinc: 0.85, sodium: 85.2 } },
+      { id: 'tomato', name: '番茄（西红柿）', cat: 'produce', catLabel: '蔬菜水果', kcal: 15, protein: 0.9, fat: 0.2, carb: 3.3, fiber: 0.5, highlight: '番茄红素 · 极低热量高含水（94%）', tip: '生吃补维 C，少量用油熟烹更利于脂溶性番茄红素的吸收。', micros: { vitA: 92, vitC: 14, calcium: 10, iron: 0.4, potassium: 179, magnesium: 9, zinc: 0.13, sodium: 5.0 } },
+      { id: 'kiwi', name: '猕猴桃', cat: 'produce', catLabel: '蔬菜水果', kcal: 61, protein: 0.8, fat: 0.6, carb: 14.5, fiber: 2.6, highlight: '维C 62mg · 钾 144mg · 低升糖鲜果', tip: '每天 1–2 个即可满足成人大部分维生素 C 需求，宜吃完整鲜果。', micros: { vitA: 22, vitC: 62, calcium: 27, iron: 1.2, potassium: 144, magnesium: 12, zinc: 0.57, sodium: 10.0 } },
+      { id: 'blueberry', name: '蓝莓', cat: 'produce', catLabel: '蔬菜水果', kcal: 57, protein: 0.7, fat: 0.3, carb: 14.5, fiber: 2.4, highlight: '丰富花青素 · 多酚类抗氧化成分', tip: '清洗时轻柔冲洗即可，保留表皮白色果粉，适合搭配无糖酸奶食用。', micros: { vitA: 3, vitC: 10, calcium: 6, iron: 0.3, potassium: 77, magnesium: 6, zinc: 0.16, sodium: 1.0 } },
+
+      // 鱼禽肉蛋 (protein)
+      { id: 'egg', name: '鸡蛋（全蛋）', cat: 'protein', catLabel: '鱼禽肉蛋', kcal: 139, protein: 13.1, fat: 8.6, carb: 2.4, fiber: 0.0, highlight: '全营养优质蛋白 · 卵磷脂 · 胆碱与叶黄素', tip: '2022 指南建议健康成人每天 1 个鸡蛋，水煮或蒸蛋营养保留率最高，不弃蛋黄。', micros: { vitA: 234, vitC: 0, calcium: 56, iron: 2.0, potassium: 154, magnesium: 10, zinc: 1.10, sodium: 131.5 } },
+      { id: 'chicken_breast', name: '鸡胸肉（生）', cat: 'protein', catLabel: '鱼禽肉蛋', kcal: 118, protein: 24.6, fat: 1.9, carb: 0.6, fiber: 0.0, highlight: '超高蛋白极低脂 · 富含烟酸（维B3）', tip: '减脂增肌高性价比蛋白来源，切片嫩煎或低温水煮可避免口感发柴。', micros: { vitA: 16, vitC: 0, calcium: 3, iron: 1.4, potassium: 338, magnesium: 26, zinc: 0.72, sodium: 45.1 } },
+      { id: 'salmon', name: '三文鱼（大西洋鲑）', cat: 'protein', catLabel: '鱼禽肉蛋', kcal: 139, protein: 19.8, fat: 6.3, carb: 0.0, fiber: 0.0, highlight: '优质 Omega-3（EPA/DHA）· 维生素D', tip: '指南推荐每周至少吃 2 次水产品，清蒸或少油香煎可保护不饱和脂肪酸。', micros: { vitA: 150, vitC: 0, calcium: 13, iron: 0.8, potassium: 363, magnesium: 29, zinc: 0.64, sodium: 59.0 } },
+      { id: 'shrimp', name: '基围虾（对虾）', cat: 'protein', catLabel: '鱼禽肉蛋', kcal: 93, protein: 18.6, fat: 0.8, carb: 2.8, fiber: 0.0, highlight: '低脂高蛋白 · 富含硒、镁与虾青素', tip: '白灼或清炒最为清淡健康，减少油炸与重盐调味。', micros: { vitA: 15, vitC: 0, calcium: 62, iron: 1.5, potassium: 329, magnesium: 43, zinc: 2.38, sodium: 165.2 } },
+      { id: 'lean_beef', name: '瘦牛肉（牛里脊）', cat: 'protein', catLabel: '鱼禽肉蛋', kcal: 107, protein: 22.2, fat: 0.9, carb: 2.0, fiber: 0.0, highlight: '高吸收血红素铁 · 锌 · 维生素B12', tip: '预防缺铁性贫血的优质红肉，每天畜禽肉总量宜控制在 40–75 g。', micros: { vitA: 7, vitC: 0, calcium: 9, iron: 2.8, potassium: 284, magnesium: 20, zinc: 4.73, sodium: 53.6 } },
+
+      // 奶豆坚果 (dairy_soy)
+      { id: 'milk', name: '纯牛奶（全脂）', cat: 'dairy_soy', catLabel: '奶豆坚果', kcal: 65, protein: 3.3, fat: 3.6, carb: 4.9, fiber: 0.0, highlight: '钙 107mg 高吸收率 · 维生素B2', tip: '2022 版膳食宝塔推荐每天摄入 300–500 g 奶及奶制品，乳糖不耐受可选舒化奶或酸奶。', micros: { vitA: 24, vitC: 1, calcium: 107, iron: 0.3, potassium: 109, magnesium: 11, zinc: 0.42, sodium: 37.2 } },
+      { id: 'yogurt', name: '无糖原味酸奶', cat: 'dairy_soy', catLabel: '奶豆坚果', kcal: 72, protein: 3.2, fat: 3.2, carb: 7.5, fiber: 0.0, highlight: '钙 118mg · 活性乳酸菌 · 乳糖更友好', tip: '选购时看营养成分表，优先选择配料仅含生牛乳与菌种、无额外白砂糖的产品。', micros: { vitA: 26, vitC: 1, calcium: 118, iron: 0.4, potassium: 150, magnesium: 12, zinc: 0.53, sodium: 52.0 } },
+      { id: 'tofu', name: '北豆腐（卤水老豆腐）', cat: 'dairy_soy', catLabel: '奶豆坚果', kcal: 98, protein: 12.2, fat: 4.8, carb: 1.5, fiber: 0.4, highlight: '钙 138mg · 优质植物蛋白 · 零胆固醇', tip: '植物蛋白与补钙双优食材，可与鱼肉蛋轮换搭配，素食者尤为推荐。', micros: { vitA: 0, vitC: 0, calcium: 138, iron: 1.9, potassium: 125, magnesium: 63, zinc: 1.11, sodium: 7.2 } },
+      { id: 'soybean', name: '干黄豆', cat: 'dairy_soy', catLabel: '奶豆坚果', kcal: 390, protein: 35.0, fat: 16.0, carb: 34.2, fiber: 15.5, highlight: '大豆异黄酮 · 极高植物蛋白与钾纤维', tip: '每天 15–25 g 干黄豆约相当于 300 ml 豆浆或 50–70 g 北豆腐。', micros: { vitA: 37, vitC: 0, calcium: 191, iron: 8.2, potassium: 1503, magnesium: 199, zinc: 3.34, sodium: 2.2 } },
+      { id: 'walnut', name: '原味核桃仁', cat: 'dairy_soy', catLabel: '奶豆坚果', kcal: 646, protein: 14.9, fat: 58.8, carb: 19.1, fiber: 9.5, highlight: '植物 Omega-3（α-亚麻酸）· 维生素E', tip: '能量密度高，每天吃 10 g 左右（约 2 颗核桃）即可，选原味少选盐焗/糖衣坚果。', micros: { vitA: 5, vitC: 1, calcium: 56, iron: 2.7, potassium: 385, magnesium: 131, zinc: 2.17, sodium: 6.4 } }
+    ];
+
+    const FOOD_COMPARE_PRESETS = {
+      staples: ['rice', 'oats', 'sweet_potato'],
+      proteins: ['chicken_breast', 'salmon', 'tofu'],
+      calcium: ['milk', 'broccoli', 'spinach']
+    };
+
+    // =========================================================================
+    // 1B. MULTI-COLOR SKEUOMORPHIC ICON SYSTEM (48x48 Vector Symbols + Tactile Tiles)
+    // =========================================================================
+    const SKEUO_SYMBOLS = {
+      nutrients: 'sk-nutrients',
+      wheat: 'sk-wheat',
+      leaf: 'sk-leaf',
+      fruit: 'sk-fruit',
+      fish: 'sk-fish',
+      egg: 'sk-egg',
+      milk: 'sk-milk',
+      nut: 'sk-nut',
+      droplet: 'sk-water',
+      water: 'sk-water',
+      oil: 'sk-oil',
+      salt: 'sk-salt',
+      sugar: 'sk-sugar',
+      activity: 'sk-activity',
+      vitamin: 'sk-vitamin',
+      sun: 'sk-vitamin',
+      gem: 'sk-gem',
+      shield: 'sk-shield',
+      check: 'sk-check',
+      alert: 'sk-alert',
+      help: 'sk-help',
+      star: 'sk-star',
+      starFilled: 'sk-star-filled',
+      flame: 'sk-flame',
+      food_rice: 'sk-food-rice',
+      food_oats: 'sk-food-oats',
+      food_sweetpotato: 'sk-food-sweetpotato',
+      food_corn: 'sk-food-corn',
+      food_broccoli: 'sk-food-broccoli',
+      food_tomato: 'sk-food-tomato',
+      food_kiwi: 'sk-food-kiwi',
+      food_blueberry: 'sk-food-blueberry',
+      food_chicken: 'sk-food-chicken',
+      food_salmon: 'sk-food-salmon',
+      food_shrimp: 'sk-food-shrimp',
+      food_beef: 'sk-food-beef',
+      food_yogurt: 'sk-food-yogurt',
+      food_tofu: 'sk-food-tofu',
+      food_soybean: 'sk-food-soybean'
+    };
+
+    const ICON_TONES = {
+      emerald: 'skeuo-tile skeuo-tile-emerald',
+      amber: 'skeuo-tile skeuo-tile-amber',
+      rose: 'skeuo-tile skeuo-tile-rose',
+      sky: 'skeuo-tile skeuo-tile-sky',
+      stone: 'skeuo-tile'
+    };
+
+    function renderIcon(name, cls = 'w-5 h-5') {
+      const sym = SKEUO_SYMBOLS[name] || 'sk-leaf';
+      return `<svg class="${cls} shrink-0 skeuo-icon-shadow" viewBox="0 0 48 48" aria-hidden="true"><use href="#${sym}"/></svg>`;
+    }
+
+    function renderIconTile(name, tone = 'emerald', sizeCls = 'w-12 h-12 rounded-xl', iconCls = 'w-8 h-8') {
+      const toneCls = ICON_TONES[tone] || ICON_TONES.stone;
+      return `<span class="${sizeCls} ${toneCls} flex items-center justify-center shrink-0">${renderIcon(name, iconCls)}</span>`;
+    }
+
+    const PAGODA_ICON_MAP = {
+      tier1: { icon: 'wheat', tone: 'amber' },
+      tier2: { icon: 'food_broccoli', tone: 'emerald' },
+      tier3: { icon: 'food_salmon', tone: 'rose' },
+      tier4: { icon: 'milk', tone: 'sky' },
+      tier5: { icon: 'oil', tone: 'amber' },
+      water: { icon: 'water', tone: 'sky' },
+      activity: { icon: 'activity', tone: 'emerald' }
+    };
+
+    const NUTRIENT_ICON_MAP = {
+      protein: { icon: 'food_salmon', tone: 'rose' },
+      fat: { icon: 'oil', tone: 'amber' },
+      carb: { icon: 'wheat', tone: 'amber' },
+      vitamin: { icon: 'vitamin', tone: 'emerald' },
+      mineral: { icon: 'gem', tone: 'sky' },
+      fiber: { icon: 'leaf', tone: 'emerald' },
+      water: { icon: 'water', tone: 'sky' }
+    };
+
+    const FOOD_CAT_ICON_MAP = {
+      grains: { icon: 'wheat', tone: 'amber' },
+      produce: { icon: 'food_broccoli', tone: 'emerald' },
+      protein: { icon: 'food_salmon', tone: 'rose' },
+      dairy_soy: { icon: 'milk', tone: 'sky' }
+    };
+
+    const FOOD_ITEM_ICON_MAP = {
+      rice: { icon: 'food_rice', tone: 'sky' },
+      oats: { icon: 'food_oats', tone: 'amber' },
+      brown_rice: { icon: 'wheat', tone: 'amber' },
+      sweet_potato: { icon: 'food_sweetpotato', tone: 'rose' },
+      corn: { icon: 'food_corn', tone: 'amber' },
+      broccoli: { icon: 'food_broccoli', tone: 'emerald' },
+      spinach: { icon: 'leaf', tone: 'emerald' },
+      tomato: { icon: 'food_tomato', tone: 'rose' },
+      kiwi: { icon: 'food_kiwi', tone: 'emerald' },
+      blueberry: { icon: 'food_blueberry', tone: 'sky' },
+      egg: { icon: 'egg', tone: 'amber' },
+      chicken_breast: { icon: 'food_chicken', tone: 'amber' },
+      salmon: { icon: 'food_salmon', tone: 'rose' },
+      shrimp: { icon: 'food_shrimp', tone: 'rose' },
+      lean_beef: { icon: 'food_beef', tone: 'rose' },
+      milk: { icon: 'milk', tone: 'sky' },
+      yogurt: { icon: 'food_yogurt', tone: 'sky' },
+      tofu: { icon: 'food_tofu', tone: 'amber' },
+      soybean: { icon: 'food_soybean', tone: 'emerald' },
+      walnut: { icon: 'nut', tone: 'amber' }
+    };
+
+    const CHECKER_ICON_MAP = {
+      grains: { icon: 'food_rice', tone: 'amber' },
+      veg: { icon: 'food_broccoli', tone: 'emerald' },
+      fruit: { icon: 'fruit', tone: 'rose' },
+      animal: { icon: 'food_salmon', tone: 'rose' },
+      dairy: { icon: 'milk', tone: 'sky' },
+      soyNuts: { icon: 'food_soybean', tone: 'amber' },
+      oil: { icon: 'oil', tone: 'amber' },
+      salt: { icon: 'salt', tone: 'sky' }
+    };
+
+    const MYTH_CAT_ICON_MAP = {
+      carb: { icon: 'wheat', tone: 'amber' },
+      protein: { icon: 'egg', tone: 'rose' },
+      fat_salt: { icon: 'salt', tone: 'amber' },
+      water_veg: { icon: 'food_tomato', tone: 'emerald' }
+    };
+
     // =========================================================================
     // 2. APPLICATION STATE
     // =========================================================================
     let currentView = 'pagoda';
     let currentTierKey = 'tier1';
+    let currentNutrientId = 'protein';
     let currentAgeKey = 'adult10plus';
+    let currentFoodCat = 'all';
+    let comparedFoodIds = ['chicken_breast', 'salmon', 'tofu'];
+    let foodDoughnutMode = 'kcal';
     let intakeState = { ...PRESETS.balanced };
     let savedMyths = new Set();
 
@@ -846,6 +1980,8 @@
 
     // Chart instances
     let macroChartInstance = null;
+    let foodCompareChartInstance = null;
+    let foodDoughnutChartInstance = null;
     let radarChartInstance = null;
 
     // =========================================================================
@@ -873,6 +2009,9 @@
 
       if (viewName === 'nutrients') {
         initOrUpdateMacroChart();
+      } else if (viewName === 'foods') {
+        initOrUpdateFoodCompareChart();
+        initOrUpdateFoodDoughnutChart();
       } else if (viewName === 'checker') {
         initOrUpdateRadarChart();
       }
@@ -895,9 +2034,10 @@
       });
 
       const container = document.getElementById('tierDetailContainer');
+      const iconMeta = PAGODA_ICON_MAP[tierKey] || { icon: 'leaf', tone: 'emerald' };
       const examplesHtml = data.examples.map(item => `
-        <li class="flex items-start gap-2 text-xs sm:text-sm text-stone-700">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#2D5A43] mt-2 shrink-0"></span>
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-stone-700">
+          <span class="mt-0.5 shrink-0">${renderIcon('check', 'w-5 h-5')}</span>
           <span>${item}</span>
         </li>
       `).join('');
@@ -905,14 +2045,20 @@
       container.innerHTML = `
         <div class="fade-in space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E9F2EC] text-[#2D5A43]">${data.badge}</span>
+            <span class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-[#E9F2EC] text-[#2D5A43]">
+              ${renderIcon(iconMeta.icon, 'w-5 h-5')}
+              <span>${data.badge}</span>
+            </span>
             <a href="${data.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2D5A43] hover:underline font-medium">
               权威出处：${data.sourceTitle} &nearr;
             </a>
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-stone-900">${data.title}</h3>
-            <div class="mt-2 inline-block bg-stone-100 border border-stone-200/80 rounded-xl px-3.5 py-2">
+            <div class="flex items-center gap-3.5">
+              ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-14 h-14 rounded-2xl', 'w-9 h-9')}
+              <h3 class="text-2xl font-bold text-stone-900">${data.title}</h3>
+            </div>
+            <div class="mt-3 inline-block bg-stone-100 border border-stone-200/80 rounded-xl px-3.5 py-2">
               <div class="text-xs text-stone-500">成人每日推荐摄入量（1600～2400 kcal 水平）</div>
               <div class="text-sm sm:text-base font-bold text-[#2D5A43] mt-0.5">${data.intake}</div>
             </div>
@@ -948,19 +2094,28 @@
       const panel = document.getElementById('ageRecommendationPanel');
       panel.innerHTML = `
         <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in">
-          <div class="text-xs text-stone-500">${info.label} · 每日蔬菜和水果</div>
-          <div class="text-xl font-bold text-[#2D5A43] mt-1">${info.vegFruit}</div>
+          <div class="flex items-center gap-3">
+            ${renderIconTile('leaf', 'emerald', 'w-11 h-11 rounded-xl', 'w-7 h-7')}
+            <div class="text-xs font-medium text-stone-600">${info.label} · 每日蔬菜和水果</div>
+          </div>
+          <div class="text-xl font-bold text-[#2D5A43] mt-2.5">${info.vegFruit}</div>
           <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.vegFruitDesc}</p>
         </div>
         <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in">
-          <div class="text-xs text-stone-500">${info.label} · 天然膳食纤维</div>
-          <div class="text-xl font-bold text-[#2D5A43] mt-1">${info.fiber}</div>
+          <div class="flex items-center gap-3">
+            ${renderIconTile('wheat', 'amber', 'w-11 h-11 rounded-xl', 'w-7 h-7')}
+            <div class="text-xs font-medium text-stone-600">${info.label} · 天然膳食纤维</div>
+          </div>
+          <div class="text-xl font-bold text-[#2D5A43] mt-2.5">${info.fiber}</div>
           <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.fiberDesc}</p>
         </div>
         <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-4 fade-in flex flex-col justify-between">
           <div>
-            <div class="text-xs text-stone-500">${info.extraTitle}</div>
-            <div class="text-lg font-bold text-stone-900 mt-1">${info.extraValue}</div>
+            <div class="flex items-center gap-3">
+              ${renderIconTile('shield', 'sky', 'w-11 h-11 rounded-xl', 'w-7 h-7')}
+              <div class="text-xs font-medium text-stone-600">${info.extraTitle}</div>
+            </div>
+            <div class="text-lg font-bold text-stone-900 mt-2">${info.extraValue}</div>
             <p class="text-xs text-stone-600 mt-2 leading-relaxed">${info.extraDesc}</p>
           </div>
           <div class="mt-3 text-right">
@@ -1073,6 +2228,7 @@
       container.innerHTML = CHECKER_CONFIG.map(item => {
         const val = intakeState[item.id];
         const evalRes = evaluateMetric(item, val);
+        const iconMeta = CHECKER_ICON_MAP[item.id] || { icon: 'leaf', tone: 'emerald' };
         const refText = item.type === 'range'
           ? `推荐 ${item.min}–${item.max}${item.unit}`
           : item.type === 'min'
@@ -1081,15 +2237,18 @@
 
         return `
           <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-3.5 space-y-2">
-            <div class="flex items-center justify-between">
-              <label for="slider-${item.id}" class="text-sm font-semibold text-stone-800">${item.name}</label>
-              <span id="badge-${item.id}" class="text-[11px] font-medium px-2 py-0.5 rounded-full ${evalRes.color}">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-10 h-10 rounded-xl', 'w-7 h-7')}
+                <label for="slider-${item.id}" class="text-sm font-semibold text-stone-800 truncate">${item.name}</label>
+              </div>
+              <span id="badge-${item.id}" class="text-[11px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 ${evalRes.color}">
                 ${evalRes.badge}
               </span>
             </div>
             <div class="flex items-baseline justify-between">
-              <span id="val-${item.id}" class="text-lg font-bold text-[#2D5A43]">${val} <span class="text-xs font-normal text-stone-500">${item.unit}</span></span>
-              <span class="text-[11px] text-stone-400">${refText}</span>
+              <span id="val-${item.id}" class="text-lg font-bold text-[#2D5A43] tabular-nums">${val} <span class="text-xs font-normal text-stone-500">${item.unit}</span></span>
+              <span class="text-[11px] text-stone-400 tabular-nums">${refText}</span>
             </div>
             <input
               id="slider-${item.id}"
@@ -1172,15 +2331,19 @@
       const adviceListEl = document.getElementById('checkerAdviceList');
       if (advices.length === 0) {
         adviceListEl.innerHTML = `
-          <li class="p-3 rounded-xl bg-[#E9F2EC] text-[#2D5A43] font-medium">
-            当前各项摄入量均符合《中国居民平衡膳食宝塔（2022）》1600～2400 kcal 成人标准！记得配合每日 1500–1700 ml 饮水与 6000 步以上身体活动。
+          <li class="p-3 rounded-xl bg-[#E9F2EC] text-[#2D5A43] font-medium flex items-start gap-2.5">
+            <span class="mt-0.5 shrink-0">${renderIcon('check', 'w-5 h-5')}</span>
+            <span>当前各项摄入量均符合《中国居民平衡膳食宝塔（2022）》1600～2400 kcal 成人标准！记得配合每日 1500–1700 ml 饮水与 6000 步以上身体活动。</span>
           </li>
         `;
       } else {
         adviceListEl.innerHTML = advices.map(a => `
-          <li class="p-2.5 rounded-xl bg-[#FAF9F5] border border-[#E4E9E5]">
-            <span class="font-semibold text-stone-800">${a.name}（${a.status}）：</span>
-            <span>${a.tip}</span>
+          <li class="p-2.5 rounded-xl bg-[#FAF9F5] border border-[#E4E9E5] flex items-start gap-2.5">
+            <span class="mt-0.5 shrink-0">${renderIcon('alert', 'w-5 h-5')}</span>
+            <div>
+              <span class="font-semibold text-stone-800">${a.name}（${a.status}）：</span>
+              <span>${a.tip}</span>
+            </div>
           </li>
         `).join('');
       }
@@ -1279,26 +2442,35 @@
 
       grid.innerHTML = filtered.map(item => {
         const isSaved = savedMyths.has(item.id);
+        const catMeta = MYTH_CAT_ICON_MAP[item.category] || { icon: 'leaf', tone: 'emerald' };
         return `
           <article class="bg-white border border-[#E4E9E5] rounded-2xl p-5 flex flex-col justify-between hover:border-stone-300 transition">
             <div>
               <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600">${item.categoryLabel}</span>
+                <div class="flex items-center gap-2.5">
+                  ${renderIconTile(catMeta.icon, catMeta.tone, 'w-10 h-10 rounded-xl', 'w-6 h-6')}
+                  <span class="text-xs font-semibold text-stone-700">${item.categoryLabel}</span>
+                </div>
                 <button
                   type="button"
                   data-bookmark="${item.id}"
-                  class="bookmark-btn text-xs px-2.5 py-1 rounded-lg border transition ${
+                  class="bookmark-btn inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg border transition whitespace-nowrap shrink-0 ${
                     isSaved
                       ? 'bg-[#E9F2EC] border-[#2D5A43]/30 text-[#2D5A43] font-semibold'
                       : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800'
                   }"
                 >
-                  ${isSaved ? '★ 已收藏' : '☆ 收藏贴士'}
+                  ${renderIcon(isSaved ? 'starFilled' : 'star', 'w-5 h-5')}
+                  <span>${isSaved ? '已收藏' : '收藏贴士'}</span>
                 </button>
               </div>
-              <h3 class="text-base font-semibold text-stone-900 mt-3">${item.myth}</h3>
-              <div class="mt-2 text-xs sm:text-sm font-semibold text-[#2D5A43] bg-[#E9F2EC]/70 px-3 py-2 rounded-xl">
-                ${item.fact}
+              <h3 class="text-base font-semibold text-stone-900 mt-3 flex items-start gap-2.5">
+                <span class="mt-0.5 shrink-0">${renderIcon('help', 'w-6 h-6')}</span>
+                <span>${item.myth}</span>
+              </h3>
+              <div class="mt-2.5 text-xs sm:text-sm font-semibold text-[#2D5A43] bg-[#E9F2EC]/70 px-3 py-2.5 rounded-xl flex items-start gap-2.5">
+                <span class="mt-0.5 shrink-0">${renderIcon('check', 'w-6 h-6')}</span>
+                <span>${item.fact}</span>
               </div>
               <p class="mt-3 text-xs sm:text-sm text-stone-600 leading-relaxed">${item.detail}</p>
             </div>
@@ -1328,6 +2500,771 @@
     }
 
     // =========================================================================
+    // 5B. VIEW 2: SEVEN ESSENTIAL NUTRIENTS EXPLORER
+    // =========================================================================
+    function renderSevenNutrientSelector() {
+      const energyEl = document.getElementById('energyNutrientsList');
+      const nonEnergyEl = document.getElementById('nonEnergyNutrientsList');
+      if (!energyEl || !nonEnergyEl) return;
+
+      const buildItem = (item) => {
+        const isActive = item.id === currentNutrientId;
+        const iconMeta = NUTRIENT_ICON_MAP[item.id] || { icon: 'leaf', tone: 'emerald' };
+        return `
+          <button
+            type="button"
+            data-nutrient-id="${item.id}"
+            class="seven-nutrient-btn w-full text-left rounded-xl px-3.5 py-2.5 border transition-all flex items-center gap-3.5 ${
+              isActive
+                ? 'border-[#2D5A43] bg-[#E9F2EC] shadow-sm'
+                : 'border-[#E4E9E5] bg-[#FAF9F5]/70 hover:border-[#2D5A43]/60 hover:bg-white'
+            }"
+          >
+            ${renderIconTile(iconMeta.icon, isActive ? 'emerald' : iconMeta.tone, 'w-11 h-11 rounded-xl', 'w-7 h-7')}
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-baseline gap-1.5 min-w-0">
+                  <span class="text-[11px] font-mono tabular-nums ${isActive ? 'text-[#2D5A43] font-semibold' : 'text-stone-400'}">${item.index}</span>
+                  <span class="text-sm font-semibold text-stone-900 truncate">${item.name}</span>
+                  <span class="text-[11px] text-stone-400 truncate hidden sm:inline">${item.en}</span>
+                </div>
+                <span class="text-[11px] tabular-nums shrink-0 ${isActive ? 'text-[#2D5A43] font-medium' : 'text-stone-500'}">${item.kcalPerGram}</span>
+              </div>
+              <div class="text-xs text-stone-500 mt-0.5 truncate">${item.shortNote}</div>
+            </div>
+          </button>
+        `;
+      };
+
+      energyEl.innerHTML = SEVEN_NUTRIENTS.filter(n => n.group === 'energy').map(buildItem).join('');
+      nonEnergyEl.innerHTML = SEVEN_NUTRIENTS.filter(n => n.group === 'non_energy').map(buildItem).join('');
+
+      document.querySelectorAll('.seven-nutrient-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentNutrientId = btn.getAttribute('data-nutrient-id');
+          renderSevenNutrientSelector();
+          renderSevenNutrientDetail();
+        });
+      });
+    }
+
+    function renderSevenNutrientDetail() {
+      const container = document.getElementById('sevenNutrientDetail');
+      const item = SEVEN_NUTRIENTS.find(n => n.id === currentNutrientId);
+      if (!container || !item) return;
+
+      const iconMeta = NUTRIENT_ICON_MAP[item.id] || { icon: 'leaf', tone: 'emerald' };
+      const rolesHtml = item.roles.map(r => `
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-stone-700 leading-relaxed">
+          <span class="mt-0.5 shrink-0">${renderIcon('check', 'w-5 h-5')}</span>
+          <span>${r}</span>
+        </li>
+      `).join('');
+
+      const sourcesHtml = item.sources.map(s => `
+        <li class="text-xs text-stone-700 bg-[#FAF9F5] border border-[#E4E9E5] rounded-lg px-3 py-2.5 flex items-center gap-2.5">
+          <span class="shrink-0">${renderIcon(iconMeta.icon, 'w-5 h-5')}</span>
+          <span>${s}</span>
+        </li>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="fade-in space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500">
+            <div class="flex items-center gap-2">
+              <span class="font-medium text-[#2D5A43]">${item.groupLabel}</span>
+              <span aria-hidden="true">·</span>
+              <span class="tabular-nums">供能系数 ${item.kcalPerGram}</span>
+            </div>
+            <span class="font-mono text-stone-400">第 ${item.index} / 07 项</span>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-3.5">
+              ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-14 h-14 rounded-2xl', 'w-9 h-9')}
+              <div class="flex items-baseline gap-2.5 flex-wrap">
+                <h3 class="text-2xl font-bold text-stone-900">${item.name}</h3>
+                <span class="text-sm text-stone-400 font-medium">${item.en}</span>
+              </div>
+            </div>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">${item.summary}</p>
+          </div>
+
+          <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl px-4 py-3 flex items-start gap-3">
+            <span class="mt-0.5 shrink-0">${renderIcon('shield', 'w-6 h-6')}</span>
+            <div>
+              <div class="text-[11px] text-stone-500">推荐摄入量与科学限值</div>
+              <div class="text-sm font-semibold text-[#2D5A43] mt-0.5 tabular-nums">${item.dailyTarget}</div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-stone-500">核心生理作用</div>
+            <ul class="space-y-2">${rolesHtml}</ul>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-stone-500 flex items-center gap-2">
+              ${renderIcon('alert', 'w-5 h-5')}
+              <span>缺乏与过量提示</span>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">${item.balanceNote}</p>
+          </div>
+
+          <div class="space-y-2.5 pt-2 border-t border-[#E4E9E5]">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-semibold text-stone-500">日常优质食物来源</span>
+              <button
+                type="button"
+                id="jumpToFoodsBtn"
+                class="text-xs font-medium text-[#2D5A43] hover:underline whitespace-nowrap shrink-0"
+              >
+                去「食物营养」查看具体成分 &rarr;
+              </button>
+            </div>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">${sourcesHtml}</ul>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('jumpToFoodsBtn')?.addEventListener('click', () => {
+        currentFoodCat = item.linkedFoodCat || 'all';
+        syncFoodCatButtons();
+        renderFoods();
+        switchView('foods');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // =========================================================================
+    // 5C. VIEW 3: FOOD NUTRITION DATABASE & COMPARATOR
+    // =========================================================================
+    function syncFoodCatButtons() {
+      document.querySelectorAll('.food-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-food-cat') === currentFoodCat) {
+          btn.classList.add('active', 'tab-btn');
+          btn.classList.remove('text-stone-600');
+        } else {
+          btn.classList.remove('active', 'tab-btn');
+          btn.classList.add('text-stone-600');
+        }
+      });
+    }
+
+    function toggleFoodCompare(foodId) {
+      const idx = comparedFoodIds.indexOf(foodId);
+      if (idx >= 0) {
+        comparedFoodIds.splice(idx, 1);
+      } else {
+        if (comparedFoodIds.length >= 3) {
+          comparedFoodIds.shift();
+        }
+        comparedFoodIds.push(foodId);
+      }
+      renderFoodComparison();
+      renderFoods();
+    }
+
+    function renderFoodComparison() {
+      const countEl = document.getElementById('compareCountText');
+      const emptyEl = document.getElementById('foodCompareEmpty');
+      const contentEl = document.getElementById('foodCompareContent');
+      const headRow = document.getElementById('foodCompareHeadRow');
+      const bodyEl = document.getElementById('foodCompareBody');
+      if (!emptyEl || !contentEl || !headRow || !bodyEl) return;
+
+      const selected = comparedFoodIds
+        .map(id => FOODS_DATA.find(f => f.id === id))
+        .filter(Boolean);
+
+      if (countEl) countEl.textContent = `（已选 ${selected.length} / 3 种）`;
+
+      if (selected.length === 0) {
+        emptyEl.classList.remove('hidden');
+        contentEl.classList.add('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      contentEl.classList.remove('hidden');
+
+      headRow.innerHTML = `
+        <th class="py-2 pr-3 font-medium">营养指标 / 100g</th>
+        ${selected.map(f => `
+          <th class="py-2 px-3 font-semibold text-stone-900">
+            <div class="flex items-center justify-between gap-1.5">
+              <span>${f.name}</span>
+              <button type="button" data-remove-compare="${f.id}" class="text-stone-400 hover:text-rose-600 text-xs font-normal" title="移除">&times;</button>
+            </div>
+          </th>
+        `).join('')}
+      `;
+
+      const rows = [
+        { label: '热量 (kcal)', key: 'kcal', unit: ' kcal' },
+        { label: '蛋白质 (g)', key: 'protein', unit: ' g' },
+        { label: '脂肪 (g)', key: 'fat', unit: ' g' },
+        { label: '碳水化合物 (g)', key: 'carb', unit: ' g' },
+        { label: '膳食纤维 (g)', key: 'fiber', unit: ' g' }
+      ];
+
+      bodyEl.innerHTML = rows.map(r => {
+        const maxVal = Math.max(...selected.map(f => f[r.key]));
+        return `
+          <tr>
+            <td class="py-2.5 pr-3 text-stone-500 font-medium">${r.label}</td>
+            ${selected.map(f => {
+              const val = f[r.key];
+              const isHighHighlight = (r.key === 'protein' || r.key === 'fiber') && val === maxVal && val > 0 && selected.length > 1;
+              return `<td class="py-2.5 px-3 ${isHighHighlight ? 'font-bold text-[#2D5A43]' : 'text-stone-800'}">${val}${r.unit}</td>`;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+
+      document.querySelectorAll('[data-remove-compare]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggleFoodCompare(btn.getAttribute('data-remove-compare'));
+        });
+      });
+
+      initOrUpdateFoodCompareChart();
+      initOrUpdateFoodDoughnutChart();
+    }
+
+    function computeFoodMacroShare(food, mode) {
+      const pVal = mode === 'kcal' ? food.protein * 4 : food.protein;
+      const fVal = mode === 'kcal' ? food.fat * 9 : food.fat;
+      const cVal = mode === 'kcal' ? food.carb * 4 : food.carb;
+      const total = pVal + fVal + cVal;
+      if (total <= 0) {
+        return { pPct: 0, fPct: 0, cPct: 0, pVal: 0, fVal: 0, cVal: 0 };
+      }
+      const pPct = Number(((pVal / total) * 100).toFixed(1));
+      const fPct = Number(((fVal / total) * 100).toFixed(1));
+      const cPct = Number(Math.max(0, 100 - pPct - fPct).toFixed(1));
+      return { pPct, fPct, cPct, pVal, fVal, cVal };
+    }
+
+    function renderFoodDoughnutSummary(selected) {
+      const container = document.getElementById('foodDoughnutSummary');
+      if (!container) return;
+      const ringLabels = selected.length === 1
+        ? ['单环']
+        : selected.length === 2
+          ? ['外环', '内环']
+          : ['外环', '中环', '内环'];
+
+      container.innerHTML = selected.map((f, idx) => {
+        const share = computeFoodMacroShare(f, foodDoughnutMode);
+        const unitNote = foodDoughnutMode === 'kcal' ? '按供能占比' : '按克重占比';
+        const iconMeta = FOOD_ITEM_ICON_MAP[f.id] || FOOD_CAT_ICON_MAP[f.cat] || { icon: 'leaf', tone: 'emerald' };
+        return `
+          <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl px-4 py-3 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-9 h-9 rounded-xl', 'w-6 h-6')}
+                <span class="text-xs font-medium text-[#2D5A43] shrink-0">${ringLabels[idx]}</span>
+                <span class="text-sm font-semibold text-stone-900 truncate">${f.name}</span>
+              </div>
+              <span class="text-xs text-stone-500 tabular-nums shrink-0">${f.kcal} kcal/100g · ${unitNote}</span>
+            </div>
+
+            <!-- Proportional Stacked Bar -->
+            <div class="w-full h-2 rounded-full overflow-hidden bg-stone-200/70 flex">
+              <div style="width: ${share.pPct}%" class="bg-[#2D5A43] h-full transition-all duration-200" title="蛋白质 ${share.pPct}%"></div>
+              <div style="width: ${share.fPct}%" class="bg-[#D97706] h-full transition-all duration-200" title="脂肪 ${share.fPct}%"></div>
+              <div style="width: ${share.cPct}%" class="bg-[#0284C7] h-full transition-all duration-200" title="碳水 ${share.cPct}%"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-xs tabular-nums pt-0.5">
+              <div>
+                <span class="text-stone-500">蛋白质</span>
+                <span class="ml-1 font-semibold text-[#2D5A43]">${share.pPct}%</span>
+                <span class="text-[11px] text-stone-400 ml-0.5">(${f.protein}g)</span>
+              </div>
+              <div>
+                <span class="text-stone-500">脂肪</span>
+                <span class="ml-1 font-semibold text-amber-700">${share.fPct}%</span>
+                <span class="text-[11px] text-stone-400 ml-0.5">(${f.fat}g)</span>
+              </div>
+              <div>
+                <span class="text-stone-500">碳水</span>
+                <span class="ml-1 font-semibold text-sky-700">${share.cPct}%</span>
+                <span class="text-[11px] text-stone-400 ml-0.5">(${f.carb}g)</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function initOrUpdateFoodDoughnutChart() {
+      const canvas = document.getElementById('foodMacroDoughnutChart');
+      const selected = comparedFoodIds
+        .map(id => FOODS_DATA.find(f => f.id === id))
+        .filter(Boolean);
+
+      renderFoodDoughnutSummary(selected);
+
+      if (!canvas || typeof Chart === 'undefined') return;
+      if (selected.length === 0) {
+        if (foodDoughnutChartInstance) {
+          foodDoughnutChartInstance.destroy();
+          foodDoughnutChartInstance = null;
+        }
+        return;
+      }
+
+      const macroColors = ['#2D5A43', '#D97706', '#0284C7'];
+      const datasets = selected.map((f) => {
+        const share = computeFoodMacroShare(f, foodDoughnutMode);
+        return {
+          label: f.name,
+          data: [share.pPct, share.fPct, share.cPct],
+          rawGrams: [f.protein, f.fat, f.carb],
+          rawKcals: [
+            Number((f.protein * 4).toFixed(1)),
+            Number((f.fat * 9).toFixed(1)),
+            Number((f.carb * 4).toFixed(1))
+          ],
+          backgroundColor: macroColors,
+          borderColor: '#FFFFFF',
+          borderWidth: 2,
+          hoverOffset: 4
+        };
+      });
+
+      const cutoutPct = selected.length === 1 ? '56%' : selected.length === 2 ? '42%' : '30%';
+
+      if (foodDoughnutChartInstance) {
+        foodDoughnutChartInstance.data.datasets = datasets;
+        foodDoughnutChartInstance.options.cutout = cutoutPct;
+        foodDoughnutChartInstance.resize();
+        foodDoughnutChartInstance.update();
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      foodDoughnutChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['蛋白质', '脂肪', '碳水化合物'],
+          datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: cutoutPct,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const ds = ctx.dataset;
+                  const idx = ctx.dataIndex;
+                  const pct = ctx.parsed;
+                  const gram = ds.rawGrams ? ds.rawGrams[idx] : 0;
+                  const kcal = ds.rawKcals ? ds.rawKcals[idx] : 0;
+                  return ` ${ds.label} · ${ctx.label}: ${pct}%（${gram} g / ${kcal} kcal）`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function initOrUpdateFoodCompareChart() {
+      const canvas = document.getElementById('foodCompareChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const selected = comparedFoodIds
+        .map(id => FOODS_DATA.find(f => f.id === id))
+        .filter(Boolean);
+      if (selected.length === 0) return;
+
+      const palette = ['#2D5A43', '#D97706', '#0284C7'];
+      const datasets = selected.map((f, idx) => ({
+        label: f.name,
+        data: [f.protein, f.fat, f.carb, f.fiber],
+        backgroundColor: palette[idx % palette.length],
+        borderRadius: 5,
+        barPercentage: 0.75
+      }));
+
+      if (foodCompareChartInstance) {
+        foodCompareChartInstance.data.datasets = datasets;
+        foodCompareChartInstance.resize();
+        foodCompareChartInstance.update();
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      foodCompareChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['蛋白质 (g)', '脂肪 (g)', '碳水 (g)', '膳食纤维 (g)'],
+          datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 10, font: { size: 11 } }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { font: { size: 11 } },
+              grid: { color: '#F1F5F9' }
+            },
+            x: {
+              ticks: { font: { size: 11 } },
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    function renderFoods() {
+      const grid = document.getElementById('foodGrid');
+      if (!grid) return;
+      const query = (document.getElementById('foodSearchInput')?.value || '').trim().toLowerCase();
+      const sortBy = document.getElementById('foodSortSelect')?.value || 'default';
+
+      let list = FOODS_DATA.filter(f => {
+        if (currentFoodCat !== 'all' && f.cat !== currentFoodCat) return false;
+        if (!query) return true;
+        const haystack = `${f.name} ${f.catLabel} ${f.highlight} ${f.tip}`.toLowerCase();
+        return haystack.includes(query);
+      });
+
+      if (sortBy === 'protein_desc') {
+        list = [...list].sort((a, b) => b.protein - a.protein);
+      } else if (sortBy === 'kcal_asc') {
+        list = [...list].sort((a, b) => a.kcal - b.kcal);
+      } else if (sortBy === 'fiber_desc') {
+        list = [...list].sort((a, b) => b.fiber - a.fiber);
+      } else if (sortBy === 'fat_asc') {
+        list = [...list].sort((a, b) => a.fat - b.fat);
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="md:col-span-2 lg:col-span-3 bg-white border border-[#E4E9E5] rounded-2xl p-8 text-center text-sm text-stone-500">
+            未找到匹配的食物记录，请尝试调整搜索关键词或切换分类。
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(f => {
+        const isCompared = comparedFoodIds.includes(f.id);
+        const iconMeta = FOOD_ITEM_ICON_MAP[f.id] || FOOD_CAT_ICON_MAP[f.cat] || { icon: 'leaf', tone: 'emerald' };
+        return `
+          <article class="bg-white border ${isCompared ? 'border-[#2D5A43]' : 'border-[#E4E9E5]'} rounded-2xl p-5 flex flex-col justify-between transition-colors">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-3.5 min-w-0">
+                  ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-14 h-14 rounded-2xl', 'w-9 h-9')}
+                  <div class="min-w-0">
+                    <div class="text-xs text-stone-500">${f.catLabel} · 每 100 g 可食部</div>
+                    <h3 class="text-base font-semibold text-stone-900 mt-0.5 truncate">${f.name}</h3>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  data-compare-food="${f.id}"
+                  class="compare-food-btn text-xs px-2.5 py-1 rounded-lg border transition whitespace-nowrap shrink-0 ${
+                    isCompared
+                      ? 'bg-[#2D5A43] border-[#2D5A43] text-white font-medium'
+                      : 'bg-white border-stone-200 text-stone-600 hover:border-[#2D5A43] hover:text-[#2D5A43]'
+                  }"
+                >
+                  ${isCompared ? '已选对比' : '+ 加入对比'}
+                </button>
+              </div>
+
+              <!-- Tabular Macro Metrics -->
+              <div class="grid grid-cols-5 gap-1.5 pt-2 pb-2 border-y border-[#E4E9E5] text-center tabular-nums">
+                <div>
+                  <div class="text-[11px] text-stone-400">热量</div>
+                  <div class="text-xs sm:text-sm font-bold text-stone-900 mt-0.5">${f.kcal}</div>
+                  <div class="text-[10px] text-stone-400">kcal</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-stone-400">蛋白</div>
+                  <div class="text-xs sm:text-sm font-bold text-[#2D5A43] mt-0.5">${f.protein}</div>
+                  <div class="text-[10px] text-stone-400">g</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-stone-400">脂肪</div>
+                  <div class="text-xs sm:text-sm font-semibold text-stone-700 mt-0.5">${f.fat}</div>
+                  <div class="text-[10px] text-stone-400">g</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-stone-400">碳水</div>
+                  <div class="text-xs sm:text-sm font-semibold text-stone-700 mt-0.5">${f.carb}</div>
+                  <div class="text-[10px] text-stone-400">g</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-stone-400">纤维</div>
+                  <div class="text-xs sm:text-sm font-semibold text-stone-700 mt-0.5">${f.fiber}</div>
+                  <div class="text-[10px] text-stone-400">g</div>
+                </div>
+              </div>
+
+              <div class="text-xs font-medium text-[#2D5A43]">${f.highlight}</div>
+              <p class="text-xs text-stone-600 leading-relaxed">${f.tip}</p>
+            </div>
+
+            <div class="pt-3 mt-4 border-t border-[#E4E9E5] flex items-center justify-between gap-2">
+              <span class="text-[11px] text-stone-400 tabular-nums">含维A / 钙 / 铁 / 钾等微量数据</span>
+              <button
+                type="button"
+                data-nutrition-label="${f.id}"
+                class="nutrition-label-btn inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg bg-[#FAF9F5] border border-[#E4E9E5] text-[#2D5A43] hover:bg-[#E9F2EC] hover:border-[#2D5A43]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A43]/40 transition-colors whitespace-nowrap shrink-0"
+              >
+                ${renderIcon('nutrients', 'w-4 h-4')}
+                <span>显示营养标签</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.compare-food-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggleFoodCompare(btn.getAttribute('data-compare-food'));
+        });
+      });
+
+      document.querySelectorAll('.nutrition-label-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          openNutritionLabelModal(btn.getAttribute('data-nutrition-label'));
+        });
+      });
+    }
+
+    // GB 28050 Nutrient Reference Values (NRV) for %NRV calculation
+    const NUTRIENT_NRV = {
+      kcal: 2000,
+      protein: 60,
+      fat: 60,
+      carb: 300,
+      fiber: 25,
+      vitA: 800,
+      vitC: 100,
+      calcium: 800,
+      iron: 15,
+      potassium: 2000,
+      magnesium: 300,
+      zinc: 15,
+      sodium: 2000
+    };
+
+    let activeLabelFoodId = null;
+
+    function calcNrvPercent(val, nrv) {
+      if (!nrv || !val || val <= 0) return 0;
+      const pct = Math.round((val / nrv) * 100);
+      return pct === 0 && val > 0 ? '<1' : pct;
+    }
+
+    function openNutritionLabelModal(foodId) {
+      const food = FOODS_DATA.find(f => f.id === foodId);
+      const modal = document.getElementById('nutritionLabelModal');
+      const body = document.getElementById('nutritionLabelBody');
+      if (!food || !modal || !body) return;
+
+      activeLabelFoodId = foodId;
+      const m = food.micros || {};
+      const iconMeta = FOOD_ITEM_ICON_MAP[food.id] || FOOD_CAT_ICON_MAP[food.cat] || { icon: 'leaf', tone: 'emerald' };
+      const isCompared = comparedFoodIds.includes(food.id);
+
+      const featuredMicros = [
+        { label: '维生素 A', value: m.vitA ?? 0, unit: 'μgRAE', nrv: NUTRIENT_NRV.vitA, icon: 'vitamin', tone: 'amber', barColor: 'bg-amber-500' },
+        { label: '钙 (Ca)', value: m.calcium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.calcium, icon: 'milk', tone: 'sky', barColor: 'bg-sky-600' },
+        { label: '铁 (Fe)', value: m.iron ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.iron, icon: 'gem', tone: 'rose', barColor: 'bg-rose-500' },
+        { label: '钾 (K)', value: m.potassium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.potassium, icon: 'leaf', tone: 'emerald', barColor: 'bg-[#2D5A43]' }
+      ];
+
+      const detailRows = [
+        { label: '维生素 A', value: m.vitA ?? 0, unit: 'μgRAE', nrv: NUTRIENT_NRV.vitA },
+        { label: '维生素 C', value: m.vitC ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.vitC },
+        { label: '钙 (Ca)', value: m.calcium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.calcium },
+        { label: '铁 (Fe)', value: m.iron ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.iron },
+        { label: '钾 (K)', value: m.potassium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.potassium },
+        { label: '镁 (Mg)', value: m.magnesium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.magnesium },
+        { label: '锌 (Zn)', value: m.zinc ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.zinc },
+        { label: '钠 (Na)', value: m.sodium ?? 0, unit: 'mg', nrv: NUTRIENT_NRV.sodium }
+      ];
+
+      body.innerHTML = `
+        <!-- Modal Header -->
+        <div class="px-5 py-4 border-b border-[#E4E9E5] flex items-center justify-between gap-3 bg-[#FAF9F5]">
+          <div class="flex items-center gap-3.5 min-w-0">
+            ${renderIconTile(iconMeta.icon, iconMeta.tone, 'w-12 h-12 rounded-xl', 'w-8 h-8')}
+            <div class="min-w-0">
+              <div class="text-xs text-stone-500">${food.catLabel} · 每 100 g 可食部营养标签</div>
+              <h3 id="nutritionLabelTitle" class="text-lg font-bold text-stone-900 truncate">${food.name}</h3>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="closeNutritionLabelBtn"
+            aria-label="关闭营养标签"
+            class="w-9 h-9 rounded-lg border border-[#E4E9E5] bg-white text-stone-500 hover:text-stone-900 hover:bg-stone-50 flex items-center justify-center transition shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2D5A43]/40"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- Scrollable Label Content -->
+        <div class="p-5 overflow-y-auto space-y-5">
+          <!-- Featured 4 Key Micronutrients -->
+          <div>
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-semibold text-stone-700">核心微量元素速览（每 100 g）</span>
+              <span class="text-[11px] text-stone-400">占每日参考值 NRV%</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              ${featuredMicros.map(item => {
+                const nrvVal = calcNrvPercent(item.value, item.nrv);
+                const barWidth = Math.min(100, Math.round(((item.value || 0) / item.nrv) * 100));
+                return `
+                  <div class="bg-[#FAF9F5] border border-[#E4E9E5] rounded-xl p-3 space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-2 min-w-0">
+                        ${renderIconTile(item.icon, item.tone, 'w-8 h-8 rounded-lg', 'w-5 h-5')}
+                        <span class="text-xs font-medium text-stone-700 truncate">${item.label}</span>
+                      </div>
+                      <span class="text-[11px] font-medium text-stone-500 tabular-nums shrink-0">${nrvVal}%</span>
+                    </div>
+                    <div class="text-base font-bold text-stone-900 tabular-nums">
+                      ${item.value} <span class="text-xs font-normal text-stone-500">${item.unit}</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full bg-stone-200/80 overflow-hidden">
+                      <div class="${item.barColor} h-full rounded-full" style="width: ${barWidth}%"></div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Standard Nutrition Facts Table -->
+          <div class="border border-[#E4E9E5] rounded-xl overflow-hidden">
+            <div class="px-4 py-2.5 bg-stone-900 text-white flex items-baseline justify-between">
+              <span class="text-sm font-bold tracking-wide">营养成分表</span>
+              <span class="text-[11px] text-stone-300 tabular-nums">每 100 g 可食部</span>
+            </div>
+            <table class="w-full text-xs text-left border-collapse tabular-nums">
+              <thead>
+                <tr class="bg-[#FAF9F5] text-stone-500 border-b border-[#E4E9E5]">
+                  <th class="py-2 px-4 font-semibold">项目</th>
+                  <th class="py-2 px-3 font-semibold text-right">每 100 g</th>
+                  <th class="py-2 px-4 font-semibold text-right">NRV%</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#E4E9E5]">
+                <tr class="bg-white">
+                  <td class="py-2 px-4 font-semibold text-stone-900">能量</td>
+                  <td class="py-2 px-3 text-right font-semibold text-stone-900">${food.kcal} kcal</td>
+                  <td class="py-2 px-4 text-right text-stone-600">${calcNrvPercent(food.kcal, NUTRIENT_NRV.kcal)}%</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="py-2 px-4 text-stone-700">蛋白质</td>
+                  <td class="py-2 px-3 text-right text-stone-800">${food.protein} g</td>
+                  <td class="py-2 px-4 text-right text-stone-600">${calcNrvPercent(food.protein, NUTRIENT_NRV.protein)}%</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="py-2 px-4 text-stone-700">脂肪</td>
+                  <td class="py-2 px-3 text-right text-stone-800">${food.fat} g</td>
+                  <td class="py-2 px-4 text-right text-stone-600">${calcNrvPercent(food.fat, NUTRIENT_NRV.fat)}%</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="py-2 px-4 text-stone-700">碳水化合物</td>
+                  <td class="py-2 px-3 text-right text-stone-800">${food.carb} g</td>
+                  <td class="py-2 px-4 text-right text-stone-600">${calcNrvPercent(food.carb, NUTRIENT_NRV.carb)}%</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="py-2 px-4 text-stone-700">膳食纤维</td>
+                  <td class="py-2 px-3 text-right text-stone-800">${food.fiber} g</td>
+                  <td class="py-2 px-4 text-right text-stone-600">${calcNrvPercent(food.fiber, NUTRIENT_NRV.fiber)}%</td>
+                </tr>
+                <tr class="bg-[#FAF9F5]">
+                  <td colspan="3" class="py-1.5 px-4 text-[11px] font-semibold text-[#2D5A43]">维生素与矿物质（微量营养素）</td>
+                </tr>
+                ${detailRows.map(row => {
+                  const pct = calcNrvPercent(row.value, row.nrv);
+                  const isRich = typeof pct === 'number' && pct >= 15;
+                  return `
+                    <tr class="bg-white">
+                      <td class="py-2 px-4 text-stone-700 ${isRich ? 'font-semibold text-stone-900' : ''}">${row.label}</td>
+                      <td class="py-2 px-3 text-right ${isRich ? 'font-semibold text-[#2D5A43]' : 'text-stone-800'}">${row.value} ${row.unit}</td>
+                      <td class="py-2 px-4 text-right ${isRich ? 'font-semibold text-[#2D5A43]' : 'text-stone-500'}">${pct}%</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-[11px] text-stone-500 leading-relaxed">
+            数据参考《中国食物成分表（标准版）》；NRV% 按 GB 28050 预包装食品营养标签通则成人每日参考值换算（绿色加粗表示该微量元素含量较为丰富，单份 ≥15% NRV）。
+          </p>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-5 py-3.5 border-t border-[#E4E9E5] bg-[#FAF9F5] flex items-center justify-between gap-3">
+          <button
+            type="button"
+            id="modalToggleCompareBtn"
+            class="inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-lg border transition whitespace-nowrap shrink-0 ${
+              isCompared
+                ? 'bg-[#2D5A43] border-[#2D5A43] text-white'
+                : 'bg-white border-[#E4E9E5] text-stone-700 hover:border-[#2D5A43] hover:text-[#2D5A43]'
+            }"
+          >
+            ${isCompared ? '已在横向对比中' : '+ 加入横向对比'}
+          </button>
+          <button
+            type="button"
+            id="modalDoneBtn"
+            class="text-xs font-medium px-4 py-2 rounded-lg bg-stone-900 text-white hover:bg-stone-800 transition whitespace-nowrap shrink-0"
+          >
+            完成关闭
+          </button>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      document.getElementById('closeNutritionLabelBtn')?.addEventListener('click', closeNutritionLabelModal);
+      document.getElementById('modalDoneBtn')?.addEventListener('click', closeNutritionLabelModal);
+      document.getElementById('modalToggleCompareBtn')?.addEventListener('click', () => {
+        toggleFoodCompare(food.id);
+        openNutritionLabelModal(food.id);
+      });
+    }
+
+    function closeNutritionLabelModal() {
+      const modal = document.getElementById('nutritionLabelModal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      activeLabelFoodId = null;
+    }
+
+    // =========================================================================
     // 8. INITIALIZATION & EVENT BINDINGS
     // =========================================================================
     window.addEventListener('DOMContentLoaded', () => {
@@ -1352,6 +3289,57 @@
         });
       });
 
+      // Foods category, search, sort & presets
+      document.querySelectorAll('.food-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentFoodCat = btn.getAttribute('data-food-cat');
+          syncFoodCatButtons();
+          renderFoods();
+        });
+      });
+      document.querySelectorAll('.quick-food-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.getAttribute('data-quick-food-cat');
+          if (!cat) return;
+          currentFoodCat = cat;
+          syncFoodCatButtons();
+          renderFoods();
+          document.getElementById('foodGrid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+      document.getElementById('foodSearchInput')?.addEventListener('input', renderFoods);
+      document.getElementById('foodSortSelect')?.addEventListener('change', renderFoods);
+      document.getElementById('clearCompareBtn')?.addEventListener('click', () => {
+        comparedFoodIds = [];
+        renderFoodComparison();
+        renderFoods();
+      });
+      document.querySelectorAll('.food-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-food-preset');
+          if (FOOD_COMPARE_PRESETS[key]) {
+            comparedFoodIds = [...FOOD_COMPARE_PRESETS[key]];
+            renderFoodComparison();
+            renderFoods();
+          }
+        });
+      });
+      document.querySelectorAll('.doughnut-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          foodDoughnutMode = btn.getAttribute('data-doughnut-mode') || 'kcal';
+          document.querySelectorAll('.doughnut-mode-btn').forEach(b => {
+            if (b.getAttribute('data-doughnut-mode') === foodDoughnutMode) {
+              b.classList.add('active', 'tab-btn');
+              b.classList.remove('text-stone-600');
+            } else {
+              b.classList.remove('active', 'tab-btn');
+              b.classList.add('text-stone-600');
+            }
+          });
+          initOrUpdateFoodDoughnutChart();
+        });
+      });
+
       // Checker presets
       document.getElementById('presetBalanced')?.addEventListener('click', () => {
         intakeState = { ...PRESETS.balanced };
@@ -1370,14 +3358,211 @@
       document.getElementById('mythSearchInput')?.addEventListener('input', renderMyths);
       document.getElementById('mythCategorySelect')?.addEventListener('change', renderMyths);
 
+      // Nutrition label modal backdrop & Escape key close
+      document.getElementById('nutritionLabelModal')?.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'nutritionLabelModal') {
+          closeNutritionLabelModal();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && activeLabelFoodId) {
+          closeNutritionLabelModal();
+        }
+      });
+
+      // Standalone HTML export buttons
+      document.querySelectorAll('.export-html-trigger').forEach(btn => {
+        btn.addEventListener('click', exportStandaloneHtml);
+      });
+
       // Initial renders
       renderPagodaTier('tier1');
+      renderSevenNutrientSelector();
+      renderSevenNutrientDetail();
       renderAgeRecommendation('adult10plus');
+      syncFoodCatButtons();
+      renderFoodComparison();
+      renderFoods();
       renderCheckerSliders();
       updateCheckerEvaluation();
       updateSavedBadge();
       renderMyths();
     });
+
+    // =========================================================================
+    // 9. STANDALONE SINGLE-FILE HTML EXPORTER (WITH INLINED BASE64 IMAGES)
+    // =========================================================================
+    async function imageToInlineDataUrl(src, maxDim = 1280) {
+      if (!src || src.startsWith('data:')) return src;
+      try {
+        const res = await fetch(src);
+        if (!res.ok) return src;
+        const blob = await res.blob();
+
+        // Compress raster images via offscreen canvas for lightweight standalone HTML
+        if (blob.type.startsWith('image/') && blob.type !== 'image/svg+xml') {
+          try {
+            const objUrl = URL.createObjectURL(blob);
+            const dataUrl = await new Promise((resolve, reject) => {
+              const img = new Image();
+              img.onload = () => {
+                try {
+                  const scale = Math.min(1, maxDim / Math.max(img.naturalWidth || 1, img.naturalHeight || 1));
+                  const w = Math.max(1, Math.round((img.naturalWidth || 1) * scale));
+                  const h = Math.max(1, Math.round((img.naturalHeight || 1) * scale));
+                  const canvas = document.createElement('canvas');
+                  canvas.width = w;
+                  canvas.height = h;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(img, 0, 0, w, h);
+                  resolve(canvas.toDataURL('image/jpeg', 0.84));
+                } catch (err) {
+                  reject(err);
+                } finally {
+                  URL.revokeObjectURL(objUrl);
+                }
+              };
+              img.onerror = (err) => {
+                URL.revokeObjectURL(objUrl);
+                reject(err);
+              };
+              img.src = objUrl;
+            });
+            return dataUrl;
+          } catch (_) {
+            // Fall back to raw blob FileReader below
+          }
+        }
+
+        return await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(typeof reader.result === 'string' ? reader.result : src);
+          reader.onerror = () => resolve(src);
+          reader.readAsDataURL(blob);
+        });
+      } catch (_) {
+        return src;
+      }
+    }
+
+    let isExportingHtml = false;
+
+    async function exportStandaloneHtml() {
+      if (isExportingHtml) return;
+      isExportingHtml = true;
+
+      const triggers = Array.from(document.querySelectorAll('.export-html-trigger'));
+      const originalLabels = triggers.map(btn => {
+        const span = btn.querySelector('.export-btn-label');
+        const text = span ? span.textContent : btn.textContent;
+        btn.disabled = true;
+        if (span) span.textContent = '打包导出中...';
+        return { btn, span, text };
+      });
+
+      try {
+        // Inline all images used in the page into Base64 data URIs
+        const liveImgs = Array.from(document.querySelectorAll('img'));
+        const srcMap = new Map();
+        for (const img of liveImgs) {
+          const rawSrc = img.getAttribute('src');
+          if (!rawSrc || rawSrc.startsWith('data:') || srcMap.has(rawSrc)) continue;
+          const isLogo = Boolean(img.closest('header'));
+          srcMap.set(rawSrc, await imageToInlineDataUrl(rawSrc, isLogo ? 256 : 1280));
+        }
+
+        const clone = document.documentElement.cloneNode(true);
+
+        // Strip dev-server injected scripts so exported HTML runs cleanly offline
+        clone.querySelectorAll('script').forEach(s => {
+          const src = s.getAttribute('src') || '';
+          if (src.includes('/@vite') || src.includes('@react-refresh') || s.hasAttribute('data-vite-dev-id')) {
+            s.remove();
+          }
+        });
+
+        // Swap image URLs in clone to Base64 data URIs
+        clone.querySelectorAll('img').forEach(img => {
+          const rawSrc = img.getAttribute('src');
+          if (rawSrc && srcMap.has(rawSrc)) {
+            img.setAttribute('src', srcMap.get(rawSrc));
+          }
+        });
+
+        // Reset Chart.js canvases so charts initialize cleanly on open
+        clone.querySelectorAll('canvas').forEach(c => {
+          c.removeAttribute('width');
+          c.removeAttribute('height');
+          c.removeAttribute('style');
+        });
+
+        // Reset active view to initial pagoda state for consistent first paint
+        clone.querySelectorAll('.view-section').forEach(sec => {
+          if (sec.id === 'view-pagoda') {
+            sec.classList.remove('hidden');
+          } else {
+            sec.classList.add('hidden');
+          }
+        });
+        clone.querySelectorAll('.nav-tab').forEach(tab => {
+          if (tab.getAttribute('data-view') === 'pagoda') {
+            tab.classList.add('active');
+            tab.classList.remove('text-stone-600');
+          } else {
+            tab.classList.remove('active');
+            tab.classList.add('text-stone-600');
+          }
+        });
+
+        // Ensure modal starts closed in exported file
+        const modalClone = clone.querySelector('#nutritionLabelModal');
+        if (modalClone) {
+          modalClone.classList.add('hidden');
+          modalClone.classList.remove('flex');
+        }
+        const modalBodyClone = clone.querySelector('#nutritionLabelBody');
+        if (modalBodyClone) modalBodyClone.innerHTML = '';
+        const bodyClone = clone.querySelector('body');
+        if (bodyClone) bodyClone.style.overflow = '';
+
+        // Restore export button labels inside exported clone
+        clone.querySelectorAll('.export-html-trigger').forEach(btn => {
+          btn.removeAttribute('disabled');
+          const span = btn.querySelector('.export-btn-label');
+          if (span) {
+            span.textContent = btn.id === 'exportHtmlBtn' ? '导出 HTML' : '导出单文件 HTML';
+          }
+        });
+
+        const htmlContent = '<!DOCTYPE html>\n' + clone.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = '一日三餐靠谱-知食营养科学指南.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+
+        originalLabels.forEach(({ span }) => {
+          if (span) span.textContent = '已导出 HTML';
+        });
+        setTimeout(() => {
+          originalLabels.forEach(({ btn, span, text }) => {
+            btn.disabled = false;
+            if (span) span.textContent = text;
+          });
+          isExportingHtml = false;
+        }, 2200);
+      } catch (_) {
+        originalLabels.forEach(({ btn, span, text }) => {
+          btn.disabled = false;
+          if (span) span.textContent = text;
+        });
+        isExportingHtml = false;
+      }
+    }
   </script>
 </body>
 </html>
